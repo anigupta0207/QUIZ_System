@@ -1,14 +1,25 @@
 import cv2
 import numpy as np
+import os 
+import time 
+
+#face detetion and movement part and 5 sec 
+
+os.makedirs('captures',exist_ok=True)
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 prev_face_position = None
-movement_threshold = 19
+movement_threshold = 16
 
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 500)
+
+# 5 second timer for photo capture
+capture_interval = 5  # seconds
+last_capture_time = time.time()
+
 
 while True:
     ret, frame = cap.read()
@@ -42,6 +53,15 @@ while True:
         prev_face_position = None
         cv2.putText(frame, "Multiple faces detected!", (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
         print("🚨 Multiple faces detected!")
+    
+    #5 secound photo capture storing 
+    current_time=time.time()
+    if current_time - last_capture_time >= capture_interval:
+        timestamp = time.strftime('%Y%m%d_%H%M%S')
+        filename = f'captures/photo_{timestamp}.jpg'
+        cv2.imwrite(filename, frame)
+        print(f"📸 Photo captured and saved as {filename}")
+        last_capture_time = current_time
 
     cv2.imshow("Face checking", frame)
 
