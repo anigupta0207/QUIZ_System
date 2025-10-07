@@ -3,8 +3,9 @@ import numpy as np
 import os 
 import time 
 
-#face detetion and movement part and 5 sec 
 
+
+#face detetion and movement part and 5 sec 
 os.makedirs('captures',exist_ok=True)
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
