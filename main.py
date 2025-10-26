@@ -11,7 +11,7 @@ os.makedirs('captures',exist_ok=True)
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 prev_face_position = None
-movement_threshold = 15
+movement_threshold = 14
 
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
