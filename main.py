@@ -17,7 +17,7 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 500)
 
-# 5 second timer for photo capture
+# 5 second timer for photo captureṇ
 capture_interval = 5  # seconds
 last_capture_time = time.time()
 

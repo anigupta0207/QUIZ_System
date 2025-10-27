@@ -1,0 +1,69 @@
+Q: What is the capital of France?
+A) London
+B) Berlin
+C) Paris
+D) Madrid
+Answer: C
+
+Q: Which language is used to write Tkinter apps?
+A) Java
+B) C++
+C) Python
+D) Ruby
+Answer: C
+
+Q: Which planet is known as the Red Planet?
+A) Mars
+B) Earth
+C) Venus
+D) Jupiter
+Answer: A
+
+Q: What is the largest dessert in the world?
+A) Gobi dessert
+B) Sahara dessert
+C) Arabian dessert
+D) Kalahari dessert
+Answer: B
+
+Q: Which mountain range separates Europe and Asia?
+A) Himalayas
+B) Andes
+C) Alps
+D) Ural Mountains
+Answer: D
+
+Q: Which is the longest river in the world?
+A) Amazon
+B) Nile
+C) Mississippi
+D) Yangtze
+Answer: B
+
+Q: Who built the Taj Mahal?
+A) Shah Jahan
+B) Akbar
+C) Aurangzeb
+D) Humayun
+Answer: A
+
+Q: Which chemical element is designated as "Hg"?
+A) Silver
+B) Tin
+C) Copper
+D) Mercury 
+Answer: D
+
+Q: What is the process by which plants converts sunlight into energy?
+A) Respiration
+B) Photosynthesis
+C) Oxidation
+D) Transpiration
+Answer: B
+
+Q: In which year India gain independence?
+A) 1947
+B) 1945
+C) 1950
+D) 1942
+Answer: A
