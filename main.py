@@ -3,8 +3,6 @@ import numpy as np
 import os 
 import time 
 
-
-
 #face detetion and movement part and 5 sec 
 os.makedirs('captures',exist_ok=True)
 
@@ -12,6 +10,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 
 prev_face_position = None
 movement_threshold = 14
+
 
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
