@@ -10,7 +10,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 
 
 prev_face_position = None
-movement_threshold = 12  # Slightly lower for better sensitivity
+movement_threshold = 10  # Slightly lower for better sensitivity
 movement_history = deque(maxlen=3)  # Keep track of recent movements
 
 # Initialize camera with better resolution
