@@ -1,5 +1,58 @@
 {
+    "admin": {
+        "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+        "role": "admin"
+    },
+    "Anime123": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "admin"
+    },
+    "aans": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "ABC": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "ani123": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "animes11": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "ani12345": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "ani1": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "aans1": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "Anim": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "Anim333": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "Anim331": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
+    "aiiiii": {
+        "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+        "role": "user"
+    },
     "arshita": {
-        "password": "42dea6e258c674f760053902f6dc142d0ddf28dd5c2cddef7e30e667e67debc0"
+        "password": "42dea6e258c674f760053902f6dc142d0ddf28dd5c2cddef7e30e667e67debc0",
+        "role": "user"
     }
 }
