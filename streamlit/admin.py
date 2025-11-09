@@ -5,7 +5,7 @@ import pandas as pd
 
 # ---------- File Paths ----------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-USERS_FILE = os.path.join(BASE_DIR, "users.json")
+USERS_FILE = os.path.join(BASE_DIR, "..", "users.json")
 SCORES_FILE = os.path.join(BASE_DIR, "user_scores.json")
 
 # ---------- Helper Functions ----------
