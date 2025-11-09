@@ -118,6 +118,8 @@ def show_quiz_app():
     # --- SUBJECT SELECTION ---
     # 1. Select Subject
     # ... previous code ...
+    # ✅ Tell web.py that quiz has started → start face & voice detection
+    st.session_state.quiz_started = True
 
     if st.session_state.selected_subject is None:
         st.subheader("Choose Your Subject")
@@ -293,6 +295,7 @@ def show_quiz_app():
 
     else:
         # Quiz completed
+        
         st.balloons()
         st.header("🎊 Quiz Completed!")
         total_points = sum(q["points"] for q in quiz["questions"])
@@ -320,6 +323,9 @@ def show_quiz_app():
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
+        # ✅ Tell web.py to stop face & voice detection
+    return True
+
 
 
 if __name__ == "__main__":
