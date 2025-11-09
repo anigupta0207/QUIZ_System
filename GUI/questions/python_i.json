@@ -1,0 +1,369 @@
+{
+  "id": 5,
+  "title": "🐍 Python (Intermediate Level)",
+  "description": "Test your skills with Python’s core features and OOP.",
+  "level": "intermediate",
+  "questions": [
+    {
+      "question": "What is the output of: print(type([]) is list)?",
+      "options": ["True", "False", "TypeError", "None"],
+      "answer": "True",
+      "points": 10
+    },
+    {
+      "question": "How do you create a dictionary from two lists in Python 3?",
+      "options": ["dict(zip(list1, list2))", "dict(list1, list2)", "map(list1, list2)", "None"],
+      "answer": "dict(zip(list1, list2))",
+      "points": 10
+    },
+    {
+      "question": "Which built-in function can be used to reverse a list?",
+      "options": ["reverse()", "reversed()", "flip()", "None"],
+      "answer": "reversed()",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is NOT a valid set operation?",
+      "options": ["union()", "intersection()", "subtract()", "difference()"],
+      "answer": "subtract()",
+      "points": 10
+    },
+    {
+      "question": "How do you check for the presence of a key in a dictionary?",
+      "options": ["key in dict", "dict.has_key(key)", "dict.contains(key)", "key present dict"],
+      "answer": "key in dict",
+      "points": 10
+    },
+    {
+      "question": "Which keyword is used for exception handling?",
+      "options": ["except", "catch", "handle", "error"],
+      "answer": "except",
+      "points": 10
+    },
+    {
+      "question": "What will be the result of: print(0.1 + 0.2 == 0.3)?",
+      "options": ["True", "False", "TypeError", "None"],
+      "answer": "False",
+      "points": 10
+    },
+    {
+      "question": "Which decorator is used for class methods?",
+      "options": ["@classmethod", "@staticmethod", "@property", "@method"],
+      "answer": "@classmethod",
+      "points": 10
+    },
+    {
+      "question": "How do you open a file for reading as text in Python?",
+      "options": ["open('file.txt', 'r')", "open('file.txt', read)", "open('file.txt', 't')", "file('file.txt')"],
+      "answer": "open('file.txt', 'r')",
+      "points": 10
+    },
+    {
+      "question": "What does list comprehension return?",
+      "options": ["Iterator", "Set", "List", "Dictionary"],
+      "answer": "List",
+      "points": 10
+    },
+    {
+      "question": "How do you create an immutable set?",
+      "options": ["set()", "list()", "frozenset()", "tuple()"],
+      "answer": "frozenset()",
+      "points": 10
+    },
+    {
+      "question": "Which operator is used for floor division?",
+      "options": ["//", "/", "%", "**"],
+      "answer": "//",
+      "points": 10
+    },
+    {
+      "question": "How do you merge two dictionaries in Python 3.9+?",
+      "options": ["dict1 | dict2", "dict1 + dict2", "merge(dict1, dict2)", "dict1.update(dict2)"],
+      "answer": "dict1 | dict2",
+      "points": 10
+    },
+    {
+      "question": "What is the default value of 'end' parameter in print()?",
+      "options": ["\\n", "''", "None", "' '"],
+      "answer": "\\n",
+      "points": 10
+    },
+    {
+      "question": "How do you create a virtual environment?",
+      "options": ["python -m venv venv", "venv init", "pip install venv", "virtualenv venv"],
+      "answer": "python -m venv venv",
+      "points": 10
+    },
+    {
+      "question": "Which method copies a list?",
+      "options": ["copy()", "clone()", "duplicate()", "makecopy()"],
+      "answer": "copy()",
+      "points": 10
+    },
+    {
+      "question": "How do you convert a string to an int?",
+      "options": ["int('123')", "str(123)", "eval('123')", "float('123')"],
+      "answer": "int('123')",
+      "points": 10
+    },
+    {
+      "question": "Which module offers regular expression support?",
+      "options": ["re", "regex", "pattern", "match"],
+      "answer": "re",
+      "points": 10
+    },
+    {
+      "question": "Which function is used to get the length of a list?",
+      "options": ["len()", "size()", "length()", "count()"],
+      "answer": "len()",
+      "points": 10
+    },
+    {
+      "question": "What is 'PEP 8'?",
+      "options": ["Python enhancement proposal", "Python version", "IDE", "Module"],
+      "answer": "Python enhancement proposal",
+      "points": 10
+    },
+    {
+      "question": "Which of the following can be used as dictionary keys?",
+      "options": ["tuple", "list", "set", "dict"],
+      "answer": "tuple",
+      "points": 10
+    },
+    {
+      "question": "How do you check if two variables reference the same object?",
+      "options": ["is", "==", "equals()", "~="],
+      "answer": "is",
+      "points": 10
+    },
+    {
+      "question": "Which is correct to import only sqrt from math?",
+      "options": ["from math import sqrt", "import math.sqrt", "import sqrt", "from sqrt import math"],
+      "answer": "from math import sqrt",
+      "points": 10
+    },
+    {
+      "question": "Which collection keeps elements in insertion order from Python 3.7+?",
+      "options": ["dict", "set", "frozenset", "tuple"],
+      "answer": "dict",
+      "points": 10
+    },
+    {
+      "question": "Which function returns a generator?",
+      "options": ["yield", "gen()", "next()", "lambda"],
+      "answer": "yield",
+      "points": 10
+    },
+    {
+      "question": "How do you create a tuple with one element?",
+      "options": ["(1,)", "(1)", "[1]", "tuple(1)"],
+      "answer": "(1,)",
+      "points": 10
+    },
+    {
+      "question": "Which module allows serialization of objects?",
+      "options": ["pickle", "serialize", "marshal", "objectify"],
+      "answer": "pickle",
+      "points": 10
+    },
+    {
+      "question": "Which function is used for input in Python 3?",
+      "options": ["input()", "raw_input()", "scan()", "read()"],
+      "answer": "input()",
+      "points": 10
+    },
+    {
+      "question": "What does list.append(x) do?",
+      "options": ["Adds x at end", "Inserts x at start", "Sorts the list", "Removes x"],
+      "answer": "Adds x at end",
+      "points": 10
+    },
+    {
+      "question": "Which function sorts a list in-place?",
+      "options": ["sort()", "sorted()", "order()", "arrange()"],
+      "answer": "sort()",
+      "points": 10
+    },
+    {
+      "question": "Which method removes an item by value from a list?",
+      "options": ["remove()", "del()", "pop()", "drop()"],
+      "answer": "remove()",
+      "points": 10
+    },
+    {
+      "question": "How do you check if a string starts with 'py'?",
+      "options": ["str.startswith('py')", "str.begins('py')", "str.first('py')", "str.startwith('py')"],
+      "answer": "str.startswith('py')",
+      "points": 10
+    },
+    {
+      "question": "How do you raise a custom exception?",
+      "options": ["raise MyError()", "throw MyError()", "MyError()", "except MyError"],
+      "answer": "raise MyError()",
+      "points": 10
+    },
+    {
+      "question": "Which syntax creates a new set?",
+      "options": ["set()", "{}", "[]", "set[]"],
+      "answer": "set()",
+      "points": 10
+    },
+    {
+      "question": "Which keyword is used for inheritance?",
+      "options": ["class Derived(Base):", "inherit", "extends", "derive"],
+      "answer": "class Derived(Base):",
+      "points": 10
+    },
+    {
+      "question": "What is the output of: print('A' * 2)?",
+      "options": ["AA", "A2", "Error", "None"],
+      "answer": "AA",
+      "points": 10
+    },
+    {
+      "question": "How do you catch any exception?",
+      "options": ["except Exception:", "catch all:", "except:", "handle:"],
+      "answer": "except Exception:",
+      "points": 10
+    },
+    {
+      "question": "Which statement is used to create an anonymous function?",
+      "options": ["lambda", "anon", "def", "func"],
+      "answer": "lambda",
+      "points": 10
+    },
+    {
+      "question": "What is the type of range(5)?",
+      "options": ["range", "list", "generator", "tuple"],
+      "answer": "range",
+      "points": 10
+    },
+    {
+      "question": "What is returned by a function that does not execute return?",
+      "options": ["None", "0", "False", "Error"],
+      "answer": "None",
+      "points": 10
+    },
+    {
+      "question": "Which method adds all items from an iterable to a set?",
+      "options": ["update()", "add()", "append()", "extend()"],
+      "answer": "update()",
+      "points": 10
+    },
+    {
+      "question": "Which function finds the minimum value?",
+      "options": ["min()", "minimum()", "smallest()", "first()"],
+      "answer": "min()",
+      "points": 10
+    },
+    {
+      "question": "Which file mode overwrites a file?",
+      "options": ["'w'", "'a'", "'r'", "'x'"],
+      "answer": "'w'",
+      "points": 10
+    },
+    {
+      "question": "Which operator checks both value and type equality?",
+      "options": ["==", "is", "equals()", "==="],
+      "answer": "is",
+      "points": 10
+    },
+    {
+      "question": "Which data structure supports FIFO?",
+      "options": ["queue", "stack", "list", "dict"],
+      "answer": "queue",
+      "points": 10
+    },
+    {
+      "question": "Which function gives Unicode code of character?",
+      "options": ["ord()", "chr()", "ascii()", "code()"],
+      "answer": "ord()",
+      "points": 10
+    },
+    {
+      "question": "Which method returns index of first item with specified value?",
+      "options": ["index()", "find()", "search()", "locate()"],
+      "answer": "index()",
+      "points": 10
+    },
+    {
+      "question": "How do you slice list l from index 1 to 3?",
+      "options": ["l[1:4]", "l[1:3]", "l[1:3:1]", "l[2:4]"],
+      "answer": "l[1:4]",
+      "points": 10
+    },
+    {
+      "question": "Which statement checks multiple conditions?",
+      "options": ["elif", "elseif", "else if", "switch"],
+      "answer": "elif",
+      "points": 10
+    },
+    {
+      "question": "Which function applies a function to all list items?",
+      "options": ["map()", "apply()", "reduce()", "filter()"],
+      "answer": "map()",
+      "points": 10
+    },
+    {
+      "question": "Which function returns the sum of a list?",
+      "options": ["sum()", "add()", "total()", "combine()"],
+      "answer": "sum()",
+      "points": 10
+    },
+    {
+      "question": "How do you check if x is an instance of class C?",
+      "options": ["isinstance(x, C)", "type(x) == C", "x.class == C", "checktype(x, C)"],
+      "answer": "isinstance(x, C)",
+      "points": 10
+    },
+    {
+      "question": "Which keyword exits a function and passes value?",
+      "options": ["return", "yield", "exit", "pass"],
+      "answer": "return",
+      "points": 10
+    },
+    {
+      "question": "Which built-in checks if all items are True?",
+      "options": ["all()", "any()", "every()", "none()"],
+      "answer": "all()",
+      "points": 10
+    },
+    {
+      "question": "Which keyword passes to outer loop?",
+      "options": ["continue", "break", "pass", "next"],
+      "answer": "continue",
+      "points": 10
+    },
+    {
+      "question": "What is the output of: bool('False')?",
+      "options": ["True", "False", "TypeError", "ValueError"],
+      "answer": "True",
+      "points": 10
+    },
+    {
+      "question": "Which module handles dates and times?",
+      "options": ["datetime", "calendar", "date", "time"],
+      "answer": "datetime",
+      "points": 10
+    },
+    {
+      "question": "How do you install an external package?",
+      "options": ["pip install packagename", "python install packagename", "import packagename", "install packagename"],
+      "answer": "pip install packagename",
+      "points": 10
+    },
+    {
+      "question": "How do you perform integer division?",
+      "options": ["//", "/", "*", "**"],
+      "answer": "//",
+      "points": 10
+    },
+    {
+      "question": "Which data structure is mutable?",
+      "options": ["list", "tuple", "str", "int"],
+      "answer": "list",
+      "points": 10
+    }
+  ],
+  "is_active": true
+}

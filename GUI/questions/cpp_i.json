@@ -1,0 +1,404 @@
+{
+  "id": 2,
+  "title": "💾 C++ (Intermediate Level)",
+  "description": "Test your understanding of OOP, templates, and STL concepts",
+  "level": "intermediate",
+  "questions": [
+    {
+      "question": "Which of the following correctly defines a constructor in C++?",
+      "options": ["void constructor()", "MyClass()", "constructor MyClass()", "int MyClass()"],
+      "answer": "MyClass()",
+      "points": 10
+    },
+    {
+      "question": "What is function overloading in C++?",
+      "options": [
+        "Using same function name with different parameters",
+        "Using different function names with same parameters",
+        "Redefining function in derived class",
+        "Defining function inside another function"
+      ],
+      "answer": "Using same function name with different parameters",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is not true about destructors?",
+      "options": [
+        "They can take parameters",
+        "They free resources",
+        "They are called automatically",
+        "They have the same name as the class prefixed with ~"
+      ],
+      "answer": "They can take parameters",
+      "points": 10
+    },
+    {
+      "question": "What is the output of the following code?\n\nclass A {\npublic:\n A() { cout << 'A'; }\n ~A() { cout << 'B'; }\n};\nint main() { A a; }",
+      "options": ["A", "B", "AB", "BA"],
+      "answer": "AB",
+      "points": 10
+    },
+    {
+      "question": "Which keyword is used to prevent a class from being inherited?",
+      "options": ["sealed", "final", "private", "static"],
+      "answer": "final",
+      "points": 10
+    },
+    {
+      "question": "Which of the following can access private members of a class?",
+      "options": ["friend function", "derived class", "public function", "constructor"],
+      "answer": "friend function",
+      "points": 10
+    },
+    {
+      "question": "What is the size of an empty class in C++?",
+      "options": ["0 bytes", "1 byte", "Depends on compiler", "Undefined"],
+      "answer": "1 byte",
+      "points": 10
+    },
+    {
+      "question": "Which concept allows the same function to behave differently based on objects?",
+      "options": ["Encapsulation", "Polymorphism", "Abstraction", "Inheritance"],
+      "answer": "Polymorphism",
+      "points": 10
+    },
+    {
+      "question": "What is the difference between struct and class in C++?",
+      "options": [
+        "Struct members are private by default",
+        "Class members are private by default",
+        "Both have same default access",
+        "Struct cannot have constructors"
+      ],
+      "answer": "Class members are private by default",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is used to define pure virtual functions?",
+      "options": ["= 0", "= NULL", "virtual()", "pure()"],
+      "answer": "= 0",
+      "points": 10
+    },
+    {
+      "question": "How is dynamic polymorphism implemented in C++?",
+      "options": ["Templates", "Function overloading", "Virtual functions", "Operator overloading"],
+      "answer": "Virtual functions",
+      "points": 10
+    },
+    {
+      "question": "Which class is at the top of C++ exception hierarchy?",
+      "options": ["runtime_error", "exception", "logic_error", "error_base"],
+      "answer": "exception",
+      "points": 10
+    },
+    {
+      "question": "Which STL container stores key-value pairs?",
+      "options": ["vector", "map", "queue", "stack"],
+      "answer": "map",
+      "points": 10
+    },
+    {
+      "question": "What does 'this' pointer point to?",
+      "options": ["Parent object", "Current object", "Static data", "Base class"],
+      "answer": "Current object",
+      "points": 10
+    },
+    {
+      "question": "Which operator cannot be overloaded?",
+      "options": ["+", "=", "::", "[]"],
+      "answer": "::",
+      "points": 10
+    },
+    {
+      "question": "What is the difference between shallow copy and deep copy?",
+      "options": [
+        "Shallow copies pointers only, deep copies actual data",
+        "Both copy data equally",
+        "Deep copy is faster",
+        "Shallow copy copies more data"
+      ],
+      "answer": "Shallow copies pointers only, deep copies actual data",
+      "points": 10
+    },
+    {
+      "question": "Which keyword is used to handle exceptions?",
+      "options": ["try", "throw", "catch", "All of the above"],
+      "answer": "All of the above",
+      "points": 10
+    },
+    {
+      "question": "Which smart pointer calls delete automatically when object goes out of scope?",
+      "options": ["auto_ptr", "shared_ptr", "unique_ptr", "All of them"],
+      "answer": "All of them",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is true for inline functions?",
+      "options": [
+        "They reduce function call overhead",
+        "They always increase code size",
+        "They cannot use recursion",
+        "All of the above"
+      ],
+      "answer": "All of the above",
+      "points": 10
+    },
+    {
+      "question": "What is the output of sizeof('A')?",
+      "options": ["1", "2", "4", "Depends on system"],
+      "answer": "1",
+      "points": 10
+    },
+    {
+      "question": "How can you prevent overriding of a virtual function?",
+      "options": ["Use final keyword", "Use const keyword", "Use private access", "Use static keyword"],
+      "answer": "Use final keyword",
+      "points": 10
+    },
+    {
+      "question": "Which feature allows defining multiple functions with same name but different arguments?",
+      "options": ["Function overloading", "Operator overloading", "Encapsulation", "Inheritance"],
+      "answer": "Function overloading",
+      "points": 10
+    },
+    {
+      "question": "Which type of inheritance can lead to diamond problem?",
+      "options": ["Single", "Multiple", "Multilevel", "Hybrid"],
+      "answer": "Multiple",
+      "points": 10
+    },
+    {
+      "question": "Which operator is overloaded when we use cout << x?",
+      "options": ["operator<<", "operator>>", "operator()", "operator="],
+      "answer": "operator<<",
+      "points": 10
+    },
+    {
+      "question": "Which of these keywords is used to inherit a class?",
+      "options": ["using", "extends", "inherits", "public"],
+      "answer": "public",
+      "points": 10
+    },
+    {
+      "question": "What happens if a base class destructor is not virtual?",
+      "options": [
+        "Derived class destructor won't be called",
+        "Base class destructor won't execute",
+        "Both will be called",
+        "Compiler error"
+      ],
+      "answer": "Derived class destructor won't be called",
+      "points": 10
+    },
+    {
+      "question": "Which STL container allows insertion and deletion at both ends?",
+      "options": ["deque", "vector", "stack", "queue"],
+      "answer": "deque",
+      "points": 10
+    },
+    {
+      "question": "Which of the following cannot be a friend?",
+      "options": ["Function", "Class", "Object", "None"],
+      "answer": "Object",
+      "points": 10
+    },
+    {
+      "question": "Which of these is true about static member functions?",
+      "options": [
+        "They can access only static members",
+        "They have 'this' pointer",
+        "They can access non-static data",
+        "They cannot be defined outside class"
+      ],
+      "answer": "They can access only static members",
+      "points": 10
+    },
+    {
+      "question": "What is the default access specifier for class members?",
+      "options": ["public", "private", "protected", "none"],
+      "answer": "private",
+      "points": 10
+    },
+    {
+      "question": "Which STL container maintains elements in sorted order by key?",
+      "options": ["map", "unordered_map", "vector", "deque"],
+      "answer": "map",
+      "points": 10
+    },
+    {
+      "question": "What is the purpose of 'mutable' keyword in C++?",
+      "options": [
+        "Allows modification of member even in const object",
+        "Makes variable constant",
+        "Disables thread-safety",
+        "None"
+      ],
+      "answer": "Allows modification of member even in const object",
+      "points": 10
+    },
+    {
+      "question": "Which constructor is called when object is copied?",
+      "options": ["Default constructor", "Copy constructor", "Move constructor", "Parameterized constructor"],
+      "answer": "Copy constructor",
+      "points": 10
+    },
+    {
+      "question": "What is the purpose of the 'explicit' keyword?",
+      "options": [
+        "Prevents implicit conversions",
+        "Allows implicit casting",
+        "Creates inline constructors",
+        "For templates only"
+      ],
+      "answer": "Prevents implicit conversions",
+      "points": 10
+    },
+    {
+      "question": "Which container uses Last In First Out principle?",
+      "options": ["queue", "stack", "deque", "vector"],
+      "answer": "stack",
+      "points": 10
+    },
+    {
+      "question": "Which of these correctly defines a template function?",
+      "options": [
+        "template<class T> void func(T a)",
+        "template<T> func(a)",
+        "template(type T) func(T a)",
+        "generic<T> func(T a)"
+      ],
+      "answer": "template<class T> void func(T a)",
+      "points": 10
+    },
+    {
+      "question": "Which operator is automatically called when an object goes out of scope?",
+      "options": ["Constructor", "Destructor", "Assignment", "Copy constructor"],
+      "answer": "Destructor",
+      "points": 10
+    },
+    {
+      "question": "Which STL container provides random access?",
+      "options": ["vector", "list", "stack", "queue"],
+      "answer": "vector",
+      "points": 10
+    },
+    {
+      "question": "What does 'override' keyword ensure?",
+      "options": [
+        "Base and derived function signatures match",
+        "Derived function hides base function",
+        "Virtual table update",
+        "Compile-time overloading"
+      ],
+      "answer": "Base and derived function signatures match",
+      "points": 10
+    },
+    {
+      "question": "Which of the following iterators can move backward?",
+      "options": ["Forward iterator", "Bidirectional iterator", "Input iterator", "Output iterator"],
+      "answer": "Bidirectional iterator",
+      "points": 10
+    },
+    {
+      "question": "Which is used to allocate memory dynamically in C++?",
+      "options": ["malloc", "calloc", "new", "Both malloc and new"],
+      "answer": "new",
+      "points": 10
+    },
+    {
+      "question": "What does RAII stand for in C++?",
+      "options": [
+        "Resource Acquisition Is Initialization",
+        "Run After Inline Invocation",
+        "Return After Initialization Instance",
+        "Resource Allocation Inheritance Interface"
+      ],
+      "answer": "Resource Acquisition Is Initialization",
+      "points": 10
+    },
+    {
+      "question": "Which keyword is used to inherit constructors of base class?",
+      "options": ["inherit", "using", "base", "super"],
+      "answer": "using",
+      "points": 10
+    },
+    {
+      "question": "Which operator is used to free dynamically allocated memory?",
+      "options": ["free", "delete", "remove", "dispose"],
+      "answer": "delete",
+      "points": 10
+    },
+    {
+      "question": "Which STL algorithm sorts a vector?",
+      "options": ["sort()", "arrange()", "order()", "set_sort()"],
+      "answer": "sort()",
+      "points": 10
+    },
+    {
+      "question": "Which of the following allows dynamic binding in C++?",
+      "options": ["Virtual functions", "Templates", "Inline functions", "Operator overloading"],
+      "answer": "Virtual functions",
+      "points": 10
+    },
+    {
+      "question": "Which function is used to terminate a C++ program immediately?",
+      "options": ["exit()", "abort()", "terminate()", "All of the above"],
+      "answer": "All of the above",
+      "points": 10
+    },
+    {
+      "question": "What is the output type of 'map.find()'?",
+      "options": ["Iterator", "Pointer", "Reference", "Key"],
+      "answer": "Iterator",
+      "points": 10
+    },
+    {
+      "question": "Which feature of OOP provides data hiding?",
+      "options": ["Encapsulation", "Polymorphism", "Abstraction", "Inheritance"],
+      "answer": "Encapsulation",
+      "points": 10
+    },
+    {
+      "question": "Which keyword is used to rethrow the current exception?",
+      "options": ["throw;", "rethrow;", "continue;", "return;"],
+      "answer": "throw;",
+      "points": 10
+    },
+    {
+      "question": "Which function is used to release memory allocated by new?",
+      "options": ["delete", "free", "dispose", "release"],
+      "answer": "delete",
+      "points": 10
+    },
+    {
+      "question": "Which of the following cannot be declared as static?",
+      "options": ["Member function", "Member variable", "Constructor", "All can be static"],
+      "answer": "Constructor",
+      "points": 10
+    },
+    {
+      "question": "Which of these STL containers does not allow duplicates?",
+      "options": ["multiset", "set", "vector", "list"],
+      "answer": "set",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is true for references?",
+      "options": [
+        "They cannot be reseated",
+        "They can be NULL",
+        "They need explicit dereferencing",
+        "They can be changed later"
+      ],
+      "answer": "They cannot be reseated",
+      "points": 10
+    },
+    {
+      "question": "Which of the following correctly declares a namespace?",
+      "options": ["namespace std {}", "ns std {}", "declare std {}", "namespace() std"],
+      "answer": "namespace std {}",
+      "points": 10
+    }
+  ],
+  "is_active": true
+}

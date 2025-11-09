@@ -1,0 +1,363 @@
+{
+  "id": 6,
+  "title": "🐍 Python (Advanced Level)",
+  "description": "Test your mastery of advanced Python concepts and design.",
+  "level": "advanced",
+  "questions": [
+    {
+      "question": "What is the output of print([i for i in range(3)])?",
+      "options": ["[1,2,3]", "[0,1,2]", "[0, 1, 2]", "(0,1,2)"],
+      "answer": "[0, 1, 2]",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is NOT true for Python decorators?",
+      "options": ["They modify function behavior", "They must return a function", "They are used with @ syntax", "They can be applied to variables"],
+      "answer": "They can be applied to variables",
+      "points": 10
+    },
+    {
+      "question": "How do you make a class method private in Python?",
+      "options": ["Prefix method with __", "Prefix with _", "Use @private", "No privacy in Python"],
+      "answer": "Prefix method with __",
+      "points": 10
+    },
+    {
+      "question": "Which protocol is used for the context manager with statement?",
+      "options": ["__enter__ / __exit__", "__get__ / __set__", "__start__ / __stop__", "__on__ / __off__"],
+      "answer": "__enter__ / __exit__",
+      "points": 10
+    },
+    {
+      "question": "Which of the following enables lazy evaluation?",
+      "options": ["generator", "list", "set", "tuple"],
+      "answer": "generator",
+      "points": 10
+    },
+    {
+      "question": "What is the main advantage of 'slots' in a class?",
+      "options": ["Reduces memory usage", "Increases speed", "Improves readability", "Prevents inheritance"],
+      "answer": "Reduces memory usage",
+      "points": 10
+    },
+    {
+      "question": "How do you define an abstract base class?",
+      "options": ["abc.ABCMeta", "abstract.Base", "@abstractclass", "@base"],
+      "answer": "abc.ABCMeta",
+      "points": 10
+    },
+    {
+      "question": "What is the purpose of __call__()?",
+      "options": ["Make instances callable", "Override equality", "Access class variable", "Implement index access"],
+      "answer": "Make instances callable",
+      "points": 10
+    },
+    {
+      "question": "Which statement correctly creates a singleton class?",
+      "options": ["Override __new__", "Override __call__", "Override __init__", "Use @singleton"],
+      "answer": "Override __new__",
+      "points": 10
+    },
+    {
+      "question": "Which built-in function gets the method resolution order?",
+      "options": ["mro()", "__mro__", "type()", "dir()"],
+      "answer": "mro()",
+      "points": 10
+    },
+    {
+      "question": "How do you force garbage collection in Python?",
+      "options": ["gc.collect()", "del()", "os.clean()", "release()"],
+      "answer": "gc.collect()",
+      "points": 10
+    },
+    {
+      "question": "Which function checks type hints at runtime?",
+      "options": ["typing.get_type_hints()", "inspect.hints()", "checktypes()", "types.hints()"],
+      "answer": "typing.get_type_hints()",
+      "points": 10
+    },
+    {
+      "question": "Which module provides access to interpreter internals?",
+      "options": ["sys", "os", "site", "interp"],
+      "answer": "sys",
+      "points": 10
+    },
+    {
+      "question": "Which of these allows creating a custom iterator?",
+      "options": ["__iter__ and __next__", "__getitem__ and __setitem__", "__eval__ and __call__", "__str__ and __repr__"],
+      "answer": "__iter__ and __next__",
+      "points": 10
+    },
+    {
+      "question": "What is the output type of json.loads()?",
+      "options": ["dict", "str", "list", "tuple"],
+      "answer": "dict",
+      "points": 10
+    },
+    {
+      "question": "How do you create a namedtuple?",
+      "options": ["collections.namedtuple()", "tuple.named()", "namedtuple()", "class Tuple()"],
+      "answer": "collections.namedtuple()",
+      "points": 10
+    },
+    {
+      "question": "Which of the following will make a deep copy?",
+      "options": ["copy.deepcopy()", "copy.copy()", "list()", "tuple()"],
+      "answer": "copy.deepcopy()",
+      "points": 10
+    },
+    {
+      "question": "Which of the following executes faster: list comprehension or for loop?",
+      "options": ["List comprehension", "For loop", "Both same", "Depends on list size"],
+      "answer": "List comprehension",
+      "points": 10
+    },
+    {
+      "question": "Which module optimizes Python bytecode?",
+      "options": ["compileall", "dis", "py_compile", "bytecode"],
+      "answer": "compileall",
+      "points": 10
+    },
+    {
+      "question": "What does GIL stand for?",
+      "options": ["Global Interpreter Lock", "Global Integer List", "Generic Import Library", "General Instruction Loader"],
+      "answer": "Global Interpreter Lock",
+      "points": 10
+    },
+    {
+      "question": "What is the output of: print({1,2,3} & {2,3,4})?",
+      "options": ["{2, 3}", "[2,3]", "(2,3)", "{2,3,4}"],
+      "answer": "{2, 3}",
+      "points": 10
+    },
+    {
+      "question": "Which method is invoked when using the 'with' statement?",
+      "options": ["__enter__", "__call__", "__getattr__", "__new__"],
+      "answer": "__enter__",
+      "points": 10
+    },
+    {
+      "question": "How do you declare a property with a setter?",
+      "options": ["@property and @x.setter", "@setproperty", "@setter", "set(x)"],
+      "answer": "@property and @x.setter",
+      "points": 10
+    },
+    {
+      "question": "How do you return multiple values from a function?",
+      "options": ["tuple", "list", "dict", "set"],
+      "answer": "tuple",
+      "points": 10
+    },
+    {
+      "question": "Which function returns the hash value of an object?",
+      "options": ["hash()", "id()", "repr()", "str()"],
+      "answer": "hash()",
+      "points": 10
+    },
+    {
+      "question": "Which function in functools caches function calls?",
+      "options": ["lru_cache", "wraps", "reduce", "partial"],
+      "answer": "lru_cache",
+      "points": 10
+    },
+    {
+      "question": "Which module is used for logging?",
+      "options": ["logging", "log", "trace", "write"],
+      "answer": "logging",
+      "points": 10
+    },
+    {
+      "question": "How to reverse the keys and values of a dictionary?",
+      "options": ["dict(zip(d.values(), d.keys()))", "d.reverse()", "d.items().reverse()", "reverse(d)"],
+      "answer": "dict(zip(d.values(), d.keys()))",
+      "points": 10
+    },
+    {
+      "question": "Which exception is raised for attribute errors?",
+      "options": ["AttributeError", "KeyError", "TypeError", "NameError"],
+      "answer": "AttributeError",
+      "points": 10
+    },
+    {
+      "question": "What is the correct way to introspect a class's attributes?",
+      "options": ["dir()", "vars()", "all()", "attrs()"],
+      "answer": "dir()",
+      "points": 10
+    },
+    {
+      "question": "Which method checks string for digits only?",
+      "options": ["isdigit()", "isnumeric()", "isalnum()", "isdec()"],
+      "answer": "isdigit()",
+      "points": 10
+    },
+    {
+      "question": "Which function returns the byte representation of a string?",
+      "options": ["encode()", "bytes()", "str()", "bin()"],
+      "answer": "encode()",
+      "points": 10
+    },
+    {
+      "question": "What does __repr__ provide?",
+      "options": ["Unambiguous string for developer", "User display", "Destructor", "Initialization"],
+      "answer": "Unambiguous string for developer",
+      "points": 10
+    },
+    {
+      "question": "Which function finds the index of substring in string?",
+      "options": ["find()", "index()", "search()", "locate()"],
+      "answer": "find()",
+      "points": 10
+    },
+    {
+      "question": "Which method is called to serialize an object using pickle?",
+      "options": ["dump()", "dumps()", "write()", "pack()"],
+      "answer": "dump()",
+      "points": 10
+    },
+    {
+      "question": "Which of the following closes a file object?",
+      "options": ["close()", "end()", "finish()", "terminate()"],
+      "answer": "close()",
+      "points": 10
+    },
+    {
+      "question": "How to create a multi-threaded program?",
+      "options": ["threading.Thread", "asyncio.run", "concurrent.future", "thread.run"],
+      "answer": "threading.Thread",
+      "points": 10
+    },
+    {
+      "question": "Which function converts an object to a string?",
+      "options": ["str()", "repr()", "format()", "toString()"],
+      "answer": "str()",
+      "points": 10
+    },
+    {
+      "question": "Which of these allows downloading packages?",
+      "options": ["pip", "conda", "npm", "brew"],
+      "answer": "pip",
+      "points": 10
+    },
+    {
+      "question": "Which function gets list of attributes and methods?",
+      "options": ["dir()", "list()", "attribs()", "getattr()"],
+      "answer": "dir()",
+      "points": 10
+    },
+    {
+      "question": "Which operator unpacks function arguments from a list?",
+      "options": ["*", "**", "&", "@"],
+      "answer": "*",
+      "points": 10
+    },
+    {
+      "question": "How can you ensure a class has only one instance?",
+      "options": ["Singleton pattern", "Factory pattern", "Builder pattern", "Adapter pattern"],
+      "answer": "Singleton pattern",
+      "points": 10
+    },
+    {
+      "question": "Which function serializes a Python object to a JSON string?",
+      "options": ["json.dumps()", "json.dump()", "json.loads()", "json.load()"],
+      "answer": "json.dumps()",
+      "points": 10
+    },
+    {
+      "question": "How do you get the absolute path of a file?",
+      "options": ["os.path.abspath()", "os.fullpath()", "os.path.fullname()", "sys.abspath()"],
+      "answer": "os.path.abspath()",
+      "points": 10
+    },
+    {
+      "question": "Which module supports asynchronous I/O?",
+      "options": ["asyncio", "aio", "asynciomodule", "asyncmodule"],
+      "answer": "asyncio",
+      "points": 10
+    },
+    {
+      "question": "What function can be used to map values to a sequence of objects?",
+      "options": ["map()", "zip()", "reduce()", "combine()"],
+      "answer": "map()",
+      "points": 10
+    },
+    {
+      "question": "How do you define a static method?",
+      "options": ["@staticmethod", "@static", "@class", "@def"],
+      "answer": "@staticmethod",
+      "points": 10
+    },
+    {
+      "question": "Which function applies a reducer function cumulatively?",
+      "options": ["reduce()", "map()", "accumulate()", "cumsum()"],
+      "answer": "reduce()",
+      "points": 10
+    },
+    {
+      "question": "Which slice returns a reversed list l?",
+      "options": ["l[::-1]", "l[1:1]", "l[1:-1]", "l[:1]"],
+      "answer": "l[::-1]",
+      "points": 10
+    },
+    {
+      "question": "Which module provides precise decimal arithmetic?",
+      "options": ["decimal", "fractions", "math", "precision"],
+      "answer": "decimal",
+      "points": 10
+    },
+    {
+      "question": "Which is a mutable sequence?",
+      "options": ["list", "tuple", "str", "int"],
+      "answer": "list",
+      "points": 10
+    },
+    {
+      "question": "How do you check memory usage of an object?",
+      "options": ["sys.getsizeof()", "os.sizeof()", "len()", "sizeof()"],
+      "answer": "sys.getsizeof()",
+      "points": 10
+    },
+    {
+      "question": "How to raise an exception with a custom message?",
+      "options": ["raise Exception('msg')", "throw Exception('msg')", "Exception.raise('msg')", "raise 'msg'"],
+      "answer": "raise Exception('msg')",
+      "points": 10
+    },
+    {
+      "question": "Which option checks if a variable is a coroutine?",
+      "options": ["inspect.iscoroutine()", "asyncio.iscoroutine()", "isinstance(obj, coroutine)", "type(obj)==coroutine"],
+      "answer": "inspect.iscoroutine()",
+      "points": 10
+    },
+    {
+      "question": "Which function returns unique elements from a list?",
+      "options": ["set()", "dict()", "list()", "tuple()"],
+      "answer": "set()",
+      "points": 10
+    },
+    {
+      "question": "What is the correct way to read all lines from a file?",
+      "options": ["f.readlines()", "f.readAll()", "f.scanlines()", "f.all()"],
+      "answer": "f.readlines()",
+      "points": 10
+    },
+    {
+      "question": "What does hasattr() return?",
+      "options": ["Boolean", "String", "Int", "Object"],
+      "answer": "Boolean",
+      "points": 10
+    },
+    {
+      "question": "Which standard library module provides thread-safe queues?",
+      "options": ["queue", "threading", "asyncio", "collections"],
+      "answer": "queue",
+      "points": 10
+    },
+    {
+      "question": "Which operator is used for exponentiation?",
+      "options": ["**", "^", "@", "%"],
+      "answer": "**",
+      "points": 10
+    }
+  ],
+  "is_active": true
+}

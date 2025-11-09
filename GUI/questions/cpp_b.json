@@ -1,0 +1,363 @@
+{
+  "id": 1,
+  "title": "💾 C++ (Basic Level)",
+  "description": "Test your C++ fundamentals and core syntax knowledge.", 
+  "level": "basic",
+  "questions": [
+    {
+      "question": "Which of the following is a valid C++ identifier?",
+      "options": ["2name", "name_2", "int", "for"],
+      "answer": "name_2",
+      "points": 10
+    },
+    {
+      "question": "Which header is required for cout and cin?",
+      "options": ["stdio.h", "iostream", "conio.h", "stdlib.h"],
+      "answer": "iostream",
+      "points": 10
+    },
+    {
+      "question": "What is the output of cout << 7 / 2;?",
+      "options": ["3.5", "3", "4", "Error"],
+      "answer": "3",
+      "points": 10
+    },
+    {
+      "question": "Which operator is used for member access through a pointer?",
+      "options": [".", "::", "->", "*"],
+      "answer": "->",
+      "points": 10
+    },
+    {
+      "question": "Which is the correct way to write a single-line comment?",
+      "options": ["/* comment */", "// comment", "# comment", "\\ comment"],
+      "answer": "// comment",
+      "points": 10
+    },
+    {
+      "question": "Which of following is used to allocate single object in C++?",
+      "options": ["malloc", "new", "calloc", "realloc"],
+      "answer": "new",
+      "points": 10
+    },
+    {
+      "question": "What is the default return type for main()?",
+      "options": ["void", "int", "float", "none"],
+      "answer": "int",
+      "points": 10
+    },
+    {
+      "question": "Which is not a fundamental data type?",
+      "options": ["int", "float", "string", "double"],
+      "answer": "string",
+      "points": 10
+    },
+    {
+      "question": "What does ++i do?",
+      "options": ["Post-increment", "Pre-increment", "Increment after expression", "Decrement"],
+      "answer": "Pre-increment",
+      "points": 10
+    },
+    {
+      "question": "Which statement exits a loop immediately?",
+      "options": ["continue", "break", "exit", "return"],
+      "answer": "break",
+      "points": 10
+    },
+    {
+      "question": "Which will print boolean true as 1?",
+      "options": ["cout << true;", "cout << boolalpha << true;", "Both", "None"],
+      "answer": "cout << true;",
+      "points": 10
+    },
+    {
+      "question": "How to declare a constant integer x with value 10?",
+      "options": ["const int x = 10;", "int const x = 10;", "Both A and B", "static int x = 10;"],
+      "answer": "Both A and B",
+      "points": 10
+    },
+    {
+      "question": "Which function reads a line including spaces into std::string?",
+      "options": ["cin >> s;", "getline(cin, s);", "gets(s);", "scanf('%s', s);"],
+      "answer": "getline(cin, s);",
+      "points": 10
+    },
+    {
+      "question": "What is the output of 'int a = 5; cout << a++;'?",
+      "options": ["4", "5", "6", "Error"],
+      "answer": "5",
+      "points": 10
+    },
+    {
+      "question": "How do you declare an array of 10 integers?",
+      "options": ["int a;", "int a[10];", "int a();", "int a{10};"],
+      "answer": "int a[10];",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is correct to include a header?",
+      "options": ["include<iostream>", "#include <iostream>", "using <iostream>", "import <iostream>"],
+      "answer": "#include <iostream>",
+      "points": 10
+    },
+    {
+      "question": "Which of these converts integer 65 to character 'A'?",
+      "options": ["(char)65", "char(65)", "Both A and B", "None"],
+      "answer": "Both A and B",
+      "points": 10
+    },
+    {
+      "question": "Which loop will always execute its body at least once?",
+      "options": ["for", "while", "do-while", "none"],
+      "answer": "do-while",
+      "points": 10
+    },
+    {
+      "question": "Which is true about void functions?",
+      "options": ["Must return a value", "Cannot return anything", "May use return;", "Both B and C"],
+      "answer": "Both B and C",
+      "points": 10
+    },
+    {
+      "question": "What is the result type of 5 / 2.0?",
+      "options": ["int", "double", "float", "Error"],
+      "answer": "double",
+      "points": 10
+    },
+    {
+      "question": "Which header provides std::string?",
+      "options": ["<cstring>", "<string>", "<sstream>", "<str>"],
+      "answer": "<string>",
+      "points": 10
+    },
+    {
+      "question": "Which operator has highest precedence?",
+      "options": ["+", "=", "*", "&&"],
+      "answer": "*",
+      "points": 10
+    },
+    {
+      "question": "What is the value of x after 'int x = (3,4);'?",
+      "options": ["3", "4", "0", "Compiler error"],
+      "answer": "4",
+      "points": 10
+    },
+    {
+      "question": "Which is used for formatted output in C++?",
+      "options": ["printf", "cout", "write", "output"],
+      "answer": "cout",
+      "points": 10
+    },
+    {
+      "question": "Which keyword indicates internal linkage?",
+      "options": ["extern", "static", "auto", "register"],
+      "answer": "static",
+      "points": 10
+    },
+    {
+      "question": "What does % operator do for integers?",
+      "options": ["Division", "Modulus", "Exponent", "None"],
+      "answer": "Modulus",
+      "points": 10
+    },
+    {
+      "question": "What is printed by 'cout << \"Hello\\nWorld\";'?",
+      "options": ["HelloWorld", "Hello\\nWorld", "Hello (newline) World", "Error"],
+      "answer": "Hello (newline) World",
+      "points": 10
+    },
+    {
+      "question": "Which is correct to declare pointer to int?",
+      "options": ["int p;", "int *p;", "*int p;", "pointer<int> p;"],
+      "answer": "int *p;",
+      "points": 10
+    },
+    {
+      "question": "Which operator is used to access the address of a variable?",
+      "options": ["&", "*", "->", "%"],
+      "answer": "&",
+      "points": 10
+    },
+    {
+      "question": "What does 'return 0;' signify in main()?",
+      "options": ["Program error", "Successful termination", "Unused", "Crash"],
+      "answer": "Successful termination",
+      "points": 10
+    },
+    {
+      "question": "Which C++ version introduced auto type deduction?",
+      "options": ["C++98", "C++03", "C++11", "C++17"],
+      "answer": "C++11",
+      "points": 10
+    },
+    {
+      "question": "Which is correct to declare a reference to int?",
+      "options": ["int &r = x;", "int r& = x;", "ref int r = x;", "&int r = x;"],
+      "answer": "int &r = x;",
+      "points": 10
+    },
+    {
+      "question": "Which statement about endl is true?",
+      "options": ["Only prints newline", "Flushes stream and prints newline", "Faster than \\n", "None"],
+      "answer": "Flushes stream and prints newline",
+      "points": 10
+    },
+    {
+      "question": "What is printed by 'char c = 'A'; cout << c;'?",
+      "options": ["65", "A", "'A'", "Error"],
+      "answer": "A",
+      "points": 10
+    },
+    {
+      "question": "Which is correct way to create a string literal?",
+      "options": ["\"Hello\"", "'Hello'", "Hello", "{Hello}"],
+      "answer": "\"Hello\"",
+      "points": 10
+    },
+    {
+      "question": "What is the value of an uninitialized local variable?",
+      "options": ["0", "Garbage", "-1", "Null"],
+      "answer": "Garbage",
+      "points": 10
+    },
+    {
+      "question": "Which is the right signature for function taking int and returning double?",
+      "options": ["double f(int);", "int f(double);", "f(int) double;", "double int f();"],
+      "answer": "double f(int);",
+      "points": 10
+    },
+    {
+      "question": "Which operator performs bitwise AND?",
+      "options": ["&&", "&", "and", "|"],
+      "answer": "&",
+      "points": 10
+    },
+    {
+      "question": "Which of these keywords is used to create user-defined types?",
+      "options": ["class", "typedef", "struct", "Both class and struct"],
+      "answer": "Both class and struct",
+      "points": 10
+    },
+    {
+      "question": "What is the output of 'cout << (5 > 3 ? 10 : 20);'?",
+      "options": ["5", "10", "20", "Error"],
+      "answer": "10",
+      "points": 10
+    },
+    {
+      "question": "Which header provides memset and memcpy?",
+      "options": ["<string>", "<cstring>", "<memory>", "<algorithm>"],
+      "answer": "<cstring>",
+      "points": 10
+    },
+    {
+      "question": "Which keyword restricts inheritance access to private members?",
+      "options": ["private", "protected", "public", "friend"],
+      "answer": "private",
+      "points": 10
+    },
+    {
+      "question": "How do you declare function void f()?",
+      "options": ["void f;", "f(void);", "void f();", "function f();"],
+      "answer": "void f();",
+      "points": 10
+    },
+    {
+      "question": "What does '#define PI 3.14' do?",
+      "options": ["Declares variable", "Creates macro substitution", "Creates constant variable", "Error"],
+      "answer": "Creates macro substitution",
+      "points": 10
+    },
+    {
+      "question": "Which is correct to open file for input using ifstream?",
+      "options": ["ifstream f('file.txt');", "ifstream f.open('file.txt');", "open ifstream f('file.txt');", "ifstream::open('file.txt');"],
+      "answer": "ifstream f('file.txt');",
+      "points": 10
+    },
+    {
+      "question": "What will 'cout << '\\0' << 'Hi';' print?",
+      "options": ["Hi", "\\0Hi", "(null)Hi", "Nothing"],
+      "answer": "Hi",
+      "points": 10
+    },
+    {
+      "question": "Which is correct initialization of vector?",
+      "options": ["vector<int> v = {1,2,3};", "vector<int> v = (1,2,3);", "vector<int> v(1,2,3);", "vector<int> v = [1,2,3];"],
+      "answer": "vector<int> v = {1,2,3};",
+      "points": 10
+    },
+    {
+      "question": "Which operator is used for scope resolution?",
+      "options": ["::", ":", ".", "->"],
+      "answer": "::",
+      "points": 10
+    },
+    {
+      "question": "What is printed by 'cout << (int)'9' - '0';'?",
+      "options": ["9", "57", "'9'", "Error"],
+      "answer": "9",
+      "points": 10
+    },
+    {
+      "question": "Which of the following is a mutable container in STL?",
+      "options": ["map", "string", "array", "const vector"],
+      "answer": "string",
+      "points": 10
+    },
+    {
+      "question": "Which construct allows multiple return values by reference?",
+      "options": ["tuple", "pair", "struct", "All of the above"],
+      "answer": "All of the above",
+      "points": 10
+    },
+    {
+      "question": "Which keyword prevents inheritance from a class?",
+      "options": ["sealed", "final", "stop", "private"],
+      "answer": "final",
+      "points": 10
+    },
+    {
+      "question": "Which is used to include C headers in C++ style?",
+      "options": ["<stdio.h>", "<cstdio>", "<iostream>", "<stdiocpp>"],
+      "answer": "<cstdio>",
+      "points": 10
+    },
+    {
+      "question": "Which statement about static local variable is true?",
+      "options": ["Lifetime ends at return", "Lifetime persists across calls", "Can't be used in functions", "Not allowed in C++"],
+      "answer": "Lifetime persists across calls",
+      "points": 10
+    },
+    {
+      "question": "What will 'int x = 010; cout << x;' print?",
+      "options": ["10", "8", "010", "Error"],
+      "answer": "8",
+      "points": 10
+    },
+    {
+      "question": "Which operator is overloaded to define function call for object?",
+      "options": ["operator[]", "operator()", "operator->", "operator*"],
+      "answer": "operator()",
+      "points": 10
+    },
+    {
+      "question": "What is the return type of cin.get()?",
+      "options": ["char", "int", "void", "string"],
+      "answer": "int",
+      "points": 10
+    },
+    {
+      "question": "Which keyword imports a name into current scope?",
+      "options": ["include", "using", "namespace", "import"],
+      "answer": "using",
+      "points": 10
+    },
+    {
+      "question": "Which of following is true about auto type deduction?",
+      "options": ["auto x = 1; x becomes int", "auto x = 1.5; x becomes double", "Both A and B", "auto cannot be used with initializer"],
+      "answer": "Both A and B",
+      "points": 10
+    }
+  ],
+  "is_active": true
+}

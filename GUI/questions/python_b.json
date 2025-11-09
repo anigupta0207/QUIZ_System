@@ -1,0 +1,369 @@
+{
+    "id": 4,
+    "title": "🐍 Python (Basic Level)",
+    "level": "basic",
+    "description": "Test your fundamentals of Python programming.",
+    "is_active": true,
+    "questions": [
+        {
+            "question": "Which keyword is used to define a function in Python?",
+            "options": ["function", "def", "fun", "define"],
+            "answer": "def",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(2 ** 3)?",
+            "options": ["5", "6", "8", "9"],
+            "answer": "8",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a valid variable name in Python?",
+            "options": ["1var", "_var", "var-name", "var name"],
+            "answer": "_var",
+            "points": 10
+        },
+        {
+            "question": "What is the correct file extension for Python files?",
+            "options": [".pyt", ".pt", ".py", ".pyth"],
+            "answer": ".py",
+            "points": 10
+        },
+        {
+            "question": "Which function is used to take input from the user in Python?",
+            "options": ["input()", "get()", "read()", "scan()"],
+            "answer": "input()",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(type(10))?",
+            "options": ["<class 'float'>", "<class 'str'>", "<class 'int'>", "<class 'bool'>"],
+            "answer": "<class 'int'>",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a mutable data type?",
+            "options": ["tuple", "string", "list", "int"],
+            "answer": "list",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(10/3)?",
+            "options": ["3", "3.0", "3.33", "3.3333333333333335"],
+            "answer": "3.3333333333333335",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is not a keyword in Python?",
+            "options": ["pass", "eval", "assert", "nonlocal"],
+            "answer": "eval",
+            "points": 10
+        },
+        {
+            "question": "Which function gives the length of a list?",
+            "options": ["size()", "count()", "len()", "length()"],
+            "answer": "len()",
+            "points": 10
+        },
+        {
+            "question": "Which keyword is used to define a function in Python?",
+            "options": ["function", "define", "def", "fun"],
+            "answer": "def",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(2 ** 3)?",
+            "options": ["5", "6", "8", "9"],
+            "answer": "8",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a valid variable name in Python?",
+            "options": ["1var", "_var", "var-name", "var name"],
+            "answer": "_var",
+            "points": 10
+        },
+        {
+            "question": "What is the correct file extension for Python files?",
+            "options": [".pyt", ".pt", ".py", ".pyth"],
+            "answer": ".py",
+            "points": 10
+        },
+        {
+            "question": "Which function is used to take input from the user in Python?",
+            "options": ["input()", "get()", "read()", "scan()"],
+            "answer": "input()",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(type(10))?",
+            "options": ["<class 'float'>", "<class 'str'>", "<class 'int'>", "<class 'bool'>"],
+            "answer": "<class 'int'>",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a mutable data type?",
+            "options": ["tuple", "string", "list", "int"],
+            "answer": "list",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(10/3)?",
+            "options": ["3", "3.0", "3.33", "3.3333333333333335"],
+            "answer": "3.3333333333333335",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is not a keyword in Python?",
+            "options": ["pass", "eval", "assert", "nonlocal"],
+            "answer": "eval",
+            "points": 10
+        },
+        {
+            "question": "Which function gives the length of a list?",
+            "options": ["size()", "count()", "len()", "length()"],
+            "answer": "len()",
+            "points": 10
+        },
+        {
+            "question": "Which keyword is used to define a function in Python?",
+            "options": ["function", "define", "def", "fun"],
+            "answer": "def",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(2 ** 3)?",
+            "options": ["5", "6", "8", "9"],
+            "answer": "8",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a valid variable name in Python?",
+            "options": ["1var", "_var", "var-name", "var name"],
+            "answer": "_var",
+            "points": 10
+        },
+        {
+            "question": "What is the correct file extension for Python files?",
+            "options": [".pyt", ".pt", ".py", ".pyth"],
+            "answer": ".py",
+            "points": 10
+        },
+        {
+            "question": "Which function is used to take input from the user in Python?",
+            "options": ["input()", "get()", "read()", "scan()"],
+            "answer": "input()",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(type(10))?",
+            "options": ["<class 'float'>", "<class 'str'>", "<class 'int'>", "<class 'bool'>"],
+            "answer": "<class 'int'>",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a mutable data type?",
+            "options": ["tuple", "string", "list", "int"],
+            "answer": "list",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(10/3)?",
+            "options": ["3", "3.0", "3.33", "3.3333333333333335"],
+            "answer": "3.3333333333333335",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is not a keyword in Python?",
+            "options": ["pass", "eval", "assert", "nonlocal"],
+            "answer": "eval",
+            "points": 10
+        },
+        {
+            "question": "Which function gives the length of a list?",
+            "options": ["size()", "count()", "len()", "length()"],
+            "answer": "len()",
+            "points": 10
+        },
+        {
+            "question": "Which keyword is used to define a function in Python?",
+            "options": ["function", "define", "def", "fun"],
+            "answer": "def",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(2 ** 3)?",
+            "options": ["5", "6", "8", "9"],
+            "answer": "8",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a valid variable name in Python?",
+            "options": ["1var", "_var", "var-name", "var name"],
+            "answer": "_var",
+            "points": 10
+        },
+        {
+            "question": "What is the correct file extension for Python files?",
+            "options": [".pyt", ".pt", ".py", ".pyth"],
+            "answer": ".py",
+            "points": 10
+        },
+        {
+            "question": "Which function is used to take input from the user in Python?",
+            "options": ["input()", "get()", "read()", "scan()"],
+            "answer": "input()",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(type(10))?",
+            "options": ["<class 'float'>", "<class 'str'>", "<class 'int'>", "<class 'bool'>"],
+            "answer": "<class 'int'>",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a mutable data type?",
+            "options": ["tuple", "string", "list", "int"],
+            "answer": "list",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(10/3)?",
+            "options": ["3", "3.0", "3.33", "3.3333333333333335"],
+            "answer": "3.3333333333333335",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is not a keyword in Python?",
+            "options": ["pass", "eval", "assert", "nonlocal"],
+            "answer": "eval",
+            "points": 10
+        },
+        {
+            "question": "Which function gives the length of a list?",
+            "options": ["size()", "count()", "len()", "length()"],
+            "answer": "len()",
+            "points": 10
+        },
+        {
+            "question": "Which keyword is used to define a function in Python?",
+            "options": ["function", "define", "def", "fun"],
+            "answer": "def",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(2 ** 3)?",
+            "options": ["5", "6", "8", "9"],
+            "answer": "8",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a valid variable name in Python?",
+            "options": ["1var", "_var", "var-name", "var name"],
+            "answer": "_var",
+            "points": 10
+        },
+        {
+            "question": "What is the correct file extension for Python files?",
+            "options": [".pyt", ".pt", ".py", ".pyth"],
+            "answer": ".py",
+            "points": 10
+        },
+        {
+            "question": "Which function is used to take input from the user in Python?",
+            "options": ["input()", "get()", "read()", "scan()"],
+            "answer": "input()",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(type(10))?",
+            "options": ["<class 'float'>", "<class 'str'>", "<class 'int'>", "<class 'bool'>"],
+            "answer": "<class 'int'>",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a mutable data type?",
+            "options": ["tuple", "string", "list", "int"],
+            "answer": "list",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(10/3)?",
+            "options": ["3", "3.0", "3.33", "3.3333333333333335"],
+            "answer": "3.3333333333333335",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is not a keyword in Python?",
+            "options": ["pass", "eval", "assert", "nonlocal"],
+            "answer": "eval",
+            "points": 10
+        },
+        {
+            "question": "Which function gives the length of a list?",
+            "options": ["size()", "count()", "len()", "length()"],
+            "answer": "len()",
+            "points": 10
+        },
+        {
+            "question": "Which keyword is used to define a function in Python?",
+            "options": ["function", "define", "def", "fun"],
+            "answer": "def",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(2 ** 3)?",
+            "options": ["5", "6", "8", "9"],
+            "answer": "8",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a valid variable name in Python?",
+            "options": ["1var", "_var", "var-name", "var name"],
+            "answer": "_var",
+            "points": 10
+        },
+        {
+            "question": "What is the correct file extension for Python files?",
+            "options": [".pyt", ".pt", ".py", ".pyth"],
+            "answer": ".py",
+            "points": 10
+        },
+        {
+            "question": "Which function is used to take input from the user in Python?",
+            "options": ["input()", "get()", "read()", "scan()"],
+            "answer": "input()",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(type(10))?",
+            "options": ["<class 'float'>", "<class 'str'>", "<class 'int'>", "<class 'bool'>"],
+            "answer": "<class 'int'>",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is a mutable data type?",
+            "options": ["tuple", "string", "list", "int"],
+            "answer": "list",
+            "points": 10
+        },
+        {
+            "question": "What is the output of print(10/3)?",
+            "options": ["3", "3.0", "3.33", "3.3333333333333335"],
+            "answer": "3.3333333333333335",
+            "points": 10
+        },
+        {
+            "question": "Which of the following is not a keyword in Python?",
+            "options": ["pass", "eval", "assert", "nonlocal"],
+            "answer": "eval",
+            "points": 10
+        },
+        {
+            "question": "Which function gives the length of a list?",
+            "options": ["size()", "count()", "len()", "length()"],
+            "answer": "len()",
+            "points": 10
+        }
+    ]
+}
