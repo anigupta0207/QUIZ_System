@@ -172,62 +172,103 @@ def show_quiz_app():
         st.stop()
 
     # --- LEVEL SELECTION ---
+    #        --- LEVEL SELECTION (Modern Card Layout) ---
+    # --- LEVEL SELECTION (Modern Card Layout + Start Button) ---
     if st.session_state.selected_level is None:
+
         st.subheader(f"Choose {st.session_state.selected_subject} Quiz Level")
-        LEVEL_DESIGNS = [
-            {"level": "basic", "color": "linear-gradient(135deg,#7EE8FA 0%, #EEC0C6 100%)", "quote": "Start your journey!", "desc": "Beginner problems"},
-            {"level": "intermediate", "color": "linear-gradient(135deg,#FFA8A8 0%, #A890FE 100%)", "quote": "Go deeper!", "desc": "For improving skills"},
-            {"level": "advanced", "color": "linear-gradient(135deg,#FAD961 0%, #F76B1C 100%)", "quote": "Master the challenge!", "desc": "For experts"}
+
+        LEVELS = [
+            {
+                "level": "basic",
+                "color": "linear-gradient(135deg,#89f7fe 0%, #66a6ff 100%)",
+                "desc": "Beginner friendly",
+                "emoji": "🌱"
+            },
+            {
+                "level": "intermediate",
+                "color": "linear-gradient(135deg,#fbc2eb 0%, #a6c1ee 100%)",
+                "desc": "Boost your skills",
+                "emoji": "🚀"
+            },
+            {
+                "level": "advanced",
+                "color": "linear-gradient(135deg,#f6d365 0%, #fda085 100%)",
+                "desc": "Challenge yourself",
+                "emoji": "🔥"
+            }
         ]
+
+        # ✅ Modern CSS
         st.markdown("""
         <style>
-        .card-container {
-            position: relative;
-            width: 100%;
-            height: 180px;
-        }
-        .stButton > button {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 180px !important;
-            opacity: 0;
-            z-index: 10;
-            margin: 0;
-            border: none;
-            background: none;
-            color: transparent;
-            box-shadow: none;
-            cursor: pointer;
-        }
+            .level-card {
+                width: 100%;
+                padding: 24px;
+                border-radius: 18px;
+                color: white;
+                text-align: center;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.20);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                transition: 0.25s;
+                cursor: default;
+            }
+            .level-card:hover {
+                transform: translateY(-6px) scale(1.02);
+                box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+            }
+            .level-title {
+                font-size: 26px;
+                font-weight: 700;
+            }
+            .level-desc {
+                font-size: 16px;
+                margin-top: 6px;
+                opacity: 0.9;
+            }
+            .start-btn button {
+                background-color: rgba(255, 255, 255, 0.2) !important;
+                border: 2px solid white !important;
+                color: white !important;
+                padding: 8px 20px !important;
+                border-radius: 12px !important;
+                font-size: 16px !important;
+                margin-top: 15px !important;
+                transition: 0.25s;
+            }
+            .start-btn button:hover {
+                background-color: white !important;
+                color: black !important;
+            }
         </style>
         """, unsafe_allow_html=True)
+
         cols = st.columns(3)
-        for i, lvl in enumerate(LEVEL_DESIGNS):
+
+        for i, item in enumerate(LEVELS):
             with cols[i]:
-                btn_clicked = st.button(" ", key=f"LEVELBTN_{lvl['level']}")
-                border = "4px solid #fff" if st.session_state.get('selected_level') == lvl['level'] else "none"
+                
+                # Card UI
                 st.markdown(
                     f"""
-                    <div class='card-container'>
-                        <div style='width:100%;height:180px;background:{lvl['color']};
-                        border-radius:18px;border:{border};padding:28px 12px;color:white;
-                        text-align:center;box-shadow:0 2px 16px #2223;display:flex;
-                        flex-direction:column;align-items:center;justify-content:center;
-                        font-family:inherit;position:relative;'>
-                            <span style='font-size:27px;font-weight:bold;text-transform:capitalize;'>{lvl['level'].title()}</span>
-                            <span style='font-size:19px;font-style:italic;margin-bottom:2px;'>{lvl['quote']}</span>
-                            <span style='font-size:15px;'>{lvl['desc']}</span>
-                        </div>
+                    <div class="level-card" style="background:{item['color']}">
+                        <div class="level-title">{item['emoji']} {item['level'].title()}</div>
+                        <div class="level-desc">{item['desc']}</div>
                     </div>
                     """,
                     unsafe_allow_html=True
                 )
-                if btn_clicked:
-                    st.session_state.selected_level = lvl['level']
+
+                # ✅ Start Button
+                if st.button(f"Start {item['level'].title()}", key=f"START_{item['level']}", help="Begin this level"):
+                    st.session_state.selected_level = item["level"]
                     st.rerun()
+
         st.stop()
+
+
 
     # --- LOAD QUIZ DATA AND RUN QUIZ ---
     # Load data ONCE per quiz start
@@ -254,44 +295,80 @@ def show_quiz_app():
 
 
     # 4. Run Quiz
+# 4. Run Quiz (Modern UI)
+
     if not st.session_state.quiz_completed:
+
+        # ✅ Beautiful progress bar
+        progress = (st.session_state.current_question) / len(quiz["questions"])
+        st.progress(progress)
+
+        # ✅ Modern Card Style
+        st.markdown("""
+        <style>
+        .question-card {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+        }
+        .option-item {
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin: 6px 0;
+            transition: 0.15s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .option-item:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
         question_data = quiz["questions"][st.session_state.current_question]
-        st.subheader(f"Question {st.session_state.current_question + 1} of {len(quiz['questions'])}")
-        st.write(f"**{question_data['question']}**")
+
+        # ✅ Question Card
+        st.markdown(f"""
+        <div class="question-card">
+            <h3>Question {st.session_state.current_question + 1} of {len(quiz["questions"])}</h3>
+            <p style="font-size:18px; font-weight:500;">{question_data['question']}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # ✅ Modern Highlighted Buttons
         selected_option = st.radio(
-            "Choose your answer:",
+            "Select your answer:",
             question_data["options"],
             index=None,
-            key=f"question_{st.session_state.current_question}"
+            key=f"q_{st.session_state.current_question}"
         )
+
+        st.write("")
+
+        # ✅ Submit Answer
         if st.button("Submit Answer", type="primary"):
+
             if selected_option is None:
                 st.warning("Please select an option before submitting!")
                 st.stop()
+
             if selected_option == question_data['answer']:
-                st.session_state.score += question_data['points']
+                st.success("✅ Correct answer!")
+                st.session_state.score += question_data["points"]
+            else:
+                st.error(f"❌ Wrong! Correct answer: **{question_data['answer']}**")
+
+            # Next question or finish
             if st.session_state.current_question < len(quiz["questions"]) - 1:
                 st.session_state.current_question += 1
                 st.rerun()
             else:
                 st.session_state.quiz_completed = True
-                # Save score
-                user_scores_path = os.path.join(current_dir, "user_scores.json")
-                if os.path.exists(user_scores_path):
-                    with open(user_scores_path, "r", encoding="utf-8") as f:
-                        user_scores = json.load(f)
-                else:
-                    user_scores = {}
-                uname = st.session_state.username
-                if uname not in user_scores:
-                    user_scores[uname] = {}
-                user_scores[uname][str(quiz["id"])] = {
-                    "score": st.session_state.score,
-                    "completed_at": datetime.now().isoformat(),
-                    "quiz_title": quiz["title"]
-                }
-                save_user_scores(user_scores)
                 st.rerun()
+
 
     else:
         # Quiz completed
