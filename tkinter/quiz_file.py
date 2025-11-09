@@ -174,7 +174,11 @@ if not user_name or not user_name.strip():
     user_name = " "                                                               
 
 
-quiz_data = load_quiz_from_file("quiz_data.txt")      # Load data from external file
+# Use direct path to quiz_data.txt
+quiz_data_path = r"c:\Users\Arshita\OneDrive\Desktop\python_3rdsem\QUIZ_System\quiz_data.txt"
+
+# Load the quiz data
+quiz_data = load_quiz_from_file(quiz_data_path)      # Load data from external file
 
 if not quiz_data:
     tmsg.showinfo("Info", "No quiz data available.")
