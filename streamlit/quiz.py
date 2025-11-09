@@ -71,11 +71,10 @@ def save_user_scores(user_scores):
         json.dump(user_scores, f, indent=4)
 
 def show_quiz_app():
-    # Main quiz application function.
     st.set_page_config(page_title="Quiz App", page_icon="🎯", layout="wide")
     st.title("🎯 Quiz Master Pro")
 
-    # Session state initializers for navigation/quiz selection
+    # Session state initializers
     if "selected_subject" not in st.session_state:
         st.session_state.selected_subject = None
     if "selected_level" not in st.session_state:
@@ -89,7 +88,6 @@ def show_quiz_app():
     if "quiz_completed" not in st.session_state:
         st.session_state.quiz_completed = False
 
-    # Mapping for quiz files (by subject + level)
     current_dir = os.path.dirname(os.path.abspath(__file__))
     questions_dir = os.path.join(current_dir, "questions")
     quiz_files = {
@@ -110,35 +108,30 @@ def show_quiz_app():
         }
     }
 
-    # Check if user is logged in
+    # Login check
     if not st.session_state.get("logged_in", False):
         st.warning("Please log in first to access the quiz application.")
         return
 
     st.sidebar.success(f"✅ Logged in as: {st.session_state.username}")
 
-    # 1. Select Subject
-    # ... previous code ...
-
+    # --- SUBJECT SELECTION ---
     if st.session_state.selected_subject is None:
         st.subheader("Choose Your Subject")
         subject_image_cards = [
-            {"name": "C", "img_url": "https://img.icons8.com/color/96/000000/c-programming.png", "desc": "Efficient systems programming"},
-            {"name": "C++", "img_url": "https://img.icons8.com/color/96/000000/c-plus-plus-logo.png", "desc": "Object-oriented and advanced algorithms"},
-            {"name": "Python", "img_url": "https://img.icons8.com/color/96/000000/python.png", "desc": "Rapid scripting and data science"}
+            {"name": "C", "img_url": "c_logo.jpg", "desc": "Efficient systems programming"},
+            {"name": "C++", "img_url": "streamlit/cpp_logo.jpg", "desc": "Object-oriented and advanced algorithms"},
+            {"name": "Python", "img_url": "streamlit/python_logo.jpg", "desc": "Rapid scripting and data science"}
         ]
         cols = st.columns(3)
         for i, card in enumerate(subject_image_cards):
             with cols[i]:
-                st.image(card["img_url"],width=250)
-                # Center name and description together
+                st.image(card["img_url"], width=250)
                 st.markdown(
-                    f"""
-                    <div style='text-align:center; margin-top:10px;'>
+                    f"""<div style='text-align:center; margin-top:10px;'>
                         <span style='font-size:24px; font-weight:bold;'>{card['name']}</span><br>
                         <span style='color:gray; font-size:15px;'>{card['desc']}</span>
-                    </div>
-                    """,
+                      </div>""",
                     unsafe_allow_html=True
                 )
                 if st.button(f"Select {card['name']}", key=f"subject_img_{card['name']}"):
@@ -146,14 +139,66 @@ def show_quiz_app():
                     st.rerun()
         st.stop()
 
-    # 2. Select Level
+    # --- LEVEL SELECTION ---
     if st.session_state.selected_level is None:
         st.subheader(f"Choose {st.session_state.selected_subject} Quiz Level")
-        levels = ["basic", "intermediate", "advanced"]
-        st.session_state.selected_level = st.radio("Select Level:", levels)
+        LEVEL_DESIGNS = [
+            {"level": "basic", "color": "linear-gradient(135deg,#7EE8FA 0%, #EEC0C6 100%)", "quote": "Start your journey!", "desc": "Beginner problems"},
+            {"level": "intermediate", "color": "linear-gradient(135deg,#FFA8A8 0%, #A890FE 100%)", "quote": "Go deeper!", "desc": "For improving skills"},
+            {"level": "advanced", "color": "linear-gradient(135deg,#FAD961 0%, #F76B1C 100%)", "quote": "Master the challenge!", "desc": "For experts"}
+        ]
+        st.markdown("""
+        <style>
+        .card-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+        }
+        .stButton > button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 180px !important;
+            opacity: 0;
+            z-index: 10;
+            margin: 0;
+            border: none;
+            background: none;
+            color: transparent;
+            box-shadow: none;
+            cursor: pointer;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        cols = st.columns(3)
+        for i, lvl in enumerate(LEVEL_DESIGNS):
+            with cols[i]:
+                btn_clicked = st.button(" ", key=f"LEVELBTN_{lvl['level']}")
+                border = "4px solid #fff" if st.session_state.get('selected_level') == lvl['level'] else "none"
+                st.markdown(
+                    f"""
+                    <div class='card-container'>
+                        <div style='width:100%;height:180px;background:{lvl['color']};
+                        border-radius:18px;border:{border};padding:28px 12px;color:white;
+                        text-align:center;box-shadow:0 2px 16px #2223;display:flex;
+                        flex-direction:column;align-items:center;justify-content:center;
+                        font-family:inherit;position:relative;'>
+                            <span style='font-size:27px;font-weight:bold;text-transform:capitalize;'>{lvl['level'].title()}</span>
+                            <span style='font-size:19px;font-style:italic;margin-bottom:2px;'>{lvl['quote']}</span>
+                            <span style='font-size:15px;'>{lvl['desc']}</span>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+                if btn_clicked:
+                    st.session_state.selected_level = lvl['level']
+                    st.rerun()
         st.stop()
 
-    # 3. Load quiz data according to selection (only once)
+    # --- LOAD QUIZ DATA AND RUN QUIZ ---
+    # Load data ONCE per quiz start
     if st.session_state.current_quiz is None:
         filename = quiz_files[st.session_state.selected_subject][st.session_state.selected_level]
         if os.path.exists(filename):
@@ -171,6 +216,11 @@ def show_quiz_app():
 
     quiz = st.session_state.current_quiz
 
+    # Show quiz or results here...
+    # Add your question rendering and completion logic
+
+
+
     # 4. Run Quiz
     if not st.session_state.quiz_completed:
         question_data = quiz["questions"][st.session_state.current_question]
@@ -183,11 +233,11 @@ def show_quiz_app():
             key=f"question_{st.session_state.current_question}"
         )
         if st.button("Submit Answer", type="primary"):
+            if selected_option is None:
+                st.warning("Please select an option before submitting!")
+                st.stop()
             if selected_option == question_data['answer']:
                 st.session_state.score += question_data['points']
-                st.success("Correct! 🎉")
-            else:
-                st.error(f"Wrong! The correct answer is: {question_data['answer']}")
             if st.session_state.current_question < len(quiz["questions"]) - 1:
                 st.session_state.current_question += 1
                 st.rerun()
