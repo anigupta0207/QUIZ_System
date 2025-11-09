@@ -4,6 +4,17 @@ import time
 import os
 import soundfile as sf
 import winsound
+import signal
+import sys
+
+# ✅ Shutdown handler for Streamlit logout
+stop_signal = False
+def handle_exit(signum, frame):
+    global stop_signal
+    stop_signal = True
+
+signal.signal(signal.SIGTERM, handle_exit)
+signal.signal(signal.SIGINT, handle_exit)
 
 # === Setup ===
 os.makedirs('audio_captures', exist_ok=True)
@@ -14,7 +25,6 @@ def calibrate_background(duration=4):
     recording = sd.rec(int(duration * 44100), samplerate=44100, channels=1, dtype='float64')
     sd.wait()
 
-    # Compute RMS (Root Mean Square)
     bg_level = np.sqrt(np.mean(recording ** 2))
     print(f" Average background noise level: {bg_level:.6f}")
     return bg_level
@@ -22,12 +32,18 @@ def calibrate_background(duration=4):
 def detect_sound(threshold, duration=1):
     print("\n Voice detection started! (Press Ctrl+C to stop)\n")
 
-    while True:
+    # ✅ Exit loop on stop_signal
+    while not stop_signal:
         try:
             recording = sd.rec(int(duration * 44100), samplerate=44100, channels=1, dtype='float64')
             sd.wait()
 
             volume = np.sqrt(np.mean(recording ** 2))
+
+            # ✅ Check shutdown between reads
+            if stop_signal:
+                print("🛑 Stopping voice monitoring...")
+                break
 
             if volume > threshold:
                 print(f"Sound detected! Volume: {volume:.4f}")
@@ -50,7 +66,7 @@ def detect_sound(threshold, duration=1):
 
 try:
     bg_level = calibrate_background(duration=4)
-    threshold = bg_level * 1.5  
+    threshold = bg_level * 1.5
     detect_sound(threshold)
 
 except KeyboardInterrupt:
