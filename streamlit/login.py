@@ -44,7 +44,7 @@ def verify_user(username, password, users):
 
 def show_login_system():
     st.set_page_config(page_title="Login System", page_icon="🔐", layout="centered")
-    st.title("🔐 Streamlit Login System")
+    st.title("Quiz System ........🧑🏼‍💻/👩🏼‍💻")
 
     users = load_users()
     scores = load_scores()

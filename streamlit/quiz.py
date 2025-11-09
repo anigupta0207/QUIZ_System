@@ -122,29 +122,54 @@ def show_quiz_app():
 
     if st.session_state.selected_subject is None:
         st.subheader("Choose Your Subject")
-        subject_image_cards = [
-            {"name": "C", "img_url": "https://img.icons8.com/color/96/000000/c-programming.png", "desc": "Efficient systems programming"},
-            {"name": "C++", "img_url": "https://img.icons8.com/color/96/000000/c-plus-plus-logo.png", "desc": "Object-oriented and advanced algorithms"},
-            {"name": "Python", "img_url": "https://img.icons8.com/color/96/000000/python.png", "desc": "Rapid scripting and data science"}
+
+        subjects = [
+            {"name": "C", "img": "https://img.icons8.com/color/150/c-programming.png", "desc": "Efficient systems programming"},
+            {"name": "C++", "img": "https://img.icons8.com/color/150/c-plus-plus-logo.png", "desc": "Object-oriented programming"},
+            {"name": "Python", "img": "https://img.icons8.com/color/150/python.png", "desc": "Rapid scripting & automation"}
         ]
+
+        st.markdown("""
+            <style>
+                .subject-container {
+                    text-align: center;
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    min-height: 330px;
+                }
+                .center-btn {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 10px;
+                }
+            </style>
+        """, unsafe_allow_html=True)
+
         cols = st.columns(3)
-        for i, card in enumerate(subject_image_cards):
+
+        for i, card in enumerate(subjects):
             with cols[i]:
-                st.image(card["img_url"],width=250)
-                # Center name and description together
-                st.markdown(
-                    f"""
-                    <div style='text-align:center; margin-top:10px;'>
-                        <span style='font-size:24px; font-weight:bold;'>{card['name']}</span><br>
-                        <span style='color:gray; font-size:15px;'>{card['desc']}</span>
+                st.markdown(f"""
+                    <div class="subject-container">
+                        <img src="{card['img']}" width="150">
+                        <h3>{card['name']}</h3>
+                        <p style='color:gray;'>{card['desc']}</p>
                     </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-                if st.button(f"Select {card['name']}", key=f"subject_img_{card['name']}"):
-                    st.session_state.selected_subject = card['name']
+                """, unsafe_allow_html=True)
+
+                # ✅ Perfectly centered button
+                st.markdown("<div class='center-btn'>", unsafe_allow_html=True)
+                if st.button(f"Select {card['name']}", key=f"sub_{card['name']}"):
+                    st.session_state.selected_subject = card["name"]
+                    st.session_state.selected_level = None
                     st.rerun()
+                st.markdown("</div>", unsafe_allow_html=True)
+
         st.stop()
+
 
     # 2. Select Level
     if st.session_state.selected_level is None:
