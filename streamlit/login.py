@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import os
 import hashlib
+import re
 
 # ---------- Utility Functions ----------
 
@@ -95,12 +96,17 @@ def show_login_system():
             confirm_password = st.text_input("Confirm Password", type="password", key="signup_conf")
 
             if st.button("Sign Up", key="signup_btn"):
+                valid_username = re.fullmatch(r"[A-Za-z0-9_]+", new_username)
+                
                 if new_username in users:
                     st.warning("Username already exists! Try another.")
                 elif new_password != confirm_password:
                     st.warning("Passwords do not match.")
-                elif len(new_username) < 3 or len(new_password) < 3:
+                elif not valid_username:
+                    st.warning("Username can only contain letters, numbers, and underscore (_)")
+                elif len(new_username) < 5 or len(new_password) < 3:
                     st.warning("Username and password must be at least 3 characters.")
+                
                 else:
                     users[new_username] = {
                         "password": hash_password(new_password),

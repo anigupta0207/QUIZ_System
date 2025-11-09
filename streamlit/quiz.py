@@ -295,7 +295,6 @@ def show_quiz_app():
 
 
     # 4. Run Quiz
-# 4. Run Quiz (Modern UI)
 
     if not st.session_state.quiz_completed:
 
