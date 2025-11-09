@@ -1,11 +1,14 @@
 from tkinter import *
-import tkinter.messagebox as tmsg
-
+from tkinter import messagebox as tmsg
+from datetime import datetime
+from tkinter import simpledialog   
+import os                          
+       
 # LOAD QUIZ DATA FROM TXT FILE
 def load_quiz_from_file(filename):
     quiz_list = []
     try:
-        with open(filename, "r") as f:
+        with open(filename, "r", encoding="utf-8") as f:
             content = f.read().strip()
 
         blocks = content.split("\n\n")      #Split by blank lines
@@ -43,6 +46,46 @@ def load_quiz_from_file(filename):
 
     return quiz_list
 
+# SAVE RESULT TO FILE  (REPLACE your function with this one)
+def save_result_to_file(name, score, total, duration_seconds, user_choices, quiz_data):
+    os.makedirs("attempts", exist_ok=True)  # ensure folder exists
+
+    # --- summary line ---
+    with open("results.txt", "a", encoding="utf-8") as f:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        percent = round((score/total)*100, 2) if total else 0
+        f.write(f"{timestamp} | Name: {name} | Score: {score}/{total} | {percent}% | Duration: {int(duration_seconds)}s\n")
+
+    # --- detailed attempt file ---
+    ts_slug = datetime.now().strftime("%Y%m%d_%H%M%S")
+    safe_name = "".join(c for c in name if c.isalnum() or c in (" ","_","-")).strip().replace(" ", "_") or "Anonymous"
+    attempt_path = os.path.join("attempts", f"{ts_slug}_{safe_name}.txt")
+
+    with open(attempt_path, "w", encoding="utf-8") as f:
+        f.write(f"Name: {name}\n")
+        f.write(f"Timestamp: {timestamp}\n")
+        f.write(f"Total Questions: {len(quiz_data)}\n")
+        f.write(f"Duration: {int(duration_seconds)} seconds\n")
+        f.write("-"*60 + "\n\n")
+        for i, q in enumerate(quiz_data):
+            chosen = user_choices[i] if i < len(user_choices) else ""
+            is_correct = "Correct" if chosen == q["answer"] else "Incorrect"
+            f.write(f"Q{i+1}. {q['question']}\n")
+            for idx, opt in enumerate(q["options"]):
+                tag = []
+                if opt == q["answer"]:
+                    tag.append("Correct")
+                if opt == chosen:
+                    tag.append("Chosen")
+                tag_str = f" ({', '.join(tag)})" if tag else ""
+                f.write(f"  {chr(ord('A')+idx)}) {opt}{tag_str}\n")
+            f.write(f"Result: {is_correct}\n")
+            f.write("-"*60 + "\n")
+        f.write(f"\nFinal Score: {score}/{len(quiz_data)} ({percent}%)\n")
+
+    return attempt_path
+
+
 # QUIZ LOGIC
 def display_question():
     global q_no
@@ -66,6 +109,10 @@ def next_question():
         return
     if choice == quiz_data[q_no]["answer"]:
         score += 1
+    if len(user_choices) == q_no:       # Store user choice
+        user_choices.append(choice)
+    else:
+        user_choices[q_no] = choice
 
     q_no += 1
     if q_no < len(quiz_data):
@@ -74,23 +121,58 @@ def next_question():
         show_result()
 
 def show_result():
-    tmsg.showinfo("Quiz Completed", f"Your Score: {score}/{len(quiz_data)}")
-    root.destroy()
+    end_time = datetime.now()                                            
+    duration_seconds = (end_time - start_time).total_seconds()           
+    attempt_path = save_result_to_file(                                  
+        user_name, score, len(quiz_data), duration_seconds, user_choices, quiz_data
+    )
+    tmsg.showinfo("Quiz Completed",                                      
+                  f"Your Score: {score}/{len(quiz_data)}\n\n"
+                 # f"Summary saved to: results.txt\n"
+                 # f"Detailed attempt: {attempt_path}"
+                )                   
+    root.destroy()                                                      
+
 
 def restart_quiz():
-    global q_no, score
+    global q_no, score, start_time, user_choices
     q_no = 0
     score = 0
+    user_choices = []   # Reset user choices
+    start_time = datetime.now()  # Reset start time
     display_question()
+
+def view_results_admin():
+    if not os.path.exists("results.txt"):
+        tmsg.showinfo("Info", "No results recorded yet.")
+        return
+    top = Toplevel(root)
+    top.title("All Results (Summary)")
+    top.geometry("700x450")
+    txt = Text(top, wrap="word", font=("Consolas", 11))
+    txt.pack(fill="both", expand=True)
+    with open("results.txt", "r", encoding="utf-8") as f:
+        txt.insert("1.0", f.read())
+    txt.config(state=DISABLED)
 
 # MAIN APPLICATION SETUP
 root = Tk()
 root.title("Quiz App")
-root.geometry("520x420")
+root.geometry("700x500")
 root.config(bg="white")
-selected_option = StringVar(value="")
+
+root.withdraw()  # Hide main window during name input
+
+selected_option = StringVar(root, value="")
 q_no = 0
 score = 0
+user_choices = []                
+start_time = datetime.now()
+
+user_name = simpledialog.askstring("Identify Yourself", "Enter your name:", parent=root)  
+if not user_name or not user_name.strip():                                                
+    user_name = " "                                                               
+
 
 quiz_data = load_quiz_from_file("quiz_data.txt")      # Load data from external file
 
@@ -116,6 +198,13 @@ else:
     status_label = Label(root, text="", font="Arial 12", bg="white")
     status_label.pack(pady=(0,10))
 
+    root.deiconify()  # Show main window
+    root.lift()         # Bring to front
+    root.focus_force()  # Focus on it
 
-display_question() 
-root.mainloop()
+    try:
+        display_question()
+    except Exception as e:
+        tmsg.showerror("Error while displaying first question", str(e))
+
+    root.mainloop()

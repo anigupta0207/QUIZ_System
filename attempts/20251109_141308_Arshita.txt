@@ -1,0 +1,78 @@
+Name: Arshita
+Timestamp: 2025-11-09 14:13:08
+Total Questions: 10
+Duration: 44 seconds
+------------------------------------------------------------
+
+Q1. Which of the following cannot be overloaded in C++?
+  A) ++
+  B) ->
+  C) :: (Correct, Chosen)
+  D) ()
+Result: Correct
+------------------------------------------------------------
+Q2. What does 'mutable' keyword allow in a const object?
+  A) Change static members
+  B) Modify that specific member (Correct, Chosen)
+  C) Modify all members
+  D) None
+Result: Correct
+------------------------------------------------------------
+Q3. Which constructor is called during object copy?
+  A) Default
+  B) Parameterized (Chosen)
+  C) Copy constructor (Correct)
+  D) Move constructor
+Result: Incorrect
+------------------------------------------------------------
+Q4. What is the output of sizeof('A')?
+  A) 1 (Correct, Chosen)
+  B) 2
+  C) 4
+  D) Depends on compiler
+Result: Correct
+------------------------------------------------------------
+Q5. Which cast is safest among the following?
+  A) reinterpret_cast (Chosen)
+  B) static_cast
+  C) const_cast
+  D) dynamic_cast (Correct)
+Result: Incorrect
+------------------------------------------------------------
+Q6. Which function in a class cannot be virtual?
+  A) Constructor (Correct)
+  B) Destructor
+  C) Member Function (Chosen)
+  D) Operator Function
+Result: Incorrect
+------------------------------------------------------------
+Q7. When does a destructor get called automatically?
+  A) At program start
+  B) When object is destroyed (Correct, Chosen)
+  C) At object creation
+  D) When memory leaks occur
+Result: Correct
+------------------------------------------------------------
+Q8. What is a pure virtual function?
+  A) Function with no return
+  B) Function with body
+  C) Function declared with = 0 (Correct, Chosen)
+  D) Function using static
+Result: Correct
+------------------------------------------------------------
+Q9. What does 'this' pointer represent?
+  A) Pointer to base class
+  B) Pointer to calling object (Correct, Chosen)
+  C) Pointer to derived class
+  D) Pointer to global scope
+Result: Correct
+------------------------------------------------------------
+Q10. What happens when delete is applied to a null pointer?
+  A) Runtime error
+  B) Segmentation fault
+  C) No effect (Correct, Chosen)
+  D) Memory leak
+Result: Correct
+------------------------------------------------------------
+
+Final Score: 7/10 (70.0%)
