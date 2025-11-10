@@ -89,16 +89,14 @@ def show_admin_dashboard():
         font-weight: 500;
     }
     .top-stat {
-    text-align: center;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 16px;
-    border: 2px solid #a7f3d0;
-    box-shadow: 0 4px 10px rgba(16,185,129,0.12);
-    transition: all 0.3s ease-in-out;
-}
-
-    /* Neon mint glow on hover */
+        text-align: center;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 16px;
+        border: 2px solid #a7f3d0;
+        box-shadow: 0 4px 10px rgba(16,185,129,0.12);
+        transition: all 0.3s ease-in-out;
+    }
     .top-stat:hover {
         border-color: #10b981;
         box-shadow:
@@ -109,7 +107,6 @@ def show_admin_dashboard():
         transform: translateY(-5px);
         background: linear-gradient(180deg, #ffffff, #f0fff9);
     }
-
     h3 {
         color: #059669;
         font-weight: 700;
@@ -135,23 +132,22 @@ def show_admin_dashboard():
         background-color: #ffffff !important;
         color: #1e293b !important;
     }
-                    /* ---------- Fix for Streamlit Selectbox ---------- */
     div[data-baseweb="select"] > div {
-        background-color: #ffffff !important;          /* white background */
-        border: 1.5px solid #a7f3d0 !important;        /* mint border */
+        background-color: #ffffff !important;
+        border: 1.5px solid #a7f3d0 !important;
         border-radius: 10px !important;
-        color: #1e293b !important;                     /* dark text */
+        color: #1e293b !important;
         transition: 0.3s;
     }
     div[data-baseweb="select"] > div:hover {
-        border-color: #10b981 !important;              /* emerald hover border */
+        border-color: #10b981 !important;
         box-shadow: 0 0 0 3px rgba(16,185,129,0.2) !important;
     }
     div[data-baseweb="select"] svg {
-        color: #059669 !important;                     /* mint arrow color */
+        color: #059669 !important;
     }
     div[data-baseweb="popover"] {
-        background-color: #ffffff !important;          /* dropdown background */
+        background-color: #ffffff !important;
         border: 1px solid #a7f3d0 !important;
         border-radius: 10px !important;
     }
@@ -160,10 +156,9 @@ def show_admin_dashboard():
         color: #1e293b !important;
     }
     div[data-baseweb="popover"] li:hover {
-        background-color: #ecfdf5 !important;          /* mint hover */
+        background-color: #ecfdf5 !important;
         color: #065f46 !important;
     }
-
     </style>
     """, unsafe_allow_html=True)
 
@@ -185,179 +180,176 @@ def show_admin_dashboard():
         admin_count = sum(1 for info in users.values() if info.get('role') == 'admin')
         st.markdown(f"<div class='top-stat'><h3>Total Admins</h3><h2>{admin_count}</h2></div>", unsafe_allow_html=True)
 
-    # ---------- SCORES ----------
-    st.markdown("<div class='sub-heading'>📊 Student Scores & Ranking</div>", unsafe_allow_html=True)
+    st.write("")  # spacing
 
-    if not user_scores:
-        st.info("No student scores available yet.")
-    else:
-        records = []
-        for user, quizzes in user_scores.items():
-            for quiz_id, q in quizzes.items():
-                records.append({
-                    "Username": user,
-                    "Subject": q.get("subject", "Unknown"),
-                    "Quiz Title": q.get("quiz_title", "Unknown"),
-                    "Score": q.get("score", 0),
-                    "Completed At": q.get("completed_at", "N/A")
-                })
-        df = pd.DataFrame(records).sort_values(by="Score", ascending=False).reset_index(drop=True)
-        df.index += 1
-        # ---------- Styled Light Table ----------
-        st.markdown("""
-        <style>
-        .light-table thead th {
-            background-color: #d1fae5 !important;   /* Mint header */
-            color: #064e3b !important;              /* Dark green text */
-            font-weight: 600 !important;
-            text-align: center !important;
-            border-bottom: 2px solid #a7f3d0 !important;
-        }
-        .light-table tbody td {
-            background-color: white !important;
-            color: #1e293b !important;
-            border-top: 1px solid #a7f3d0 !important;
-            text-align: center !important;
-            font-size: 15px !important;
-            padding: 6px !important;
-        }
-        .light-table tbody tr:hover td {
-            background-color: #ecfdf5 !important;   /* Mint hover */
-        }
-        </style>
-        """, unsafe_allow_html=True)
+    # ✅✅✅ TABS ADDED HERE ✅✅✅
+    tab1, tab2, tab3 = st.tabs([
+        "📊 Scores & Ranking",
+        "📈 Insights / Charts",
+        "🧑‍💻 Manage Users"
+    ])
 
-        # Convert to HTML manually for full control
-        table_html = df.to_html(index=True, classes="light-table", border=0)
-        st.markdown(f"""
-        <div style="
-            background:white;
-            border:1px solid #a7f3d0;
-            border-radius:12px;
-            box-shadow:0 4px 10px rgba(16,185,129,0.1);
-            padding:10px;
-            margin-top:10px;
-        ">
-        {table_html}
-        </div>
-        """, unsafe_allow_html=True)
-
-
-
-        # ---------- TOP 3 ----------
-        st.markdown("<br><h4>🏆 Top Performers</h4>", unsafe_allow_html=True)
-        top3 = df.head(3)
-        for i, row in top3.iterrows():
-            st.write(f"**{i}. {row['Username']}** — {row['Score']} points ({row['Quiz Title']})")
-
-        # ---------- QUIZ RESULT BAR CHARTS BY SUBJECT ----------
-        st.markdown("<br><h4>📊 Student Marks by Subject and Level</h4>", unsafe_allow_html=True)
-
-        subjects = ["C", "C++", "Python"]
-        difficulty_levels = ["Basic", "Intermediate", "Advanced"]
-
-        # Mint-green color scheme
-        level_colors = {
-            "Basic": "#bbf7d0",         # light mint
-            "Intermediate": "#34d399",  # medium mint
-            "Advanced": "#065f46"       # dark emerald
-        }
-
-        # Create one chart per subject
-        chart_cols = st.columns(3)
-
-        for i, subject in enumerate(subjects):
-            subject_df = df[df["Subject"].str.lower() == subject.lower()]
-
-            with chart_cols[i]:
-                st.markdown(f"<h5 style='color:#047857; font-weight:700;'>💻 {subject}</h5>", unsafe_allow_html=True)
-
-                if subject_df.empty:
-                    st.info(f"No data for {subject}")
-                    continue
-
-                # Extract quiz level from quiz title (Basic / Intermediate / Advanced)
-                subject_df["Level"] = subject_df["Quiz Title"].apply(
-                    lambda x: (
-                        "Basic" if "basic" in x.lower()
-                        else "Intermediate" if "intermediate" in x.lower()
-                        else "Advanced" if "advanced" in x.lower()
-                        else "Unknown"
-                    )
-                )
-
-                # Filter only valid levels
-                subject_df = subject_df[subject_df["Level"] != "Unknown"]
-
-                if subject_df.empty:
-                    st.info(f"No valid quiz levels for {subject}")
-                    continue
-
-                # Build bar chart
-                bar_chart = (
-                    alt.Chart(subject_df, background="#ffffff")
-                    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
-                    .encode(
-                        x=alt.X("Username:N", title="Student Name", sort=alt.SortField("Score", order="descending")),
-                        y=alt.Y("Score:Q", title="Marks"),
-                        color=alt.Color(
-                            "Level:N",
-                            scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
-                            legend=alt.Legend(title="Level")
-                        ),
-                        tooltip=["Username", "Level", "Score", "Quiz Title"]
-                    )
-                    .properties(width=300, height=300)
-                    .configure_axis(
-                        gridColor="#e5e7eb",
-                        labelColor="#1e293b",
-                        titleColor="#047857"
-                    )
-                    .configure_view(
-                        strokeOpacity=0
-                    )
-                )
-
-                st.altair_chart(bar_chart, use_container_width=False)
-
-
-
-
-    # ---------- MANAGE USERS ----------
-    st.markdown("<div class='sub-heading'>🧑‍💻 Manage Users</div>", unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.subheader("Delete User")
-        deletable = [u for u in users if u.lower() != "admin"]
-        if deletable:
-            user_to_delete = st.selectbox("Select user", deletable)
-            if st.button("🗑️ Delete User"):
-                del users[user_to_delete]
-                save_json(USERS_FILE, users)
-                st.success(f"User '{user_to_delete}' deleted.")
-                st.rerun()
+    # ---------------------------------------------------------------------
+    # ✅ TAB 1: SCORES & RANKING
+    # ---------------------------------------------------------------------
+    with tab1:
+        
+        if not user_scores:
+            st.info("No student scores available yet.")
         else:
-            st.info("No users to delete.")
+            # Prepare dataframe
+            records = []
+            for user, quizzes in user_scores.items():
+                for quiz_id, q in quizzes.items():
+                    records.append({
+                        "Username": user,
+                        "Subject": q.get("subject", "Unknown"),
+                        "Quiz Title": q.get("quiz_title", "Unknown"),
+                        "Score": q.get("score", 0),
+                        "Completed At": q.get("completed_at", "N/A")
+                    })
 
-    with col2:
-        st.subheader("Promote to Admin")
-        promotable = [u for u, info in users.items() if info.get("role") == "user"]
-        if promotable:
-            user_to_promote = st.selectbox("Choose user", promotable)
-            if st.button("⬆️ Promote User"):
-                users[user_to_promote]["role"] = "admin"
-                save_json(USERS_FILE, users)
-                st.success(f"User '{user_to_promote}' promoted!")
-                st.rerun()
+            df = pd.DataFrame(records).sort_values(by="Score", ascending=False).reset_index(drop=True)
+            df.index += 1
+
+            # ✅ TOP 3 FIRST
+            st.markdown("<br><h4>🏆 Top Performers</h4>", unsafe_allow_html=True)
+            top3 = df.head(3)
+
+            for i, row in top3.iterrows():
+                st.write(f"**{i}. {row['Username']}** — {row['Score']} points ({row['Quiz Title']})")
+
+            # ✅ NOW STUDENT SCORE TABLE
+            st.markdown("<div class='sub-heading'>📊 Student Scores & Ranking</div>", unsafe_allow_html=True)
+
+            table_html = df.to_html(index=True, classes="light-table", border=0)
+            st.markdown(f"""
+            <div style="
+                background:white;
+                border:1px solid #a7f3d0;
+                border-radius:12px;
+                box-shadow:0 4px 10px rgba(16,185,129,0.1);
+                padding:10px;
+                margin-top:10px;
+            ">
+            {table_html}
+            </div>
+            """, unsafe_allow_html=True)
+
+
+    # ---------------------------------------------------------------------
+    # ✅ TAB 2: CHARTS / INSIGHTS
+    # ---------------------------------------------------------------------
+    with tab2:
+        st.markdown("<div class='sub-heading'>📈 Subject-wise Performance</div>", unsafe_allow_html=True)
+
+        if not user_scores:
+            st.info("No performance data yet.")
         else:
-            st.info("No users available to promote.")
+            records = []
+            for user, quizzes in user_scores.items():
+                for quiz_id, q in quizzes.items():
+                    records.append({
+                        "Username": user,
+                        "Subject": q.get("subject", "Unknown"),
+                        "Quiz Title": q.get("quiz_title", "Unknown"),
+                        "Score": q.get("score", 0)
+                    })
 
-    st.markdown("</div>", unsafe_allow_html=True)
+            df = pd.DataFrame(records)
 
-    # ---------- LOGOUT ----------
+            subjects = ["C", "C++", "Python"]
+            difficulty_levels = ["Basic", "Intermediate", "Advanced"]
+
+            level_colors = {
+                "Basic": "#bbf7d0",
+                "Intermediate": "#34d399",
+                "Advanced": "#065f46"
+            }
+
+            chart_cols = st.columns(3)
+
+            for i, subject in enumerate(subjects):
+                subject_df = df[df["Subject"].str.lower() == subject.lower()]
+
+                with chart_cols[i]:
+                    st.markdown(f"<h5 style='color:#047857; font-weight:700;'>💻 {subject}</h5>",
+                                unsafe_allow_html=True)
+
+                    if subject_df.empty:
+                        st.info(f"No data for {subject}")
+                        continue
+
+                    subject_df["Level"] = subject_df["Quiz Title"].apply(
+                        lambda x: (
+                            "Basic" if "basic" in x.lower()
+                            else "Intermediate" if "intermediate" in x.lower()
+                            else "Advanced" if "advanced" in x.lower()
+                            else "Unknown"
+                        )
+                    )
+
+                    subject_df = subject_df[subject_df["Level"] != "Unknown"]
+
+                    if subject_df.empty:
+                        st.info("No valid quiz levels for this subject")
+                        continue
+
+                    bar_chart = (
+                        alt.Chart(subject_df, background="#ffffff")
+                        .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
+                        .encode(
+                            x=alt.X("Username:N", title="Student", sort="-y"),
+                            y=alt.Y("Score:Q", title="Marks"),
+                            color=alt.Color(
+                                "Level:N",
+                                scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
+                                legend=alt.Legend(title="Level")
+                            ),
+                            tooltip=["Username", "Level", "Score", "Quiz Title"]
+                        )
+                        .properties(width=300, height=300)
+                        .configure_view(strokeOpacity=0)
+                    )
+
+                    st.altair_chart(bar_chart, use_container_width=False)
+
+    # ---------------------------------------------------------------------
+    # ✅ TAB 3: MANAGE USERS
+    # ---------------------------------------------------------------------
+    with tab3:
+        st.markdown("<div class='sub-heading'>🧑‍💻 Manage Users</div>", unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.subheader("Delete User")
+            deletable = [u for u in users if u.lower() != "admin"]
+            if deletable:
+                user_to_delete = st.selectbox("Select user", deletable, key="del_user")
+                if st.button("🗑️ Delete User"):
+                    del users[user_to_delete]
+                    save_json(USERS_FILE, users)
+                    st.success(f"User '{user_to_delete}' deleted.")
+                    st.rerun()
+            else:
+                st.info("No users to delete.")
+
+        with col2:
+            st.subheader("Promote to Admin")
+            promotable = [u for u, info in users.items() if info.get("role") == "user"]
+            if promotable:
+                user_to_promote = st.selectbox("Choose user", promotable, key="promote_user")
+                if st.button("⬆️ Promote User"):
+                    users[user_to_promote]["role"] = "admin"
+                    save_json(USERS_FILE, users)
+                    st.success(f"User '{user_to_promote}' promoted!")
+                    st.rerun()
+            else:
+                st.info("No users available to promote.")
+
     st.markdown("<br>", unsafe_allow_html=True)
+
     if st.button("🚪 Logout"):
         st.session_state.logged_in = False
         st.session_state.username = ""
