@@ -46,7 +46,7 @@ def load_quiz_from_file(filename):
 
     return quiz_list
 
-# SAVE RESULT TO FILE  (REPLACE your function with this one)
+# SAVE RESULT TO FILE  
 def save_result_to_file(name, score, total, duration_seconds, user_choices, quiz_data):
     os.makedirs("attempts", exist_ok=True)  # ensure folder exists
 

@@ -50,6 +50,11 @@ while not stop_signal:
     )
 
     if len(faces) > 0:
+
+        if len(faces) > 1:
+            cv2.putText(frame, "⚠️ MULTIPLE FACES DETECTED!", (50, 100),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
+            print("⚠️ ALERT: More than one face detected!")
+
         largest_face = max(faces, key=lambda rect: rect[2] * rect[3])
         (x, y, w, h) = largest_face
         center_current = (x + w//2, y + h//2)
@@ -62,30 +67,24 @@ while not stop_signal:
             distance = np.sqrt(dx**2 + dy**2)
 
             if distance > movement_threshold:
-                cv2.putText(frame, "⚠️ ALERT: Face Movement!", (50, 50),
-                            cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
+                cv2.putText(frame, "⚠️ ALERT: Face Movement!", (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
                 print("⚠️ Face movement detected!")
 
         prev_face_position = center_current
     else:
         prev_face_position = None
-        cv2.putText(frame, "No face detected!", (50, 50),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 255), 2)
+        cv2.putText(frame, "No face detected!", (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 255), 2)
 
     current_time = time.time()
     if current_time - last_capture_time >= capture_interval:
-        if len(faces) == 1:
-            timestamp = time.strftime('%Y%m%d_%H%M%S')
-            filename = f'captures/photo_{timestamp}.jpg'
-            cv2.imwrite(filename, frame)
-            print(f"📸 Photo captured and saved as {filename}")
-        else:
-            print("⚠️ Photo skipped - No clear face detected")
-
+        timestamp = time.strftime('%Y%m%d_%H%M%S')
+        filename = f'captures/photo_{timestamp}.jpg'    
+        cv2.imwrite(filename, frame)
+        print(f"📸 Photo captured and saved as {filename}")  
         last_capture_time = current_time
-
+  
+                
     cv2.imshow("Face Movement Detection", frame)
-
     key = cv2.waitKey(1)
     if key == ord('q') or stop_signal:
         print("👋 Stopping face detection...")
