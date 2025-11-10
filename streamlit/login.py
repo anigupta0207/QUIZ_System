@@ -44,8 +44,8 @@ def verify_user(username, password, users):
 # ---------- Streamlit UI ----------
 
 def show_login_system():
-    st.set_page_config(page_title="Login System", page_icon="🔐", layout="centered")
-    st.title("Quiz System ........🧑🏼‍💻/👩🏼‍💻")
+    st.set_page_config(page_title="PrepSecure", page_icon="🎯", layout="centered")
+    st.title("🧑🏼‍💻 Welcome to PrepSecure")
 
     users = load_users()
     scores = load_scores()

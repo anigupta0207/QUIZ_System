@@ -10,58 +10,63 @@ import csv
 def load_quiz_data():
     """Load quiz data from JSON files."""
 
-    # Get the absolute path to the questions directory
     current_dir = os.path.dirname(os.path.abspath(__file__))
     questions_dir = os.path.join(current_dir, "questions")
+
     quiz_files = {
         "C": {
-        "basic": os.path.join(questions_dir, "c_b.json"),
-        "intermediate": os.path.join(questions_dir, "c_i.json"),
-        "advanced": os.path.join(questions_dir, "c_a.json")
-    },
-    "C++": {
-        "basic": os.path.join(questions_dir, "cpp_b.json"),
-        "intermediate": os.path.join(questions_dir, "cpp_i.json"),
-        "advanced": os.path.join(questions_dir, "cpp_a.json")
-    },
-    "Python": {
-        "basic": os.path.join(questions_dir, "python_b.json"),
-        "intermediate": os.path.join(questions_dir, "python_i.json"),
-        "advanced": os.path.join(questions_dir, "python_a.json")
+            "basic": os.path.join(questions_dir, "c_b.json"),
+            "intermediate": os.path.join(questions_dir, "c_i.json"),
+            "advanced": os.path.join(questions_dir, "c_a.json"),
+        },
+        "C++": {
+            "basic": os.path.join(questions_dir, "cpp_b.json"),
+            "intermediate": os.path.join(questions_dir, "cpp_i.json"),
+            "advanced": os.path.join(questions_dir, "cpp_a.json"),
+        },
+        "Python": {
+            "basic": os.path.join(questions_dir, "python_b.json"),
+            "intermediate": os.path.join(questions_dir, "python_i.json"),
+            "advanced": os.path.join(questions_dir, "python_a.json"),
+        },
     }
-    }
-    
-    quizzes = []
-    user_scores = {}
-    
-    # Load quiz data files
-    for level, filename in quiz_files.items():
-        try:
+    data = load_quiz_data()
+    user_scores = data["user_scores"]
+
+    quizzes = {}
+
+    # ✅ Load all quiz files properly
+    for subject, levels in quiz_files.items():
+        quizzes[subject] = {}
+        for level, filename in levels.items():
+
             if os.path.exists(filename):
                 with open(filename, "r", encoding="utf-8") as f:
                     quiz_data = json.load(f)
 
-                    # ✅ Pick only 20 random questions each time from the full set
-                    all_questions = quiz_data.get("questions", [])
-                    random_20 = random.sample(all_questions, min(20, len(all_questions)))
-                    quiz_data["questions"] = random_20
+                # ✅ Random 20 questions ALWAYS correct
+                all_q = quiz_data.get("questions", [])
+                quiz_data["questions"] = random.sample(all_q, min(20, len(all_q)))
 
-                    quizzes.append(quiz_data)
-        except (json.JSONDecodeError, FileNotFoundError) as e:
-            st.error(f"Error loading {filename}: {e}")
-    
-    # Load user scores
+                quizzes[subject][level] = quiz_data
+            else:
+                st.error(f"Missing quiz file: {filename}")
+
+    # ✅ Load user scores
     user_scores_path = os.path.join(current_dir, "user_scores.json")
+
     if os.path.exists(user_scores_path):
         try:
             with open(user_scores_path, "r", encoding="utf-8") as f:
                 user_scores = json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError):
+        except:
             user_scores = {}
-    
+    else:
+        user_scores = {}
+
     return {
         "quizzes": quizzes,
-        "user_scores": user_scores
+        "user_scores": user_scores,
     }
 
 def save_user_scores(user_scores):
@@ -89,7 +94,7 @@ def save_to_csv(username, quiz_id, quiz_title, score, completed_at):
 
 
 def show_quiz_app():
-    st.set_page_config(page_title="Quiz App", page_icon="🎯", layout="wide")
+    st.set_page_config(page_title="PrepSecure", page_icon="🎯", layout="wide")
     st.title("🎯 Quiz Master Pro")
 
     # Session state initializers
@@ -347,21 +352,45 @@ def show_quiz_app():
 
         question_data = quiz["questions"][st.session_state.current_question]
 
+
         # ✅ Question Card
+        
+        st.markdown("""
+<style>
+/* Force monospaced code-like font globally for .code-font */
+.code-font, .code-font * {
+    font-family: 'Fira Code', 'Consolas', 'Courier New', monospace !important;
+    font-size: 18px !important;
+    white-space: pre-wrap !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
         st.markdown(f"""
         <div class="question-card">
             <h3>Question {st.session_state.current_question + 1} of {len(quiz["questions"])}</h3>
-            <p style="font-size:18px; font-weight:500;">{question_data['question']}</p>
+            <p class="code-font">{question_data['question']}</p>
         </div>
         """, unsafe_allow_html=True)
 
         # ✅ Modern Highlighted Buttons
+        import html
+
+        # Escape + wrap in span so HTML cannot break options
+        safe_options = [
+            f"{html.escape(opt)}"
+            for opt in question_data["options"]
+        ]
+        safe_answer = f"<span>{html.escape(question_data['answer'])}</span>"
+
         selected_option = st.radio(
             "Select your answer:",
-            question_data["options"],
+            safe_options,
             index=None,
-            key=f"q_{st.session_state.current_question}"
+            key=f"q_{st.session_state.current_question}",
+            format_func=lambda x: x,   # Prevents Streamlit from stripping HTML
         )
+
 
         st.write("")
 
@@ -372,7 +401,7 @@ def show_quiz_app():
                 st.warning("Please select an option before submitting!")
                 st.stop()
 
-            if selected_option == question_data['answer']:
+            if selected_option == safe_answer:
                 st.success("✅ Correct answer!")
                 st.session_state.score += question_data["points"]
             else:

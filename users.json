@@ -54,5 +54,9 @@
     "arshita": {
         "password": "42dea6e258c674f760053902f6dc142d0ddf28dd5c2cddef7e30e667e67debc0",
         "role": "user"
+    },
+    "arshitaa": {
+        "password": "ed968e840d10d2d313a870bc131a4e2c311d7ad09bdf32b3418147221f51a6e2",
+        "role": "user"
     }
 }

@@ -30,8 +30,8 @@
     },
     "ani1": {
         "7": {
-            "score": 0,
-            "completed_at": "2025-11-09T22:45:26.323969",
+            "score": 10,
+            "completed_at": "2025-11-10T16:21:13.570298",
             "quiz_title": "\ud83d\udcbb C Programming (Basic Level)"
         }
     },
@@ -39,6 +39,13 @@
         "7": {
             "score": 0,
             "completed_at": "2025-11-09T16:03:02.142235",
+            "quiz_title": "\ud83d\udcbb C Programming (Basic Level)"
+        }
+    },
+    "arshitaa": {
+        "7": {
+            "score": 0,
+            "completed_at": "2025-11-10T16:11:59.699691",
             "quiz_title": "\ud83d\udcbb C Programming (Basic Level)"
         }
     }
