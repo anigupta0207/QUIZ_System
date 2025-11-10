@@ -21,7 +21,7 @@
     {"question": "Which function sets a block of memory?", "options": ["memset()", "memcpy()", "memalloc()", "setmem()"], "answer": "memset()", "points": 10},
     {"question": "Which operator is used for dereferencing?", "options": ["*", "&", "#", "$"], "answer": "*", "points": 10},
     {"question": "Which operator gets address of a variable?", "options": ["&", "*", "^", ":"], "answer": "&", "points": 10},
-    {"question": "How do you write an inline function?", "options": ["inline int foo()", "int inline foo()", "foo inline()", "inline()", "int foo inline()"], "answer": "inline int foo()", "points": 10},
+    {"question": "How do you write an inline function?", "options": ["inline int foo()", "int inline foo()", "foo inline()", "inline()"], "answer": "inline int foo()", "points": 10},
     {"question": "Which keyword is used for thread synchronization?", "options": ["volatile", "static", "extern", "register"], "answer": "volatile", "points": 10},
     {"question": "Which function sorts an array?", "options": ["qsort()", "sort()", "arraysort()", "bst()"], "answer": "qsort()", "points": 10},
     {"question": "Which specifier prints memory address?", "options": ["%p", "%d", "%x", "%u"], "answer": "%p", "points": 10},

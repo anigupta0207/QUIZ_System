@@ -338,10 +338,12 @@ def show_quiz_app():
         </div>
         """, unsafe_allow_html=True)
 
-        # ✅ Modern Highlighted Buttons
+        # ✅ Safely escape all option text to display properly
+        clean_options = [str(opt).replace("<", "&lt;").replace(">", "&gt;") for opt in question_data["options"]]
+
         selected_option = st.radio(
             "Select your answer:",
-            question_data["options"],
+            clean_options,
             index=None,
             key=f"q_{st.session_state.current_question}"
         )
@@ -356,10 +358,7 @@ def show_quiz_app():
                 st.stop()
 
             if selected_option == question_data['answer']:
-                st.success("✅ Correct answer!")
                 st.session_state.score += question_data["points"]
-            else:
-                st.error(f"❌ Wrong! Correct answer: **{question_data['answer']}**")
 
             # Next question or finish
             if st.session_state.current_question < len(quiz["questions"]) - 1:
