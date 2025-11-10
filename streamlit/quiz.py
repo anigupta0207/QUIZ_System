@@ -220,32 +220,46 @@ def show_quiz_app():
         uname = st.session_state.username
         user_scores_path = os.path.join(current_dir, "user_scores.json")
 
+        # ✅ Load existing scores
         if os.path.exists(user_scores_path):
-            with open(user_scores_path, "r") as f:
+            with open(user_scores_path, "r", encoding="utf-8") as f:
                 old_data = json.load(f)
         else:
             old_data = {}
 
+        # ✅ Ensure user key exists
         if uname not in old_data:
             old_data[uname] = {}
 
+        # ✅ Capture subject and level safely
+        subject_name = st.session_state.get("selected_subject", "Unknown")
+        quiz_level = st.session_state.get("selected_level", "Unknown").title()
+
+        # ✅ Save structured quiz result with subject
         old_data[uname][str(quiz["id"])] = {
+            "quiz_title": quiz.get("title", "Untitled Quiz"),
+            "subject": subject_name,
+            "level": quiz_level,
             "score": st.session_state.score,
-            "quiz_title": quiz["title"],
             "completed_at": datetime.now().isoformat()
         }
 
+        # ✅ Save to JSON
         save_user_scores(old_data)
 
+        # ✅ Save to CSV for backup/export
         save_to_csv(
             uname,
-            quiz["id"],
-            quiz["title"],
+            quiz.get("id", "N/A"),
+            quiz.get("title", "Untitled Quiz"),
             st.session_state.score,
             datetime.now().isoformat()
         )
 
-        if st.button("Take Another Quiz"):
+        st.success("✅ Your score has been saved successfully!")
+
+        # ✅ Only ONE button now
+        if st.button("Take Another Quiz", key="retry_quiz"):
             for key in [
                 "selected_subject", "selected_level",
                 "current_quiz", "current_question",
@@ -255,6 +269,7 @@ def show_quiz_app():
             st.rerun()
 
         return
+
 
     # -----------------------------------------
     # ✅ QUIZ RUNNING

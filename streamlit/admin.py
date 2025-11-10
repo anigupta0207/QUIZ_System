@@ -250,74 +250,76 @@ def show_admin_dashboard():
         for i, row in top3.iterrows():
             st.write(f"**{i}. {row['Username']}** — {row['Score']} points ({row['Quiz Title']})")
 
-        # ---------- QUIZ RESULT PIE CHARTS BY SUBJECT ----------
-        st.markdown("<br><h4>🧠 Quiz Results by Subject and Level</h4>", unsafe_allow_html=True)
+        # ---------- QUIZ RESULT BAR CHARTS BY SUBJECT ----------
+        st.markdown("<br><h4>📊 Student Marks by Subject and Level</h4>", unsafe_allow_html=True)
 
-        # Filter data per subject
         subjects = ["C", "C++", "Python"]
         difficulty_levels = ["Basic", "Intermediate", "Advanced"]
 
-        # Mint shades for levels
+        # Mint-green color scheme
         level_colors = {
             "Basic": "#bbf7d0",         # light mint
             "Intermediate": "#34d399",  # medium mint
             "Advanced": "#065f46"       # dark emerald
         }
 
-        # Prepare columns for 3 subjects
-        col1, col2, col3 = st.columns(3)
-        columns = [col1, col2, col3]
+        # Create one chart per subject
+        chart_cols = st.columns(3)
 
-        # Loop through subjects and display each in a column
         for i, subject in enumerate(subjects):
             subject_df = df[df["Subject"].str.lower() == subject.lower()]
-            if subject_df.empty:
-                # Skip but show placeholder if you prefer
-                with columns[i]:
-                    st.markdown(f"<h5 style='color:#9ca3af;text-align:center;'>No {subject} data</h5>", unsafe_allow_html=True)
-                continue
 
-            # Count quizzes by difficulty
-            level_counts = []
-            for level in difficulty_levels:
-                level_subset = subject_df[subject_df["Quiz Title"].str.contains(level, case=False, na=False)]
-                level_counts.append({"Level": level, "Count": len(level_subset)})
+            with chart_cols[i]:
+                st.markdown(f"<h5 style='color:#047857; font-weight:700;'>💻 {subject}</h5>", unsafe_allow_html=True)
 
-            level_df = pd.DataFrame(level_counts)
+                if subject_df.empty:
+                    st.info(f"No data for {subject}")
+                    continue
 
-            # Create pie chart
-            chart = (
-                alt.Chart(level_df, background="#ffffff")
-                .mark_arc(innerRadius=50, outerRadius=120)
-                .encode(
-                    theta="Count:Q",
-                    color=alt.Color(
-                        "Level:N",
-                        scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
-                        legend=None
-                    ),
-                    tooltip=["Level", "Count"]
+                # Extract quiz level from quiz title (Basic / Intermediate / Advanced)
+                subject_df["Level"] = subject_df["Quiz Title"].apply(
+                    lambda x: (
+                        "Basic" if "basic" in x.lower()
+                        else "Intermediate" if "intermediate" in x.lower()
+                        else "Advanced" if "advanced" in x.lower()
+                        else "Unknown"
+                    )
                 )
-                .properties(width=250, height=250)
-                .configure_view(strokeOpacity=0)
-            )
 
-            # Render inside the corresponding column
-            with columns[i]:
-                st.markdown(
-                    f"<h5 style='color:#047857;font-weight:700;text-align:center;'>📘 {subject}</h5>",
-                    unsafe_allow_html=True
+                # Filter only valid levels
+                subject_df = subject_df[subject_df["Level"] != "Unknown"]
+
+                if subject_df.empty:
+                    st.info(f"No valid quiz levels for {subject}")
+                    continue
+
+                # Build bar chart
+                bar_chart = (
+                    alt.Chart(subject_df, background="#ffffff")
+                    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
+                    .encode(
+                        x=alt.X("Username:N", title="Student Name", sort=alt.SortField("Score", order="descending")),
+                        y=alt.Y("Score:Q", title="Marks"),
+                        color=alt.Color(
+                            "Level:N",
+                            scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
+                            legend=alt.Legend(title="Level")
+                        ),
+                        tooltip=["Username", "Level", "Score", "Quiz Title"]
+                    )
+                    .properties(width=300, height=300)
+                    .configure_axis(
+                        gridColor="#e5e7eb",
+                        labelColor="#1e293b",
+                        titleColor="#047857"
+                    )
+                    .configure_view(
+                        strokeOpacity=0
+                    )
                 )
-                st.altair_chart(chart, use_container_width=False)
 
-        # Add legend explanation
-        st.markdown("""
-        <div style='text-align:center; margin-top:10px; font-weight:600; color:#065f46;'>
-        🩵 Basic — <span style='color:#bbf7d0;'>●</span> 
-        💚 Intermediate — <span style='color:#34d399;'>●</span> 
-        🌲 Advanced — <span style='color:#065f46;'>●</span>
-        </div>
-        """, unsafe_allow_html=True)
+                st.altair_chart(bar_chart, use_container_width=False)
+
 
 
 
