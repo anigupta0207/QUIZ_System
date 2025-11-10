@@ -3,11 +3,31 @@ import json
 import os
 import pandas as pd
 import altair as alt
+import csv
+
 
 # ---------- File Paths ----------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USERS_FILE = os.path.join(BASE_DIR, "..", "users.json")
 SCORES_FILE = os.path.join(BASE_DIR, "user_scores.json")
+
+
+def save_to_csv(username, quiz_id, quiz_title, score, timestamp):
+    csv_path = "scores.csv"
+
+    # Create file with header if not exists
+    file_exists = os.path.isfile(csv_path)
+
+    with open(csv_path, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+
+        # Write header once
+        if not file_exists:
+            writer.writerow(["username", "quiz_id", "quiz_title", "score", "timestamp"])
+
+        # Write row
+        writer.writerow([username, quiz_id, quiz_title, score, timestamp])
+
 
 # ---------- Helper Functions ----------
 def load_json(file_path):

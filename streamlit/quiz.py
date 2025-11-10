@@ -3,6 +3,7 @@ import json
 import os
 import random
 from datetime import datetime
+import csv
 
 # ---------- Utility Functions ----------
 
@@ -69,6 +70,23 @@ def save_user_scores(user_scores):
     user_scores_path = os.path.join(current_dir, "user_scores.json")
     with open(user_scores_path, "w", encoding="utf-8") as f:
         json.dump(user_scores, f, indent=4)
+
+        
+def save_to_csv(username, quiz_id, quiz_title, score, completed_at):
+    csv_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scores.csv")
+
+    # Header exists?
+    file_exists = os.path.isfile(csv_file)
+
+    with open(csv_file, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+
+        # Write header only once
+        if not file_exists:
+            writer.writerow(["username", "quiz_id", "quiz_title", "score", "completed_at"])
+
+        writer.writerow([username, quiz_id, quiz_title, score, completed_at])
+
 
 def show_quiz_app():
     st.set_page_config(page_title="Quiz App", page_icon="🎯", layout="wide")
@@ -366,27 +384,87 @@ def show_quiz_app():
                 st.rerun()
             else:
                 st.session_state.quiz_completed = True
+                # --- Save JSON ---
+                uname = st.session_state.username
+                if uname not in user_scores:
+                    user_scores[uname] = {}
+
+                user_scores[uname][str(quiz["id"])] = {
+                    "score": st.session_state.score,
+                    "completed_at": datetime.now().isoformat(),
+                    "quiz_title": quiz["title"]
+                }
+
+                save_user_scores(user_scores)
+
+                # --- Save CSV ---
+                save_to_csv(
+                    username = uname,
+                    quiz_id = quiz["id"],
+                    quiz_title = quiz["title"],
+                    score = st.session_state.score,
+                    completed_at = datetime.now().isoformat()
+                )
                 st.rerun()
 
 
     else:
-        # Quiz completed
-        
+        # ✅ QUIZ COMPLETED SECTION
+
+        # ✅ Save to JSON FIRST
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        user_scores_path = os.path.join(current_dir, "user_scores.json")
+
+        # Load old scores
+        if os.path.exists(user_scores_path):
+            with open(user_scores_path, "r", encoding="utf-8") as f:
+                user_scores = json.load(f)
+        else:
+            user_scores = {}
+
+        uname = st.session_state.username
+
+        # Make sure username exists
+        if uname not in user_scores:
+            user_scores[uname] = {}
+
+        # Save JSON
+        user_scores[uname][str(quiz["id"])] = {
+            "score": st.session_state.score,
+            "completed_at": datetime.now().isoformat(),
+            "quiz_title": quiz["title"]
+        }
+
+        with open(user_scores_path, "w", encoding="utf-8") as f:
+            json.dump(user_scores, f, indent=4)
+
+        # ✅ Save INTO CSV also
+        save_to_csv(
+            uname,
+            quiz["id"],
+            quiz["title"],
+            st.session_state.score,
+            datetime.now().isoformat()
+        )
+
+        # ✅ UI SECTION
         st.balloons()
         st.header("🎊 Quiz Completed!")
         total_points = sum(q["points"] for q in quiz["questions"])
         st.subheader(f"Your Score: {st.session_state.score}/{total_points}")
+        
         percentage = (st.session_state.score / total_points) * 100
         st.progress(int(percentage))
         st.write(f"**{percentage:.1f}%**")
+
         if percentage >= 80:
             st.success("🎉 Excellent performance!")
         elif percentage >= 60:
             st.info("👍 Good job!")
         else:
             st.warning("💪 Keep practicing!")
+
         if st.button("Take Another Quiz"):
-            # Reset selection states and quiz session states
             st.session_state.selected_subject = None
             st.session_state.selected_level = None
             st.session_state.current_quiz = None
@@ -394,6 +472,7 @@ def show_quiz_app():
             st.session_state.score = 0
             st.session_state.quiz_completed = False
             st.rerun()
+
     st.sidebar.write("---")
     if st.sidebar.button("🚪 Logout", use_container_width=True):
         for key in list(st.session_state.keys()):
