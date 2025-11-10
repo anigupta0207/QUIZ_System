@@ -30,9 +30,14 @@
     },
     "ani1": {
         "7": {
-            "score": 10,
-            "completed_at": "2025-11-10T16:21:13.570298",
-            "quiz_title": "\ud83d\udcbb C Programming (Basic Level)"
+            "score": 0,
+            "quiz_title": "\ud83d\udcbb C Programming (Basic Level)",
+            "completed_at": "2025-11-10T18:47:14.346002"
+        },
+        "1": {
+            "score": 50,
+            "quiz_title": "\ud83d\udcbe C++ (Basic Level)",
+            "completed_at": "2025-11-10T18:48:14.622516"
         }
     },
     "Anime123": {
