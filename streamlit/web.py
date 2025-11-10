@@ -10,10 +10,7 @@ from login import show_login_system
 from quiz import show_quiz_app
 from admin import show_admin_dashboard
 
-# ---------------------------------------
 # ✅ PATH FIX (IMPORTANT!!)
-# ---------------------------------------
-# This file is inside: QUIZ_System/streamlit/
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Go one folder up → QUIZ_System/
@@ -25,9 +22,8 @@ VOICE_PATH = os.path.join(PROJECT_ROOT, "detection", "voice.py")
 STOP_FILE = os.path.join(PROJECT_ROOT, "monitor_stop.flag")
 
 
-# ---------------------------------------
 # ✅ START MONITORING
-# ---------------------------------------
+
 def start_monitoring():
 
     # Remove old stop file
@@ -50,10 +46,8 @@ def start_monitoring():
             stderr=subprocess.DEVNULL
         )
 
-
-# ---------------------------------------
 # ✅ TERMINATE PROCESS HELPER
-# ---------------------------------------
+
 def _kill_process(proc):
     try:
         proc.terminate()
@@ -65,9 +59,9 @@ def _kill_process(proc):
             pass
 
 
-# ---------------------------------------
+
 # ✅ STOP MONITORING
-# ---------------------------------------
+
 def stop_monitoring():
     # Tell the scripts to stop themselves
     with open(STOP_FILE, "w") as f:
@@ -90,9 +84,7 @@ def stop_monitoring():
         os.remove(STOP_FILE)
 
 
-# ---------------------------------------
 # ✅ MAIN APP
-# ---------------------------------------
 def main():
 
     # Default page = login
@@ -103,9 +95,9 @@ def main():
     if not st.session_state.get("logged_in", False):
         st.session_state.page = "login"
 
-    # -------------------------
+
     # ✅ LOGIN PAGE
-    # -------------------------
+
     if st.session_state.page == "login":
 
         logged_in, username, role = show_login_system()
@@ -121,9 +113,9 @@ def main():
 
             st.rerun()
 
-    # -------------------------
+
     # ✅ QUIZ PAGE
-    # -------------------------
+
     elif st.session_state.page == "quiz":
 
         show_quiz_app()
@@ -136,9 +128,9 @@ def main():
         if not st.session_state.get("logged_in", False):
             stop_monitoring()
 
-    # -------------------------
+
     # ✅ ADMIN PAGE
-    # -------------------------
+
     elif st.session_state.page == "admin":
 
         show_admin_dashboard()
@@ -147,7 +139,5 @@ def main():
         if not st.session_state.get("logged_in", False):
             stop_monitoring()
 
-
-# ---------------------------------------
 if __name__ == "__main__":
     main()
