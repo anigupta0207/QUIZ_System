@@ -356,15 +356,15 @@ def show_quiz_app():
         # ✅ Question Card
         
         st.markdown("""
-<style>
-/* Force monospaced code-like font globally for .code-font */
-.code-font, .code-font * {
-    font-family: 'Fira Code', 'Consolas', 'Courier New', monospace !important;
-    font-size: 18px !important;
-    white-space: pre-wrap !important;
-}
-</style>
-""", unsafe_allow_html=True)
+        <style>
+        /* Force monospaced code-like font globally for .code-font */
+        .code-font, .code-font * {
+            font-family: 'Fira Code', 'Consolas', 'Courier New', monospace !important;
+            font-size: 18px !important;
+            white-space: pre-wrap !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
         st.markdown(f"""
         <div class="question-card">
