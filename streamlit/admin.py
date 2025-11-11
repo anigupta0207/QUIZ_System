@@ -206,7 +206,8 @@ def show_admin_dashboard():
                         "Subject": q.get("subject", "Unknown"),
                         "Quiz Title": q.get("quiz_title", "Unknown"),
                         "Score": q.get("score", 0),
-                        "Completed At": q.get("completed_at", "N/A")
+                        "Completed At": q.get("completed_at", "N/A"),
+                        "Suspicion %": q.get("suspicion_percent", 0)
                     })
 
             df = pd.DataFrame(records).sort_values(by="Score", ascending=False).reset_index(drop=True)
@@ -325,15 +326,35 @@ def show_admin_dashboard():
         with col1:
             st.subheader("Delete User")
             deletable = [u for u in users if u.lower() != "admin"]
+
             if deletable:
                 user_to_delete = st.selectbox("Select user", deletable, key="del_user")
+
                 if st.button("🗑️ Delete User"):
-                    del users[user_to_delete]
-                    save_json(USERS_FILE, users)
-                    st.success(f"User '{user_to_delete}' deleted.")
+
+                    # ✅ 1. Remove from users.json
+                    if user_to_delete in users:
+                        del users[user_to_delete]
+                        save_json(USERS_FILE, users)
+
+                    # ✅ 2. Remove from user_scores.json
+                    if user_to_delete in user_scores:
+                        del user_scores[user_to_delete]
+                        save_json(SCORES_FILE, user_scores)
+
+                    # ✅ 3. Remove from scores.csv
+                    csv_path = os.path.join(BASE_DIR, "scores.csv")
+                    if os.path.isfile(csv_path):
+
+                        df = pd.read_csv(csv_path)
+                        df = df[df["username"] != user_to_delete]   # remove all their rows
+                        df.to_csv(csv_path, index=False)
+
+                    st.success(f"✅ User '{user_to_delete}' and all their score data were deleted.")
                     st.rerun()
             else:
                 st.info("No users to delete.")
+
 
         with col2:
             st.subheader("Promote to Admin")

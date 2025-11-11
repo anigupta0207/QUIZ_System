@@ -5,6 +5,7 @@ import random
 from datetime import datetime
 import csv
 import html
+import subprocess
 
 
 # ✅ Save User Scores
@@ -16,7 +17,7 @@ def save_user_scores(user_scores):
 
 
 # ✅ Save to CSV
-def save_to_csv(username, quiz_id, quiz_title, score, completed_at):
+def save_to_csv(username, quiz_id, quiz_title, score, completed_at,sus_percentage):
     csv_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scores.csv")
     file_exists = os.path.isfile(csv_file)
 
@@ -24,9 +25,9 @@ def save_to_csv(username, quiz_id, quiz_title, score, completed_at):
         writer = csv.writer(f)
 
         if not file_exists:
-            writer.writerow(["username", "quiz_id", "quiz_title", "score", "completed_at"])
+            writer.writerow(["username", "quiz_id", "quiz_title", "score", "completed_at","sus_percentage"])
 
-        writer.writerow([username, quiz_id, quiz_title, score, completed_at])
+        writer.writerow([username, quiz_id, quiz_title, score, completed_at, sus_percentage])
 
 
 # ✅ Main Quiz App
@@ -43,8 +44,11 @@ def show_quiz_app():
         "current_question": 0,
         "score": 0,
         "quiz_completed": False,
-        "answers": {}
+        "answers": {},
+        "face_process": None,
+        "voice_process": None
     }
+
     for key, val in default_states.items():
         if key not in st.session_state:
             st.session_state[key] = val
@@ -57,6 +61,7 @@ def show_quiz_app():
     # ✅ ALWAYS VISIBLE LOGOUT BUTTON
     with st.sidebar:
         st.success(f"✅ Logged in as: {st.session_state.username}")
+
         if st.button("🚪 Logout", use_container_width=True):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
@@ -166,8 +171,10 @@ def show_quiz_app():
                 )
 
                 if st.button(f"Start {item['level'].title()}", key=f"start_{item['level']}"):
+                    # ✅ Now begin the quiz
                     st.session_state.selected_level = item["level"]
                     st.rerun()
+
 
         st.stop()
 
@@ -210,6 +217,17 @@ def show_quiz_app():
     # ✅ QUIZ COMPLETED
     # -----------------------------------------
     if st.session_state.quiz_completed:
+        # ✅ Load suspicion count
+        sus_path = os.path.join(current_dir, "suspect_count.json")
+
+        if os.path.exists(sus_path):
+            sus_count = json.load(open(sus_path)).get("current", 0)
+        else:
+            sus_count = 0
+
+        total_q = len(questions)
+        sus_percentage = min(int((sus_count / total_q) * 100), 100)
+
 
         st.balloons()
         st.header("🎊 Quiz Completed!")
@@ -220,45 +238,40 @@ def show_quiz_app():
         uname = st.session_state.username
         user_scores_path = os.path.join(current_dir, "user_scores.json")
 
-        # ✅ Load existing scores
         if os.path.exists(user_scores_path):
             with open(user_scores_path, "r", encoding="utf-8") as f:
                 old_data = json.load(f)
         else:
             old_data = {}
 
-        # ✅ Ensure user key exists
         if uname not in old_data:
             old_data[uname] = {}
 
-        # ✅ Capture subject and level safely
         subject_name = st.session_state.get("selected_subject", "Unknown")
         quiz_level = st.session_state.get("selected_level", "Unknown").title()
 
-        # ✅ Save structured quiz result with subject
         old_data[uname][str(quiz["id"])] = {
             "quiz_title": quiz.get("title", "Untitled Quiz"),
             "subject": subject_name,
             "level": quiz_level,
             "score": st.session_state.score,
+            "suspicion_percent": sus_percentage,
             "completed_at": datetime.now().isoformat()
         }
 
-        # ✅ Save to JSON
         save_user_scores(old_data)
 
-        # ✅ Save to CSV for backup/export
         save_to_csv(
             uname,
             quiz.get("id", "N/A"),
             quiz.get("title", "Untitled Quiz"),
             st.session_state.score,
-            datetime.now().isoformat()
+            datetime.now().isoformat(),
+            sus_percentage
         )
 
         st.success("✅ Your score has been saved successfully!")
 
-        # ✅ Only ONE button now
         if st.button("Take Another Quiz", key="retry_quiz"):
             for key in [
                 "selected_subject", "selected_level",
@@ -270,18 +283,18 @@ def show_quiz_app():
 
         return
 
-
     # -----------------------------------------
     # ✅ QUIZ RUNNING
     # -----------------------------------------
 
     idx = st.session_state.current_question
+    if not st.session_state.get("quiz_started", False):
+        st.session_state.quiz_started = True
+
     q = questions[idx]
 
-    # ✅ Progress bar
     st.progress((idx + 1) / len(questions))
 
-    # ✅ Question UI
     st.markdown("""
     <style>
     .question-card {
@@ -309,7 +322,6 @@ def show_quiz_app():
     </div>
     """, unsafe_allow_html=True)
 
-    # ✅ RADIO FIX — returns index only
     options = list(enumerate(q["options"]))
 
     prev_index = st.session_state.answers.get(idx, None)
@@ -322,44 +334,31 @@ def show_quiz_app():
         key=f"q_{idx}"
     )
 
-        # ✅ Only save if user selected something
     if selected_tuple is not None:
         selected_index = selected_tuple[0]
         st.session_state.answers[idx] = selected_index
     else:
         selected_index = None
-   # ✅ Navigation buttons
+
     col1, col2, col3 = st.columns(3)
 
-    # ⬅ Previous Question
     with col1:
         if st.button("⬅ Previous Question", disabled=(idx == 0)):
             st.session_state.current_question -= 1
             st.rerun()
 
-
-    # ✅ NEXT or FINISH (on the RIGHT side)
     with col3:
-
-        # ✅ Show NEXT when NOT last question
         if idx < len(questions) - 1:
             if st.button("Next ➡"):
                 st.session_state.current_question += 1
                 st.rerun()
-
-        # ✅ Show FINISH when LAST question
         else:
             if st.button("✅ Finish Quiz"):
                 st.session_state.ask_submit = True
                 st.rerun()
 
-
-
-    # ✅ Finish Quiz
-    # ✅ Finish button (only on last question)
     if idx == len(questions) - 1:
 
-        # ✅ Show confirmation box
         if st.session_state.get("ask_submit", False):
 
             st.warning("⚠️ Are you sure you want to submit the test? You cannot change answers later.")
@@ -368,7 +367,8 @@ def show_quiz_app():
 
             with colA:
                 if st.button("✅ Yes, Submit"):
-                    # Calculate Score
+                    
+                    sus_path = os.path.join(current_dir, "suspect_count.json")
                     st.session_state.score = 0
                     for i, que in enumerate(questions):
                         user_index = st.session_state.answers.get(i)
@@ -378,11 +378,15 @@ def show_quiz_app():
 
                     st.session_state.quiz_completed = True
                     st.session_state.ask_submit = False
+                    json.dump({"current": 0}, open(sus_path, "w"))
+                    
+                    
                     st.rerun()
 
             with colB:
                 if st.button("❌ No, go back"):
                     st.session_state.ask_submit = False
+                    
                     st.rerun()
 
 
