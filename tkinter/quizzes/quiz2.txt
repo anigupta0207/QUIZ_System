@@ -1,0 +1,69 @@
+Q: Which file extension is used for C source files?
+A) .c
+B) .cpp
+C) .h
+D) .cs
+Answer: A
+
+Q: Which function prints text to the screen?
+A) printf()
+B) print()
+C) cout
+D) disp()
+Answer: A
+
+Q: Which header file is needed for printf or scanf?
+A) stdlib.h
+B) conio.h
+C) stdio.h
+D) math.h
+Answer: C
+
+Q: Which keyword is used to define a user-defined type?
+A) union
+B) struct
+C) enum
+D) typedef
+Answer: D
+
+Q: What is the result of sizeof(char)?
+A) 1
+B) 2
+C) 4
+D) Compiler dependent
+Answer: A
+
+Q: What is memory leak?
+A) Incorrect value access
+B) Allocated memory not freed
+C) Wrong pointer assignment
+D) Stack overflow
+Answer: B
+
+Q: What does #define MAX 100 do?
+A) Defines variable MAX
+B) Creates 100
+C) Sets macro MAX to 100
+D) None
+Answer: C
+
+Q: Which data type is suitable for large numbers?
+A) int
+B) long
+C) float
+D) char
+Answer: B
+
+Q: Which keyword restricts inheritance?
+A) restrict
+B) const
+C) private
+D) static
+Answer: D
+
+Q: What does #undef do?
+A) Undefines macro
+B) Define macro
+C) Resets
+D) Exits
+Answer: A

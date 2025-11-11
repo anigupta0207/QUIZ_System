@@ -1,2 +1,5 @@
-2025-11-09 14:10:16 | Name: Divanshi | Score: 7/10 | 70.0% | Duration: 47s
-2025-11-09 14:13:08 | Name: Arshita | Score: 7/10 | 70.0% | Duration: 44s
+2025-11-11 21:48:15 | Name: divanshi | Quiz: Quiz 1 — C++ Basics | Score: 8/10 | 80.0% | Duration: 40s
+2025-11-11 23:01:54 | Name: ridhima | Quiz: Quiz 1 — C++ Basics | Score: 6/10 | 60.0% | Duration: 29s
+2025-11-12 00:55:54 | Name: divanshi | Quiz: Quiz 2 — C Basics | Score: 8/10 | 80.0% | Duration: 43s
+2025-11-12 00:56:32 | Name: divanshi | Quiz: Quiz 3 — Python Basics | Score: 3/10 | 30.0% | Duration: 30s
+2025-11-12 01:06:55 | Name: divanshi | Quiz: Quiz 3 — Python Basics | Score: 8/10 | 80.0% | Duration: 42s

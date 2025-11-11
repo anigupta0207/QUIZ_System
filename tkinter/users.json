@@ -1,0 +1,18 @@
+{
+  "admin": {
+    "password": "admin",
+    "role": "admin"
+  },
+  "divanshi": {
+    "password": "123",
+    "role": "user"
+  },
+  "simran": {
+    "password": "qwer",
+    "role": "user"
+  },
+  "ridhima": {
+    "password": "abcd",
+    "role": "user"
+  }
+}

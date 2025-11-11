@@ -1,0 +1,79 @@
+Name: divanshi
+Timestamp: 2025-11-12 00:55:54
+Quiz: Quiz 2 — C Basics
+Total Questions: 10
+Duration: 43 seconds
+------------------------------------------------------------
+
+Q1. Which file extension is used for C source files?
+  A) .c (Correct, Chosen)
+  B) .cpp
+  C) .h
+  D) .cs
+Result: Correct
+------------------------------------------------------------
+Q2. Which function prints text to the screen?
+  A) printf() (Correct, Chosen)
+  B) print()
+  C) cout
+  D) disp()
+Result: Correct
+------------------------------------------------------------
+Q3. Which header file is needed for printf or scanf?
+  A) stdlib.h
+  B) conio.h
+  C) stdio.h (Correct, Chosen)
+  D) math.h
+Result: Correct
+------------------------------------------------------------
+Q4. Which keyword is used to define a user-defined type?
+  A) union
+  B) struct
+  C) enum
+  D) typedef (Correct, Chosen)
+Result: Correct
+------------------------------------------------------------
+Q5. What is the result of sizeof(char)?
+  A) 1 (Correct)
+  B) 2 (Chosen)
+  C) 4
+  D) Compiler dependent
+Result: Incorrect
+------------------------------------------------------------
+Q6. What is memory leak?
+  A) Incorrect value access
+  B) Allocated memory not freed (Correct)
+  C) Wrong pointer assignment (Chosen)
+  D) Stack overflow
+Result: Incorrect
+------------------------------------------------------------
+Q7. What does #define MAX 100 do?
+  A) Defines variable MAX
+  B) Creates 100
+  C) Sets macro MAX to 100 (Correct, Chosen)
+  D) None
+Result: Correct
+------------------------------------------------------------
+Q8. Which data type is suitable for large numbers?
+  A) int
+  B) long (Correct, Chosen)
+  C) float
+  D) char
+Result: Correct
+------------------------------------------------------------
+Q9. Which keyword restricts inheritance?
+  A) restrict
+  B) const
+  C) private
+  D) static (Correct, Chosen)
+Result: Correct
+------------------------------------------------------------
+Q10. What does #undef do?
+  A) Undefines macro (Correct, Chosen)
+  B) Define macro
+  C) Resets
+  D) Exits
+Result: Correct
+------------------------------------------------------------
+
+Final Score: 8/10 (80.0%)

@@ -1,0 +1,79 @@
+Name: divanshi
+Timestamp: 2025-11-12 01:06:55
+Quiz: Quiz 3 — Python Basics
+Total Questions: 10
+Duration: 42 seconds
+------------------------------------------------------------
+
+Q1. What is the output of print([i for i in range(3)])?
+  A) [1,2,3]
+  B) [0,1,2] (Correct, Chosen)
+  C) [0, 1, 2]
+  D) (0,1,2)
+Result: Correct
+------------------------------------------------------------
+Q2. Which of the following is NOT true for Python decorators?
+  A) They modify function behavior
+  B) They must return a function
+  C) They are used with @ syntax (Chosen)
+  D) They can be applied to variables (Correct)
+Result: Incorrect
+------------------------------------------------------------
+Q3. How do you make a class method private in Python?
+  A) Prefix method with __ (Correct)
+  B) Prefix with _
+  C) Use @private
+  D) No privacy in Python (Chosen)
+Result: Incorrect
+------------------------------------------------------------
+Q4. Which protocol is used for the context manager with statement?
+  A) __enter__ / __exit__ (Correct, Chosen)
+  B) __on__ / __off__
+  C) __start__ / __stop__
+  D) __get__ / __set__
+Result: Correct
+------------------------------------------------------------
+Q5. Which of the following enables lazy evaluation?
+  A) tuple
+  B) list
+  C) generator (Correct, Chosen)
+  D) set
+Result: Correct
+------------------------------------------------------------
+Q6. What is the main advantage of 'slots' in a class?
+  A) Prevents inheritance
+  B) Reduces memory usage (Correct, Chosen)
+  C) Increases speed
+  D) Improves readability
+Result: Correct
+------------------------------------------------------------
+Q7. How do you define an abstract base class?
+  A) @base
+  B) @abstractclass
+  C) abstract.Base
+  D) abc.ABCMeta (Correct, Chosen)
+Result: Correct
+------------------------------------------------------------
+Q8. How do you force garbage collection in Python?
+  A) release()
+  B) os.clean()
+  C) del()
+  D) gc.collect() (Correct, Chosen)
+Result: Correct
+------------------------------------------------------------
+Q9. Which module provides access to interpreter internals?
+  A) sys (Correct, Chosen)
+  B) os
+  C) site
+  D) interp
+Result: Correct
+------------------------------------------------------------
+Q10. What is the output type of json.loads()?
+  A) dict (Correct, Chosen)
+  B) str
+  C) list
+  D) tuple
+Result: Correct
+------------------------------------------------------------
+
+Final Score: 8/10 (80.0%)

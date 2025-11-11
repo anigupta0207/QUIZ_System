@@ -1,0 +1,69 @@
+Q: What is the output of print([i for i in range(3)])?
+A) [1,2,3]   
+B) [0,1,2]
+C) [0, 1, 2]
+D) (0,1,2)
+Answer: B
+
+Q: Which of the following is NOT true for Python decorators?
+A) They modify function behavior
+B) They must return a function
+C) They are used with @ syntax
+D) They can be applied to variables
+Answer: D
+
+Q: How do you make a class method private in Python?
+A) Prefix method with __
+B) Prefix with _
+C) Use @private
+D) No privacy in Python
+Answer: A
+
+Q: Which protocol is used for the context manager with statement?
+A) __enter__ / __exit__
+B) __on__ / __off__
+C) __start__ / __stop__
+D) __get__ / __set__
+Answer: A
+
+Q: Which of the following enables lazy evaluation?
+A) tuple
+B) list
+C) generator
+D) set
+Answer: C
+
+Q: What is the main advantage of 'slots' in a class?
+A) Prevents inheritance
+B) Reduces memory usage
+C) Increases speed
+D) Improves readability
+Answer: B
+
+Q: How do you define an abstract base class?
+A) @base
+B) @abstractclass
+C) abstract.Base
+D) abc.ABCMeta
+Answer: D
+
+Q: How do you force garbage collection in Python?
+A) release()
+B) os.clean()
+C) del()
+D) gc.collect()
+Answer: D
+
+Q: Which module provides access to interpreter internals?
+A) sys
+B) os
+C) site
+D) interp
+Answer: A
+
+Q: What is the output type of json.loads()?
+A) dict
+B) str
+C) list
+D) tuple
+Answer: A
