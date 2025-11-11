@@ -1,69 +1,69 @@
-Q: What is the capital of France?
-A) London
-B) Berlin
-C) Paris
-D) Madrid
+Q: Which of the following cannot be overloaded in C++?
+A) ++
+B) ->
+C) ::
+D) ()
 Answer: C
 
-Q: Which language is used to write Tkinter apps?
-A) Java
-B) C++
-C) Python
-D) Ruby
+Q: What does 'mutable' keyword allow in a const object?
+A) Change static members
+B) Modify that specific member
+C) Modify all members
+D) None
+Answer: B
+
+Q: Which constructor is called during object copy?
+A) Default
+B) Parameterized
+C) Copy constructor
+D) Move constructor
 Answer: C
 
-Q: Which planet is known as the Red Planet?
-A) Mars
-B) Earth
-C) Venus
-D) Jupiter
+Q: What is the output of sizeof('A')?
+A) 1
+B) 2
+C) 4
+D) Depends on compiler
 Answer: A
 
-Q: What is the largest dessert in the world?
-A) Gobi dessert
-B) Sahara dessert
-C) Arabian dessert
-D) Kalahari dessert
-Answer: B
-
-Q: Which mountain range separates Europe and Asia?
-A) Himalayas
-B) Andes
-C) Alps
-D) Ural Mountains
+Q: Which cast is safest among the following?
+A) reinterpret_cast
+B) static_cast
+C) const_cast
+D) dynamic_cast
 Answer: D
 
-Q: Which is the longest river in the world?
-A) Amazon
-B) Nile
-C) Mississippi
-D) Yangtze
-Answer: B
-
-Q: Who built the Taj Mahal?
-A) Shah Jahan
-B) Akbar
-C) Aurangzeb
-D) Humayun
+Q: Which function in a class cannot be virtual?
+A) Constructor
+B) Destructor
+C) Member Function
+D) Operator Function
 Answer: A
 
-Q: Which chemical element is designated as "Hg"?
-A) Silver
-B) Tin
-C) Copper
-D) Mercury 
-Answer: D
-
-Q: What is the process by which plants converts sunlight into energy?
-A) Respiration
-B) Photosynthesis
-C) Oxidation
-D) Transpiration
+Q: When does a destructor get called automatically?
+A) At program start
+B) When object is destroyed
+C) At object creation
+D) When memory leaks occur
 Answer: B
 
-Q: In which year India gain independence?
-A) 1947
-B) 1945
-C) 1950
-D) 1942
-Answer: A
+Q: What is a pure virtual function?
+A) Function with no return
+B) Function with body
+C) Function declared with = 0
+D) Function using static
+Answer: C
+
+Q: What does 'this' pointer represent?
+A) Pointer to base class
+B) Pointer to calling object
+C) Pointer to derived class
+D) Pointer to global scope
+Answer: B
+
+Q: What happens when delete is applied to a null pointer?
+A) Runtime error
+B) Segmentation fault
+C) No effect
+D) Memory leak
+Answer: C
