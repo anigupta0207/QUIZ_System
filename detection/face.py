@@ -7,7 +7,10 @@ import signal
 import sys
 import json
 
-suspect_file = "suspect_count.json"
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+suspect_file = os.path.abspath(os.path.join(BASE_DIR, "..", "suspect_count.json"))
+
 if not os.path.exists(suspect_file):
     with open(suspect_file, "w") as f:
         json.dump({"current": 0}, f)

@@ -7,6 +7,9 @@ import csv
 import html
 import subprocess
 
+# Path to project root
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SUSPECT_FILE = os.path.join(PROJECT_ROOT, "suspect_count.json")
 
 # ✅ Save User Scores
 def save_user_scores(user_scores):
@@ -218,10 +221,10 @@ def show_quiz_app():
     # -----------------------------------------
     if st.session_state.quiz_completed:
         # ✅ Load suspicion count
-        sus_path = os.path.join(current_dir, "suspect_count.json")
+        sus_path = SUSPECT_FILE
 
         if os.path.exists(sus_path):
-            sus_count = json.load(open(sus_path)).get("current", 0)
+            sus_count = json.load(open(SUSPECT_FILE)).get("current", 0)
         else:
             sus_count = 0
 
@@ -368,7 +371,8 @@ def show_quiz_app():
             with colA:
                 if st.button("✅ Yes, Submit"):
                     
-                    sus_path = os.path.join(current_dir, "suspect_count.json")
+                    sus_path = SUSPECT_FILE
+
                     st.session_state.score = 0
                     for i, que in enumerate(questions):
                         user_index = st.session_state.answers.get(i)
@@ -378,7 +382,7 @@ def show_quiz_app():
 
                     st.session_state.quiz_completed = True
                     st.session_state.ask_submit = False
-                    json.dump({"current": 0}, open(sus_path, "w"))
+                    json.dump({"current": 0}, open(SUSPECT_FILE, "w"))
                     
                     
                     st.rerun()
