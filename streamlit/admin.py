@@ -4,8 +4,7 @@ import os
 import pandas as pd
 import altair as alt
 import csv
-
-
+import pandas as pd 
 # ---------- File Paths ----------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USERS_FILE = os.path.join(BASE_DIR, "..", "users.json")
@@ -193,11 +192,9 @@ def show_admin_dashboard():
     # ✅ TAB 1: SCORES & RANKING
     # ---------------------------------------------------------------------
     with tab1:
-        
         if not user_scores:
             st.info("No student scores available yet.")
         else:
-            # Prepare dataframe
             records = []
             for user, quizzes in user_scores.items():
                 for quiz_id, q in quizzes.items():
@@ -213,17 +210,33 @@ def show_admin_dashboard():
             df = pd.DataFrame(records).sort_values(by="Score", ascending=False).reset_index(drop=True)
             df.index += 1
 
-            # ✅ TOP 3 FIRST
+            # ✅ Add risk marker
+            df["RiskFlag"] = df["Suspicion %"].apply(
+                lambda x: '<span class="high-risk">🔴</span>' if x > 40 else '<span class="normal">✅</span>'
+            )
+
+
+
+            # ✅ CSS for red highlight
+            st.markdown("""
+            <style>
+            .light-table tbody tr:has(span.high-risk) {
+                background-color: #ffcccc !important;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+
+            # ✅ Top performers
             st.markdown("<br><h4>🏆 Top Performers</h4>", unsafe_allow_html=True)
             top3 = df.head(3)
-
             for i, row in top3.iterrows():
                 st.write(f"**{i}. {row['Username']}** — {row['Score']} points ({row['Quiz Title']})")
 
-            # ✅ NOW STUDENT SCORE TABLE
             st.markdown("<div class='sub-heading'>📊 Student Scores & Ranking</div>", unsafe_allow_html=True)
 
-            table_html = df.to_html(index=True, classes="light-table", border=0)
+            # ✅ Generate table HTML with escape disabled
+            table_html = df.to_html(index=True, classes="light-table", border=0, escape=False)
+
             st.markdown(f"""
             <div style="
                 background:white;
