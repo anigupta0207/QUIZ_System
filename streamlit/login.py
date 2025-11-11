@@ -1,209 +1,240 @@
 import streamlit as st
-import json
-import os
-import hashlib
-import re
+import json, os, hashlib, re
 
-# ---------- Utility Functions ----------
-
+# ---------- Utility ----------
 def load_users():
     if not os.path.exists("users.json"):
-        with open("users.json", "w") as f:
-            json.dump({}, f)
-    try:
-        with open("users.json", "r") as f:
-            return json.load(f)
-    except json.JSONDecodeError:
-        return {}
+        json.dump({}, open("users.json", "w"))
+    return json.load(open("users.json"))
 
 def save_users(users):
-    with open("users.json", "w") as f:
-        json.dump(users, f, indent=4)
+    json.dump(users, open("users.json", "w"), indent=4)
 
-def load_scores():
-    if not os.path.exists("scores.json"):
-        with open("scores.json", "w") as f:
-            json.dump({}, f)
-    try:
-        with open("scores.json", "r") as f:
-            return json.load(f)
-    except json.JSONDecodeError:
-        return {}
+def hash_password(p): 
+    return hashlib.sha256(p.encode()).hexdigest()
 
-def save_scores(scores):
-    with open("scores.json", "w") as f:
-        json.dump(scores, f, indent=4)
-
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
-
-def verify_user(username, password, users):
-    return username in users and users[username]["password"] == hash_password(password)
+def verify_user(u, p, users): 
+    return u in users and users[u]["password"] == hash_password(p)
 
 
-# ---------- Streamlit UI ----------
-
+# ---------- App ----------
 def show_login_system():
-    st.set_page_config(page_title="PrepSecure", page_icon="🎯", layout="centered")
-    st.title("🧑🏼‍💻 Welcome to PrepSecure")
+    st.set_page_config(page_title="PrepSecure", layout="wide")
 
-    users = load_users()
-    scores = load_scores()
+    # ---------- Custom Style ----------
+    st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    html, body, [class*="css"] {
+        font-family: 'Poppins', sans-serif;
+        background-color: #0f0f1a;
+        color: white;
+    }
 
-    # Ensure default admin exists
-    if "admin" not in users:
-        users["admin"] = {
-            "password": hash_password("admin123"),
-            "role": "admin"
+    .left-img {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    }
+
+    .left-img img {
+        width: 100%;
+        height: 85vh;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .overlay-text {
+        position: relative;
+        bottom: 90px;
+        left: 30px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+        text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+    }
+
+    /* 🔹 Added spacing between image and form */
+    .right-section {
+        margin-left: 3rem;
+    }
+
+    .stTabs [data-baseweb="tab-list"] {
+        justify-content: left;
+        border-bottom: 1px solid #444;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        font-weight: 600;
+        color: #bbb;
+    }
+
+    .stTabs [data-baseweb="tab"]:hover {
+        color: #fff;
+    }
+
+    .stTabs [aria-selected="true"] {
+        color: white !important;
+    }
+
+    .stTextInput>div>div>input, .stPasswordInput>div>div>input {
+        background-color: #1f1f2e;
+        color: white;
+        border-radius: 8px;
+        border: none;
+    }
+
+    .stButton>button {
+        width: 100%;
+        background: linear-gradient(90deg, #8b5cf6, #6366f1);
+        color: white;
+        border: none;
+        padding: 0.6rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: 0.3s;
+    }
+
+    .stButton>button:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+
+    /* ---------- Soft Fade-In Animation ---------- */
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
         }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .container, .card, .right-side, .left-side {
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+    }
+
+    /* Add subtle delays for a staggered entrance */
+    .card {
+        animation-delay: 0.2s;
+    }
+    .left-side {
+        animation-delay: 0.4s;
+    }
+    .right-side {
+        animation-delay: 0.6s;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+    # ---------- Users ----------
+    users = load_users()
+    if "admin" not in users:
+        users["admin"] = {"password": hash_password("admin123"), "role": "admin"}
         save_users(users)
 
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
-    if "username" not in st.session_state:
-        st.session_state.username = ""
-    if "role" not in st.session_state:
-        st.session_state.role = ""
 
-    # ------------------- LOGIN / SIGNUP / ADMIN -------------------
-    if not st.session_state.logged_in:
-        tab1, tab2, tab3 = st.tabs(["🔑 Login", "📝 Sign Up", "👨🏻‍💼 Admin Login"])
+    # ---------- Layout ----------
+    left, space, right = st.columns([0.9, 0.15, 0.9])  # Added middle spacing column
 
-        # ---------- USER LOGIN ----------
-        with tab1:
-            st.subheader("Login to your account")
-            username = st.text_input("Username", key="login_user")
-            password = st.text_input("Password", type="password", key="login_pass")
+    with left:
+        st.markdown(
+            """
+            <div class="left-img left-side">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" alt="background">
+                <div class="overlay-text">
+                    Capturing Moments,<br>Creating Memories
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-            if st.button("Login", key="user_login_btn"):
-                if verify_user(username, password, users):
-                    if users[username]["role"] == "admin":
-                        st.warning("Use the Admin Login tab to log in as admin.")
+    with right:
+        st.markdown('<div class="right-section right-side">', unsafe_allow_html=True)
+
+        st.title("PrepSecure")
+        st.subheader("Access your account")
+        st.write("")
+
+        # ---------- Tabs ----------
+        if not st.session_state.logged_in:
+            tab1, tab2, tab3 = st.tabs(["🔑 Sign In", "📝 Sign Up", "👨🏻‍💼 Admin Login"])
+
+            # -------------------- SIGN IN --------------------
+            with tab1:
+                st.subheader("Sign In to your account")
+                u = st.text_input("Username")
+                p = st.text_input("Password", type="password")
+                if st.button("Sign In"):
+                    if verify_user(u, p, users):
+                        if users[u]["role"] == "admin":
+                            st.warning("Use Admin tab for admin access.")
+                        else:
+                            st.session_state.logged_in = True
+                            st.session_state.username = u
+                            st.session_state.role = "user"
+                            st.success(f"Welcome back, {u}!")
+                            st.rerun()
                     else:
+                        st.error("Invalid username or password.")
+
+            # -------------------- SIGN UP --------------------
+            with tab2:
+                st.subheader("Create a new account")
+                nu = st.text_input("New Username")
+                np = st.text_input("New Password", type="password")
+                cp = st.text_input("Confirm Password", type="password")
+
+                if st.button("Sign Up"):
+                    valid_username = re.fullmatch(r"[A-Za-z0-9_]+", nu)
+                    if nu in users:
+                        st.warning("Username already exists!")
+                    elif np != cp:
+                        st.warning("Passwords do not match.")
+                    elif not valid_username:
+                        st.warning("Username can only contain letters, numbers, and underscores.")
+                    elif len(nu) < 3 or len(np) < 3:
+                        st.warning("Username and password must be at least 3 characters.")
+                    else:
+                        users[nu] = {"password": hash_password(np), "role": "user"}
+                        save_users(users)
+                        st.success("Account created successfully! You can now login.")
+
+            # -------------------- ADMIN LOGIN --------------------
+            with tab3:
+                st.subheader("Admin Login")
+                au = st.text_input("Admin Username")
+                ap = st.text_input("Admin Password", type="password")
+
+                if st.button("Admin Login"):
+                    if verify_user(au, ap, users) and users[au]["role"] == "admin":
                         st.session_state.logged_in = True
-                        st.session_state.username = username
-                        st.session_state.role = "user"
-                        st.success(f"Welcome back, {username}!")
-                        st.rerun()
-                else:
-                    st.error("Invalid username or password.")
-
-        # ---------- USER SIGN UP ----------
-        with tab2:
-            st.subheader("Create a new account")
-            new_username = st.text_input("New Username", key="signup_user")
-            new_password = st.text_input("New Password", type="password", key="signup_pass")
-            confirm_password = st.text_input("Confirm Password", type="password", key="signup_conf")
-
-            if st.button("Sign Up", key="signup_btn"):
-                valid_username = re.fullmatch(r"[A-Za-z0-9_]+", new_username)
-                
-                if new_username in users:
-                    st.warning("Username already exists! Try another.")
-                elif new_password != confirm_password:
-                    st.warning("Passwords do not match.")
-                elif not valid_username:
-                    st.warning("Username can only contain letters, numbers, and underscore (_)")
-                elif len(new_username) < 5 or len(new_password) < 3:
-                    st.warning("Username and password must be at least 3 characters.")
-                
-                else:
-                    users[new_username] = {
-                        "password": hash_password(new_password),
-                        "role": "user"
-                    }
-                    save_users(users)
-                    st.success("Account created successfully! You can now login.")
-
-        # ---------- ADMIN LOGIN ----------
-        with tab3:
-            st.subheader("Admin Login")
-            admin_username = st.text_input("Admin Username", key="admin_user")
-            admin_password = st.text_input("Admin Password", type="password", key="admin_pass")
-
-            if st.button("Admin Login", key="admin_login_btn"):
-                if verify_user(admin_username, admin_password, users):
-                    if users[admin_username]["role"] == "admin":
-                        st.session_state.logged_in = True
-                        st.session_state.username = admin_username
+                        st.session_state.username = au
                         st.session_state.role = "admin"
-                        st.success(f"Welcome Admin, {admin_username}!")
+                        st.success(f"Welcome Admin, {au}!")
                         st.rerun()
                     else:
-                        st.error("Access denied: You are not an admin.")
-                else:
-                    st.error("Invalid admin credentials.")
-
-    # ------------------- AFTER LOGIN -------------------
-    else:
-        if st.session_state.role == "admin":
-            st.success(f"👑 Logged in as Admin: {st.session_state.username}")
-            st.header("📊 Admin Dashboard")
-
-            # Registered Users
-            st.write("### Registered Users")
-            if users:
-                for u, info in users.items():
-                    st.write(f"👤 **{u}** — Role: {info['role']}")
-            else:
-                st.write("No users found.")
-
-            # Student Scores
-            st.divider()
-            st.subheader("Student Scores and Attempts")
-
-            if scores:
-                ranked_students = sorted(scores.items(), key=lambda x: x[1].get("score", 0), reverse=True)
-                st.write(f"| Rank | Student | Score | Attempts |")
-                st.write(f"|-------|---------|-------|----------|")
-                rank = 1
-                for student, data in ranked_students:
-                    score = data.get("score", 0)
-                    attempts = data.get("attempts", 0)
-                    st.write(f"| {rank} | {student} | {score} | {attempts} |")
-                    rank += 1
-            else:
-                st.write("No student score data available.")
-
-            # Manage Users
-            st.divider()
-            st.subheader("Manage Users")
-
-            deletable_users = [u for u in users if u != "admin"]
-            if deletable_users:
-                user_to_delete = st.selectbox("Select a user to delete", deletable_users, key="user_to_delete")
-                if st.button("Delete User"):
-                    del users[user_to_delete]
-                    save_users(users)
-                    st.success(f"User '{user_to_delete}' deleted.")
-                    st.rerun()
-            else:
-                st.info("No users available to delete.")
-
-            promotable_users = [u for u, info in users.items() if info["role"] == "user"]
-            if promotable_users:
-                user_to_promote = st.selectbox("Select a user to promote to admin", promotable_users, key="user_to_promote")
-                if st.button("Promote to Admin"):
-                    users[user_to_promote]["role"] = "admin"
-                    save_users(users)
-                    st.success(f"User '{user_to_promote}' promoted to admin.")
-                    st.rerun()
-            else:
-                st.info("No users available to promote.")
-
+                        st.error("Invalid admin credentials.")
         else:
-            st.success(f"✅ Logged in as: {st.session_state.username}")
-            st.header("🎉 User Dashboard")
-            st.write("Welcome to your user area!")
+            # Logged in view
+            st.header(f"Welcome, {st.session_state.username}")
+            if st.button("Logout"):
+                st.session_state.logged_in = False
+                st.session_state.username = ""
+                st.session_state.role = ""
+                st.rerun()
 
-        # Logout Button
-        if st.button("Logout"):
-            st.session_state.logged_in = False
-            st.session_state.username = ""
-            st.session_state.role = ""
-            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)  # close right-section
 
-    # --- RETURN for main.py ---
+    # --- RETURN for web.py ---
     return (
         st.session_state.get("logged_in", False),
         st.session_state.get("username", ""),
