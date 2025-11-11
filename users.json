@@ -82,5 +82,9 @@
     "arshitaa": {
         "password": "ed968e840d10d2d313a870bc131a4e2c311d7ad09bdf32b3418147221f51a6e2",
         "role": "user"
+    },
+    "divanshi": {
+        "password": "cd35a2426062b7d58fd4a63f813cc506ef87e449087d28d256b8c393f20fa364",
+        "role": "user"
     }
 }
