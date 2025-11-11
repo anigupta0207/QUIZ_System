@@ -5,6 +5,28 @@ import time
 from collections import deque
 import signal
 import sys
+import json
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+suspect_file = os.path.abspath(os.path.join(BASE_DIR, "..", "suspect_count.json"))
+
+if not os.path.exists(suspect_file):
+    with open(suspect_file, "w") as f:
+        json.dump({"current": 0}, f)
+
+def add_suspect():
+    data = json.load(open(suspect_file))
+    data["current"] += 1
+    json.dump(data, open(suspect_file, "w"))
+
+# ✅ Save suspicious event photo (no CSV)
+def capture_suspicious_event(event_type, frame):
+    timestamp = time.strftime('%Y%m%d_%H%M%S')
+    filename = f'captures/{event_type}_{timestamp}.jpg'
+    cv2.imwrite(filename, frame)
+    print(f"📸 Suspicious event captured: {event_type} -> {filename}")
+
 
 # ✅ Shutdown handler
 stop_signal = False
@@ -51,44 +73,44 @@ while not stop_signal:
 
     if len(faces) > 0:
 
+        # ✅ MULTIPLE FACES FOUND
         if len(faces) > 1:
-            cv2.putText(frame, "⚠️ MULTIPLE FACES DETECTED!", (50, 100),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
-            print("⚠️ ALERT: More than one face detected!")
-
+            cv2.putText(frame, "⚠ MULTIPLE FACES DETECTED!", (50, 100),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
+            print("⚠ MULTIPLE FACES DETECTED!")
+            
+            capture_suspicious_event("multiface", frame)
+            add_suspect()
+            
+        # ✅ Select largest face for tracking
         largest_face = max(faces, key=lambda rect: rect[2] * rect[3])
         (x, y, w, h) = largest_face
         center_current = (x + w//2, y + h//2)
-        
+
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
+        # ✅ Detect face movement
         if prev_face_position is not None:
             dx = abs(center_current[0] - prev_face_position[0])
             dy = abs(center_current[1] - prev_face_position[1])
             distance = np.sqrt(dx**2 + dy**2)
 
             if distance > movement_threshold:
-                cv2.putText(frame, "⚠️ ALERT: Face Movement!", (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
-                print("⚠️ Face movement detected!")
+                cv2.putText(frame, "⚠ FACE MOVEMENT!", (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
+                print("⚠ FACE MOVEMENT DETECTED!")
 
+                capture_suspicious_event("movement", frame)
+                add_suspect()
+                
         prev_face_position = center_current
+
     else:
         prev_face_position = None
         cv2.putText(frame, "No face detected!", (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 255), 2)
-
-    current_time = time.time()
-    if current_time - last_capture_time >= capture_interval:
-        timestamp = time.strftime('%Y%m%d_%H%M%S')
-        filename = f'captures/photo_{timestamp}.jpg'    
-        cv2.imwrite(filename, frame)
-        print(f"📸 Photo captured and saved as {filename}")  
-        last_capture_time = current_time
-  
-                
-    cv2.imshow("Face Movement Detection", frame)
+        
+    cv2.imshow("Face Monitoring", frame)
     key = cv2.waitKey(1)
-    if key == ord('q') or stop_signal:
-        print("👋 Stopping face detection...")
+    if key == ord('q') or key == ord('Q'):
+        print("👋 Face monitoring stopped manually (Q pressed).")
         break
-
 cap.release()
 cv2.destroyAllWindows()

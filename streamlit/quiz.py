@@ -4,142 +4,77 @@ import os
 import random
 from datetime import datetime
 import csv
+import html
+import subprocess
 
-# ---------- Utility Functions ----------
+# Path to project root
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SUSPECT_FILE = os.path.join(PROJECT_ROOT, "suspect_count.json")
 
-def load_quiz_data():
-    """Load quiz data from JSON files."""
-
-    # Get the absolute path to the questions directory
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    questions_dir = os.path.join(current_dir, "questions")
-    quiz_files = {
-        "C": {
-        "basic": os.path.join(questions_dir, "c_b.json"),
-        "intermediate": os.path.join(questions_dir, "c_i.json"),
-        "advanced": os.path.join(questions_dir, "c_a.json")
-    },
-    "C++": {
-        "basic": os.path.join(questions_dir, "cpp_b.json"),
-        "intermediate": os.path.join(questions_dir, "cpp_i.json"),
-        "advanced": os.path.join(questions_dir, "cpp_a.json")
-    },
-    "Python": {
-        "basic": os.path.join(questions_dir, "python_b.json"),
-        "intermediate": os.path.join(questions_dir, "python_i.json"),
-        "advanced": os.path.join(questions_dir, "python_a.json")
-    }
-    }
-    
-    quizzes = []
-    user_scores = {}
-    
-    # Load quiz data files
-    for level, filename in quiz_files.items():
-        try:
-            if os.path.exists(filename):
-                with open(filename, "r", encoding="utf-8") as f:
-                    quiz_data = json.load(f)
-
-                    # ✅ Pick only 20 random questions each time from the full set
-                    all_questions = quiz_data.get("questions", [])
-                    random_20 = random.sample(all_questions, min(20, len(all_questions)))
-                    quiz_data["questions"] = random_20
-
-                    quizzes.append(quiz_data)
-        except (json.JSONDecodeError, FileNotFoundError) as e:
-            st.error(f"Error loading {filename}: {e}")
-    
-    # Load user scores
-    user_scores_path = os.path.join(current_dir, "user_scores.json")
-    if os.path.exists(user_scores_path):
-        try:
-            with open(user_scores_path, "r", encoding="utf-8") as f:
-                user_scores = json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError):
-            user_scores = {}
-    
-    return {
-        "quizzes": quizzes,
-        "user_scores": user_scores
-    }
-
+# ✅ Save User Scores
 def save_user_scores(user_scores):
-    """Save user scores to JSON file."""
     current_dir = os.path.dirname(os.path.abspath(__file__))
     user_scores_path = os.path.join(current_dir, "user_scores.json")
     with open(user_scores_path, "w", encoding="utf-8") as f:
         json.dump(user_scores, f, indent=4)
 
-        
-def save_to_csv(username, quiz_id, quiz_title, score, completed_at):
-    csv_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scores.csv")
 
-    # Header exists?
+# ✅ Save to CSV
+def save_to_csv(username, quiz_id, quiz_title, score, completed_at,sus_percentage):
+    csv_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scores.csv")
     file_exists = os.path.isfile(csv_file)
 
     with open(csv_file, "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
 
-        # Write header only once
         if not file_exists:
-            writer.writerow(["username", "quiz_id", "quiz_title", "score", "completed_at"])
+            writer.writerow(["username", "quiz_id", "quiz_title", "score", "completed_at","sus_percentage"])
 
-        writer.writerow([username, quiz_id, quiz_title, score, completed_at])
+        writer.writerow([username, quiz_id, quiz_title, score, completed_at, sus_percentage])
 
 
+# ✅ Main Quiz App
 def show_quiz_app():
-    st.set_page_config(page_title="Quiz App", page_icon="🎯", layout="wide")
+
+    st.set_page_config(page_title="PrepSecure", page_icon="🎯", layout="wide")
     st.title("🎯 Quiz Master Pro")
 
-    # Session state initializers
-    if "selected_subject" not in st.session_state:
-        st.session_state.selected_subject = None
-    if "selected_level" not in st.session_state:
-        st.session_state.selected_level = None
-    if "current_quiz" not in st.session_state:
-        st.session_state.current_quiz = None
-    if "current_question" not in st.session_state:
-        st.session_state.current_question = 0
-    if "score" not in st.session_state:
-        st.session_state.score = 0
-    if "quiz_completed" not in st.session_state:
-        st.session_state.quiz_completed = False
-
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    questions_dir = os.path.join(current_dir, "questions")
-    quiz_files = {
-        "C": {
-            "basic": os.path.join(questions_dir, "c_b.json"),
-            "intermediate": os.path.join(questions_dir, "c_i.json"),
-            "advanced": os.path.join(questions_dir, "c_a.json")
-        },
-        "C++": {
-            "basic": os.path.join(questions_dir, "cpp_b.json"),
-            "intermediate": os.path.join(questions_dir, "cpp_i.json"),
-            "advanced": os.path.join(questions_dir, "cpp_a.json")
-        },
-        "Python": {
-            "basic": os.path.join(questions_dir, "python_b.json"),
-            "intermediate": os.path.join(questions_dir, "python_i.json"),
-            "advanced": os.path.join(questions_dir, "python_a.json")
-        }
+    # ✅ Initialize States
+    default_states = {
+        "selected_subject": None,
+        "selected_level": None,
+        "current_quiz": None,
+        "current_question": 0,
+        "score": 0,
+        "quiz_completed": False,
+        "answers": {},
+        "face_process": None,
+        "voice_process": None
     }
 
-    # Login check
+    for key, val in default_states.items():
+        if key not in st.session_state:
+            st.session_state[key] = val
+
+    # ✅ LOGIN CHECK
     if not st.session_state.get("logged_in", False):
-        st.warning("Please log in first to access the quiz application.")
+        st.warning("Please log in first.")
         return
 
-    st.sidebar.success(f"✅ Logged in as: {st.session_state.username}")
+    # ✅ ALWAYS VISIBLE LOGOUT BUTTON
+    with st.sidebar:
+        st.success(f"✅ Logged in as: {st.session_state.username}")
 
-    # --- SUBJECT SELECTION ---
-    # 1. Select Subject
-    # ... previous code ...
-    # ✅ Tell web.py that quiz has started → start face & voice detection
-    st.session_state.quiz_started = True
+        if st.button("🚪 Logout", use_container_width=True):
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
 
+    # -----------------------------------------
+    # ✅ SUBJECT SELECTION
+    # -----------------------------------------
     if st.session_state.selected_subject is None:
+
         st.subheader("Choose Your Subject")
 
         subjects = [
@@ -179,45 +114,30 @@ def show_quiz_app():
                     </div>
                 """, unsafe_allow_html=True)
 
-                # ✅ Perfectly centered button
-                st.markdown("<div class='center-btn'>", unsafe_allow_html=True)
                 if st.button(f"Select {card['name']}", key=f"sub_{card['name']}"):
                     st.session_state.selected_subject = card["name"]
-                    st.session_state.selected_level = None
                     st.rerun()
-                st.markdown("</div>", unsafe_allow_html=True)
 
         st.stop()
 
-    # --- LEVEL SELECTION ---
-    #        --- LEVEL SELECTION (Modern Card Layout) ---
-    # --- LEVEL SELECTION (Modern Card Layout + Start Button) ---
+    # -----------------------------------------
+    # ✅ LEVEL SELECTION
+    # -----------------------------------------
     if st.session_state.selected_level is None:
 
-        st.subheader(f"Choose {st.session_state.selected_subject} Quiz Level")
+        st.subheader(f"Choose {st.session_state.selected_subject} Level")
+
+        # ✅ BACK BUTTON
+        if st.button("⬅ Back to Subjects"):
+            st.session_state.selected_subject = None
+            st.rerun()
 
         LEVELS = [
-            {
-                "level": "basic",
-                "color": "linear-gradient(135deg,#89f7fe 0%, #66a6ff 100%)",
-                "desc": "Beginner friendly",
-                "emoji": "🌱"
-            },
-            {
-                "level": "intermediate",
-                "color": "linear-gradient(135deg,#fbc2eb 0%, #a6c1ee 100%)",
-                "desc": "Boost your skills",
-                "emoji": "🚀"
-            },
-            {
-                "level": "advanced",
-                "color": "linear-gradient(135deg,#f6d365 0%, #fda085 100%)",
-                "desc": "Challenge yourself",
-                "emoji": "🔥"
-            }
+            {"level": "basic", "color": "linear-gradient(135deg,#89f7fe 0%, #66a6ff 100%)", "desc": "Beginner friendly", "emoji": "🌱"},
+            {"level": "intermediate", "color": "linear-gradient(135deg,#fbc2eb 0%, #a6c1ee 100%)", "desc": "Boost your skills", "emoji": "🚀"},
+            {"level": "advanced", "color": "linear-gradient(135deg,#f6d365 0%, #fda085 100%)", "desc": "Challenge yourself", "emoji": "🔥"}
         ]
 
-        # ✅ Modern CSS
         st.markdown("""
         <style>
             .level-card {
@@ -231,34 +151,10 @@ def show_quiz_app():
                 flex-direction: column;
                 justify-content: center;
                 transition: 0.25s;
-                cursor: default;
             }
             .level-card:hover {
                 transform: translateY(-6px) scale(1.02);
                 box-shadow: 0 12px 28px rgba(0,0,0,0.28);
-            }
-            .level-title {
-                font-size: 26px;
-                font-weight: 700;
-            }
-            .level-desc {
-                font-size: 16px;
-                margin-top: 6px;
-                opacity: 0.9;
-            }
-            .start-btn button {
-                background-color: rgba(255, 255, 255, 0.2) !important;
-                border: 2px solid white !important;
-                color: white !important;
-                padding: 8px 20px !important;
-                border-radius: 12px !important;
-                font-size: 16px !important;
-                margin-top: 15px !important;
-                transition: 0.25s;
-            }
-            .start-btn button:hover {
-                background-color: white !important;
-                color: black !important;
             }
         </style>
         """, unsafe_allow_html=True)
@@ -267,220 +163,239 @@ def show_quiz_app():
 
         for i, item in enumerate(LEVELS):
             with cols[i]:
-                
-                # Card UI
                 st.markdown(
                     f"""
                     <div class="level-card" style="background:{item['color']}">
-                        <div class="level-title">{item['emoji']} {item['level'].title()}</div>
-                        <div class="level-desc">{item['desc']}</div>
+                        <div style="font-size:26px;font-weight:700;">{item['emoji']} {item['level'].title()}</div>
+                        <div style="font-size:16px;opacity:0.9;">{item['desc']}</div>
                     </div>
                     """,
                     unsafe_allow_html=True
                 )
 
-                # ✅ Start Button
-                if st.button(f"Start {item['level'].title()}", key=f"START_{item['level']}", help="Begin this level"):
+                if st.button(f"Start {item['level'].title()}", key=f"start_{item['level']}"):
+                    # ✅ Now begin the quiz
                     st.session_state.selected_level = item["level"]
                     st.rerun()
 
+
         st.stop()
 
+    # -----------------------------------------
+    # ✅ LOAD JSON QUIZ FILE (WITH C++ MAPPING FIX)
+    # -----------------------------------------
 
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    questions_dir = os.path.join(current_dir, "questions")
 
-    # --- LOAD QUIZ DATA AND RUN QUIZ ---
-    # Load data ONCE per quiz start
+    # ✅ Correct mapping for file prefix
+    file_map = {
+        "C": "c",
+        "C++": "cpp",
+        "Python": "python"
+    }
+
+    subject_prefix = file_map.get(st.session_state.selected_subject)
+
+    file_path = os.path.join(
+        questions_dir,
+        f"{subject_prefix}_{st.session_state.selected_level[0]}.json"
+    )
+
     if st.session_state.current_quiz is None:
-        filename = quiz_files[st.session_state.selected_subject][st.session_state.selected_level]
-        if os.path.exists(filename):
-            with open(filename, "r", encoding="utf-8") as f:
+        if os.path.exists(file_path):
+            with open(file_path, "r", encoding="utf-8") as f:
                 quiz = json.load(f)
-            # Pick 20 random questions each time
-            all_questions = quiz.get("questions", [])
-            quiz["questions"] = random.sample(all_questions, min(20, len(all_questions)))
+            all_q = quiz.get("questions", [])
+            quiz["questions"] = random.sample(all_q, min(20, len(all_q)))
             st.session_state.current_quiz = quiz
         else:
-            st.error("Quiz file missing! Please check the questions folder.")
-            st.session_state.selected_subject = None
-            st.session_state.selected_level = None
+            st.error(f"❌ Quiz file not found: {file_path}")
             st.stop()
 
     quiz = st.session_state.current_quiz
+    questions = quiz["questions"]
 
-    # Show quiz or results here...
-    # Add your question rendering and completion logic
+    # -----------------------------------------
+    # ✅ QUIZ COMPLETED
+    # -----------------------------------------
+    if st.session_state.quiz_completed:
+        # ✅ Load suspicion count
+        sus_path = SUSPECT_FILE
 
-
-
-    # 4. Run Quiz
-
-    if not st.session_state.quiz_completed:
-
-        # ✅ Beautiful progress bar
-        progress = (st.session_state.current_question) / len(quiz["questions"])
-        st.progress(progress)
-
-        # ✅ Modern Card Style
-        st.markdown("""
-        <style>
-        .question-card {
-            background: rgba(255,255,255,0.15);
-            padding: 25px;
-            border-radius: 18px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            margin-bottom: 20px;
-        }
-        .option-item {
-            padding: 12px 18px;
-            border-radius: 12px;
-            margin: 6px 0;
-            transition: 0.15s;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .option-item:hover {
-            background: rgba(255,255,255,0.25);
-        }
-        </style>
-        """, unsafe_allow_html=True)
-
-        question_data = quiz["questions"][st.session_state.current_question]
-
-        # ✅ Question Card
-        st.markdown(f"""
-        <div class="question-card">
-            <h3>Question {st.session_state.current_question + 1} of {len(quiz["questions"])}</h3>
-            <p style="font-size:18px; font-weight:500;">{question_data['question']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        # ✅ Safely escape all option text to display properly
-        clean_options = [str(opt).replace("<", "&lt;").replace(">", "&gt;") for opt in question_data["options"]]
-
-        selected_option = st.radio(
-            "Select your answer:",
-            clean_options,
-            index=None,
-            key=f"q_{st.session_state.current_question}"
-        )
-
-        st.write("")
-
-        # ✅ Submit Answer
-        if st.button("Submit Answer", type="primary"):
-
-            if selected_option is None:
-                st.warning("Please select an option before submitting!")
-                st.stop()
-
-            if selected_option == question_data['answer']:
-                st.session_state.score += question_data["points"]
-
-            # Next question or finish
-            if st.session_state.current_question < len(quiz["questions"]) - 1:
-                st.session_state.current_question += 1
-                st.rerun()
-            else:
-                st.session_state.quiz_completed = True
-                # --- Save JSON ---
-                uname = st.session_state.username
-                if uname not in user_scores:
-                    user_scores[uname] = {}
-
-                user_scores[uname][str(quiz["id"])] = {
-                    "score": st.session_state.score,
-                    "completed_at": datetime.now().isoformat(),
-                    "quiz_title": quiz["title"]
-                }
-
-                save_user_scores(user_scores)
-
-                # --- Save CSV ---
-                save_to_csv(
-                    username = uname,
-                    quiz_id = quiz["id"],
-                    quiz_title = quiz["title"],
-                    score = st.session_state.score,
-                    completed_at = datetime.now().isoformat()
-                )
-                st.rerun()
-
-
-    else:
-        # ✅ QUIZ COMPLETED SECTION
-
-        # ✅ Save to JSON FIRST
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        user_scores_path = os.path.join(current_dir, "user_scores.json")
-
-        # Load old scores
-        if os.path.exists(user_scores_path):
-            with open(user_scores_path, "r", encoding="utf-8") as f:
-                user_scores = json.load(f)
+        if os.path.exists(sus_path):
+            sus_count = json.load(open(SUSPECT_FILE)).get("current", 0)
         else:
-            user_scores = {}
+            sus_count = 0
 
-        uname = st.session_state.username
+        total_q = len(questions)
+        sus_percentage = min(int((sus_count / total_q) * 100), 100)
 
-        # Make sure username exists
-        if uname not in user_scores:
-            user_scores[uname] = {}
 
-        # Save JSON
-        user_scores[uname][str(quiz["id"])] = {
-            "score": st.session_state.score,
-            "completed_at": datetime.now().isoformat(),
-            "quiz_title": quiz["title"]
-        }
-
-        with open(user_scores_path, "w", encoding="utf-8") as f:
-            json.dump(user_scores, f, indent=4)
-
-        # ✅ Save INTO CSV also
-        save_to_csv(
-            uname,
-            quiz["id"],
-            quiz["title"],
-            st.session_state.score,
-            datetime.now().isoformat()
-        )
-
-        # ✅ UI SECTION
         st.balloons()
         st.header("🎊 Quiz Completed!")
-        total_points = sum(q["points"] for q in quiz["questions"])
+
+        total_points = sum(q["points"] for q in questions)
         st.subheader(f"Your Score: {st.session_state.score}/{total_points}")
-        
-        percentage = (st.session_state.score / total_points) * 100
-        st.progress(int(percentage))
-        st.write(f"**{percentage:.1f}%**")
 
-        if percentage >= 80:
-            st.success("🎉 Excellent performance!")
-        elif percentage >= 60:
-            st.info("👍 Good job!")
+        uname = st.session_state.username
+        user_scores_path = os.path.join(current_dir, "user_scores.json")
+
+        if os.path.exists(user_scores_path):
+            with open(user_scores_path, "r", encoding="utf-8") as f:
+                old_data = json.load(f)
         else:
-            st.warning("💪 Keep practicing!")
+            old_data = {}
 
-        if st.button("Take Another Quiz"):
-            st.session_state.selected_subject = None
-            st.session_state.selected_level = None
-            st.session_state.current_quiz = None
-            st.session_state.current_question = 0
-            st.session_state.score = 0
-            st.session_state.quiz_completed = False
+        if uname not in old_data:
+            old_data[uname] = {}
+
+        subject_name = st.session_state.get("selected_subject", "Unknown")
+        quiz_level = st.session_state.get("selected_level", "Unknown").title()
+
+        old_data[uname][str(quiz["id"])] = {
+            "quiz_title": quiz.get("title", "Untitled Quiz"),
+            "subject": subject_name,
+            "level": quiz_level,
+            "score": st.session_state.score,
+            "suspicion_percent": sus_percentage,
+            "completed_at": datetime.now().isoformat()
+        }
+
+        save_user_scores(old_data)
+
+        save_to_csv(
+            uname,
+            quiz.get("id", "N/A"),
+            quiz.get("title", "Untitled Quiz"),
+            st.session_state.score,
+            datetime.now().isoformat(),
+            sus_percentage
+        )
+
+        st.success("✅ Your score has been saved successfully!")
+
+        if st.button("Take Another Quiz", key="retry_quiz"):
+            for key in [
+                "selected_subject", "selected_level",
+                "current_quiz", "current_question",
+                "score", "quiz_completed", "answers"
+            ]:
+                del st.session_state[key]
             st.rerun()
 
-    st.sidebar.write("---")
-    if st.sidebar.button("🚪 Logout", use_container_width=True):
-        for key in list(st.session_state.keys()):
-            del st.session_state[key]
-        st.rerun()
-        # ✅ Tell web.py to stop face & voice detection
-    return True
+        return
+
+    # -----------------------------------------
+    # ✅ QUIZ RUNNING
+    # -----------------------------------------
+
+    idx = st.session_state.current_question
+    if not st.session_state.get("quiz_started", False):
+        st.session_state.quiz_started = True
+
+    q = questions[idx]
+
+    st.progress((idx + 1) / len(questions))
+
+    st.markdown("""
+    <style>
+    .question-card {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.15);
+        padding: 28px;
+        margin-bottom: 20px;
+        color: white;
+    }
+    .question-text {
+        font-size: 22px;
+        line-height: 1.6;
+        color: white;
+        font-family: 'Fira Code', 'Consolas', 'Courier New';
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div class="question-card">
+        <h3 style="color:white;">Question {idx+1} of {len(questions)}</h3>
+        <p class="question-text">{q["question"]}</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    options = list(enumerate(q["options"]))
+
+    prev_index = st.session_state.answers.get(idx, None)
+
+    selected_tuple = st.radio(
+        "Select your answer:",
+        options,
+        index=prev_index if prev_index is not None else None,
+        format_func=lambda x: html.escape(x[1]),
+        key=f"q_{idx}"
+    )
+
+    if selected_tuple is not None:
+        selected_index = selected_tuple[0]
+        st.session_state.answers[idx] = selected_index
+    else:
+        selected_index = None
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        if st.button("⬅ Previous Question", disabled=(idx == 0)):
+            st.session_state.current_question -= 1
+            st.rerun()
+
+    with col3:
+        if idx < len(questions) - 1:
+            if st.button("Next ➡"):
+                st.session_state.current_question += 1
+                st.rerun()
+        else:
+            if st.button("✅ Finish Quiz"):
+                st.session_state.ask_submit = True
+                st.rerun()
+
+    if idx == len(questions) - 1:
+
+        if st.session_state.get("ask_submit", False):
+
+            st.warning("⚠️ Are you sure you want to submit the test? You cannot change answers later.")
+
+            colA, colB = st.columns(2)
+
+            with colA:
+                if st.button("✅ Yes, Submit"):
+                    
+                    sus_path = SUSPECT_FILE
+
+                    st.session_state.score = 0
+                    for i, que in enumerate(questions):
+                        user_index = st.session_state.answers.get(i)
+                        correct_index = que["options"].index(que["answer"])
+                        if user_index == correct_index:
+                            st.session_state.score += que["points"]
+
+                    st.session_state.quiz_completed = True
+                    st.session_state.ask_submit = False
+                    json.dump({"current": 0}, open(SUSPECT_FILE, "w"))
+                    
+                    
+                    st.rerun()
+
+            with colB:
+                if st.button("❌ No, go back"):
+                    st.session_state.ask_submit = False
+                    
+                    st.rerun()
 
 
 
+
+# ✅ Run App
 if __name__ == "__main__":
     show_quiz_app()
