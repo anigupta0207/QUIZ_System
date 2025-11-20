@@ -65,10 +65,30 @@ def show_quiz_app():
     with st.sidebar:
         st.success(f" Logged in as: {st.session_state.username}")
 
-        if st.button("🚪 Logout", use_container_width=True):
-            for key in list(st.session_state.keys()):
-                del st.session_state[key]
-            st.rerun()
+        # --- Logout Confirmation Popup ---
+        if "logout_confirm" not in st.session_state:
+            st.session_state.logout_confirm = False
+
+        if not st.session_state.logout_confirm:
+            if st.button("🚪 Logout", use_container_width=True):
+                st.session_state.logout_confirm = True
+        else:
+            st.warning("Are you sure you want to logout?")
+
+            colA, colB = st.columns(2)
+
+            with colA:
+                if st.button("✔ Yes, Logout"):
+                    for key in list(st.session_state.keys()):
+                        del st.session_state[key]
+                    st.session_state.logout_confirm = False
+                    st.rerun()
+
+            with colB:
+                if st.button("❌ No, Stay Logged In"):
+                    st.session_state.logout_confirm = False
+                    st.rerun()
+
 
 
     #  SUBJECT SELECTION

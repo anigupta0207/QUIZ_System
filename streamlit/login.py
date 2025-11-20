@@ -46,10 +46,10 @@ def show_login_system():
 
     .overlay-text {
         position: relative;
-        bottom: 90px;
+        bottom: 120px;
         left: 30px;
-        font-size: 1.5rem;
-        font-weight: 600;
+        font-size: 2.4rem;
+        font-weight: 700;
         color: white;
         text-shadow: 0 3px 10px rgba(0,0,0,0.8);
     }
@@ -95,6 +95,21 @@ def show_login_system():
         font-size: 1rem;
         transition: 0.3s;
     }
+    .title-main {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #f8f8f8;
+    letter-spacing: 0.5px;
+}
+
+.subtitle-main {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #a0a0b3;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
 
     .stButton>button:hover {
         transform: scale(1.03);
@@ -150,7 +165,7 @@ def show_login_system():
             <div class="left-img left-side">
                 <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" alt="background">
                 <div class="overlay-text">
-                    Capturing Moments,<br>Creating Memories
+                    Small Challenges,<br> Big Growth.
                 </div>
             </div>
             """,
@@ -160,8 +175,9 @@ def show_login_system():
     with right:
         st.markdown('<div class="right-section right-side">', unsafe_allow_html=True)
 
-        st.title("PrepSecure")
-        st.subheader("Access your account")
+        st.markdown('<h1 class="title-main">🎯PrepSecure</h1>', unsafe_allow_html=True)
+        st.markdown('<h2 class="subtitle-main">Sign in to continue your journey.</h2>', unsafe_allow_html=True)
+
         st.write("")
 
         # ---------- Tabs ----------

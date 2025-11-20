@@ -77,6 +77,8 @@
     },
     "hahii": {
         "password": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "role": "user"
+    },
     "zubair": {
         "password": "ffca45d6539eddf6e5e2c6378f42d5a9c6707e541a628c7d11a42f63469c1311",
         "role": "user"
@@ -145,5 +147,6 @@
         "password": "db92f7cc4f2bba81d1e39b535cc4a34bb95cd5d189e8bf8f1ac1a222f803a2b4",
         "role": "user"
     }
+
 
 }
