@@ -5,7 +5,7 @@ import os, json
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
-# ========================= CONFIG =========================
+#  CONFIG 
 PALETTE = { "bg_top": "#eef3ff", 
     "bg_bottom": "#f9fcff", 
     "card_bg": "#ffffff",
@@ -144,7 +144,7 @@ def save_result_to_file(name, score, total, duration_seconds, user_choices, quiz
 
     return attempt_path
 
-# ===================== UI HELPERS =========================
+# ===================== UI HELPERS 
 def gradient_background(canvas, w, h, start=PALETTE["bg_top"], end=PALETTE["bg_bottom"]):
     r1, g1, b1 = root.winfo_rgb(start)
     r2, g2, b2 = root.winfo_rgb(end)
@@ -727,7 +727,7 @@ class AdminDashboardFrame(Frame):
         canvas.draw()
         canvas.get_tk_widget().pack(fill="both", expand=True)
 
-# ===================== NAVIGATION =========================
+# ===================== NAVIGATION 
 def show_landing():
     clear_card()
     card = make_card(root)
@@ -779,7 +779,7 @@ def show_quiz(username, quiz_def):
     frm.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.96, relheight=0.94)
     root.current_card = card
 
-# ===================== BOOTSTRAP =========================
+# ===================== BOOTSTRAP 
 root = Tk()
 root.title("Quiz Hub")
 root.geometry("980x650")
