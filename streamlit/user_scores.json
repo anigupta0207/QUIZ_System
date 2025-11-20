@@ -7,6 +7,14 @@
             "score": 190,
             "completed_at": "2025-11-10T20:38:37.774793",
             "suspicion_percent": 4
+        },
+        "6": {
+            "quiz_title": "\ud83d\udc0d Python (Advanced Level)",
+            "subject": "Python",
+            "level": "Advanced",
+            "score": 0,
+            "suspicion_percent": 100,
+            "completed_at": "2025-11-20T13:41:06.458434"
         }
     },
     "nehal": {
