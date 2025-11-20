@@ -66,5 +66,17 @@
     "rohan": {
         "password": "a33805cfe8452895be97edd6552029f20be635f67944c9c8978004f84b502649",
         "role": "user"
+    },
+    "mohit": {
+        "password": "22b91144cd86ad7f21f30e005010d6ef3c1833cd93397952a1b8d5e4ec6e5d43",
+        "role": "user"
+    },
+    "rahul": {
+        "password": "af4a400a2ceb7963a424d9cf3779175c8d258facf8a31ee8bc1949dc060e10e6",
+        "role": "user"
+    },
+    "hahii": {
+        "password": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "role": "user"
     }
 }
