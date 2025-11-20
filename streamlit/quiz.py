@@ -11,7 +11,7 @@ import subprocess
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SUSPECT_FILE = os.path.join(PROJECT_ROOT, "suspect_count.json")
 
-# ✅ Save User Scores
+#  Save User Scores
 def save_user_scores(user_scores):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     user_scores_path = os.path.join(current_dir, "user_scores.json")
@@ -19,7 +19,7 @@ def save_user_scores(user_scores):
         json.dump(user_scores, f, indent=4)
 
 
-# ✅ Save to CSV
+#  Save to CSV
 def save_to_csv(username, quiz_id, quiz_title, score, completed_at,sus_percentage):
     csv_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scores.csv")
     file_exists = os.path.isfile(csv_file)
@@ -33,13 +33,13 @@ def save_to_csv(username, quiz_id, quiz_title, score, completed_at,sus_percentag
         writer.writerow([username, quiz_id, quiz_title, score, completed_at, sus_percentage])
 
 
-# ✅ Main Quiz App
+#  Main Quiz App
 def show_quiz_app():
 
     st.set_page_config(page_title="PrepSecure", page_icon="🎯", layout="wide")
     st.title("🎯 Quiz Master Pro")
 
-    # ✅ Initialize States
+    #  Initialize States
     default_states = {
         "selected_subject": None,
         "selected_level": None,
@@ -56,23 +56,23 @@ def show_quiz_app():
         if key not in st.session_state:
             st.session_state[key] = val
 
-    # ✅ LOGIN CHECK
+    #  LOGIN CHECK
     if not st.session_state.get("logged_in", False):
         st.warning("Please log in first.")
         return
 
-    # ✅ ALWAYS VISIBLE LOGOUT BUTTON
+    #  ALWAYS VISIBLE LOGOUT BUTTON
     with st.sidebar:
-        st.success(f"✅ Logged in as: {st.session_state.username}")
+        st.success(f" Logged in as: {st.session_state.username}")
 
         if st.button("🚪 Logout", use_container_width=True):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
 
-    # -----------------------------------------
-    # ✅ SUBJECT SELECTION
-    # -----------------------------------------
+
+    #  SUBJECT SELECTION
+
     if st.session_state.selected_subject is None:
 
         st.subheader("Choose Your Subject")
@@ -120,14 +120,14 @@ def show_quiz_app():
 
         st.stop()
 
-    # -----------------------------------------
-    # ✅ LEVEL SELECTION
-    # -----------------------------------------
+
+    #  LEVEL SELECTION
+
     if st.session_state.selected_level is None:
 
         st.subheader(f"Choose {st.session_state.selected_subject} Level")
 
-        # ✅ BACK BUTTON
+        #  BACK BUTTON
         if st.button("⬅ Back to Subjects"):
             st.session_state.selected_subject = None
             st.rerun()
@@ -174,21 +174,21 @@ def show_quiz_app():
                 )
 
                 if st.button(f"Start {item['level'].title()}", key=f"start_{item['level']}"):
-                    # ✅ Now begin the quiz
+                    #  Now begin the quiz
                     st.session_state.selected_level = item["level"]
                     st.rerun()
 
 
         st.stop()
 
-    # -----------------------------------------
-    # ✅ LOAD JSON QUIZ FILE (WITH C++ MAPPING FIX)
-    # -----------------------------------------
+
+    #  LOAD JSON QUIZ FILE (WITH C++ MAPPING FIX)
+
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
     questions_dir = os.path.join(current_dir, "questions")
 
-    # ✅ Correct mapping for file prefix
+    #  Correct mapping for file prefix
     file_map = {
         "C": "c",
         "C++": "cpp",
@@ -216,15 +216,16 @@ def show_quiz_app():
     quiz = st.session_state.current_quiz
     questions = quiz["questions"]
 
-    # -----------------------------------------
-    # ✅ QUIZ COMPLETED
-    # -----------------------------------------
+
+    #  QUIZ COMPLETED
+
     if st.session_state.quiz_completed:
-        # ✅ Load suspicion count
+        #  Load suspicion count
         sus_path = SUSPECT_FILE
 
         if os.path.exists(sus_path):
             sus_count = json.load(open(SUSPECT_FILE)).get("current", 0)
+            save_user_scores(old_data)
         else:
             sus_count = 0
 
@@ -273,7 +274,7 @@ def show_quiz_app():
             sus_percentage
         )
 
-        st.success("✅ Your score has been saved successfully!")
+        st.success(" Your score has been saved successfully!")
 
         if st.button("Take Another Quiz", key="retry_quiz"):
             for key in [
@@ -286,9 +287,9 @@ def show_quiz_app():
 
         return
 
-    # -----------------------------------------
-    # ✅ QUIZ RUNNING
-    # -----------------------------------------
+
+    #  QUIZ RUNNING
+
 
     idx = st.session_state.current_question
     if not st.session_state.get("quiz_started", False):
@@ -356,7 +357,7 @@ def show_quiz_app():
                 st.session_state.current_question += 1
                 st.rerun()
         else:
-            if st.button("✅ Finish Quiz"):
+            if st.button(" Finish Quiz"):
                 st.session_state.ask_submit = True
                 st.rerun()
 
@@ -369,7 +370,7 @@ def show_quiz_app():
             colA, colB = st.columns(2)
 
             with colA:
-                if st.button("✅ Yes, Submit"):
+                if st.button(" Yes, Submit"):
                     
                     sus_path = SUSPECT_FILE
 
@@ -396,6 +397,6 @@ def show_quiz_app():
 
 
 
-# ✅ Run App
+#  Run App
 if __name__ == "__main__":
     show_quiz_app()

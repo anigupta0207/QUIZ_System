@@ -23,12 +23,6 @@
       "points": 10
     },
     {
-      "question": "Which operator is used for member access through a pointer?",
-      "options": [".", "::", "->", "*"],
-      "answer": "->",
-      "points": 10
-    },
-    {
       "question": "Which is the correct way to write a single-line comment?",
       "options": ["/* comment */", "// comment", "# comment", "\\ comment"],
       "answer": "// comment",
@@ -131,12 +125,6 @@
       "points": 10
     },
     {
-      "question": "Which operator has highest precedence?",
-      "options": ["+", "=", "*", "&&"],
-      "answer": "*",
-      "points": 10
-    },
-    {
       "question": "What is the value of x after 'int x = (3,4);'?",
       "options": ["3", "4", "0", "Compiler error"],
       "answer": "4",
@@ -170,12 +158,6 @@
       "question": "Which is correct to declare pointer to int?",
       "options": ["int p;", "int *p;", "*int p;", "pointer<int> p;"],
       "answer": "int *p;",
-      "points": 10
-    },
-    {
-      "question": "Which operator is used to access the address of a variable?",
-      "options": ["&", "*", "->", "%"],
-      "answer": "&",
       "points": 10
     },
     {
@@ -224,12 +206,6 @@
       "question": "Which is the right signature for function taking int and returning double?",
       "options": ["double f(int);", "int f(double);", "f(int) double;", "double int f();"],
       "answer": "double f(int);",
-      "points": 10
-    },
-    {
-      "question": "Which operator performs bitwise AND?",
-      "options": ["&&", "&", "and", "|"],
-      "answer": "&",
       "points": 10
     },
     {
@@ -284,12 +260,6 @@
       "question": "Which is correct initialization of vector?",
       "options": ["vector<int> v = {1,2,3};", "vector<int> v = (1,2,3);", "vector<int> v(1,2,3);", "vector<int> v = [1,2,3];"],
       "answer": "vector<int> v = {1,2,3};",
-      "points": 10
-    },
-    {
-      "question": "Which operator is used for scope resolution?",
-      "options": ["::", ":", ".", "->"],
-      "answer": "::",
       "points": 10
     },
     {

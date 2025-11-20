@@ -14,5 +14,9 @@
   "ridhima": {
     "password": "abcd",
     "role": "user"
+  },
+  "aashi": {
+    "password": "aashi",
+    "role": "user"
   }
 }

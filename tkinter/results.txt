@@ -3,3 +3,4 @@
 2025-11-12 00:55:54 | Name: divanshi | Quiz: Quiz 2 — C Basics | Score: 8/10 | 80.0% | Duration: 43s
 2025-11-12 00:56:32 | Name: divanshi | Quiz: Quiz 3 — Python Basics | Score: 3/10 | 30.0% | Duration: 30s
 2025-11-12 01:06:55 | Name: divanshi | Quiz: Quiz 3 — Python Basics | Score: 8/10 | 80.0% | Duration: 42s
+2025-11-20 12:45:02 | Name: aashi | Quiz: Quiz 2 — C Basics | Score: 8/10 | 80.0% | Duration: 94s

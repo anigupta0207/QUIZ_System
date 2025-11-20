@@ -71,21 +71,9 @@
       "points": 10
     },
     {
-      "question": "Which operator is used for floor division?",
-      "options": ["//", "/", "%", "**"],
-      "answer": "//",
-      "points": 10
-    },
-    {
       "question": "How do you merge two dictionaries in Python 3.9+?",
       "options": ["dict1 | dict2", "dict1 + dict2", "merge(dict1, dict2)", "dict1.update(dict2)"],
       "answer": "dict1 | dict2",
-      "points": 10
-    },
-    {
-      "question": "What is the default value of 'end' parameter in print()?",
-      "options": ["\\n", "''", "None", "' '"],
-      "answer": "\\n",
       "points": 10
     },
     {
@@ -257,12 +245,6 @@
       "points": 10
     },
     {
-      "question": "Which file mode overwrites a file?",
-      "options": ["'w'", "'a'", "'r'", "'x'"],
-      "answer": "'w'",
-      "points": 10
-    },
-    {
       "question": "Which operator checks both value and type equality?",
       "options": ["==", "is", "equals()", "==="],
       "answer": "is",
@@ -350,12 +332,6 @@
       "question": "How do you install an external package?",
       "options": ["pip install packagename", "python install packagename", "import packagename", "install packagename"],
       "answer": "pip install packagename",
-      "points": 10
-    },
-    {
-      "question": "How do you perform integer division?",
-      "options": ["//", "/", "*", "**"],
-      "answer": "//",
       "points": 10
     },
     {

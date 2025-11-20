@@ -4,12 +4,7 @@
   "description": "Challenge your deep understanding of C++ concepts, including OOP, templates, memory, and STL internals.",
   "level": "advanced",
   "questions": [
-    {
-      "question": "Which of the following cannot be overloaded in C++?",
-      "options": ["++", "->", "::", "()"],
-      "answer": "::",
-      "points": 10
-    },
+    
     {
       "question": "What does 'mutable' keyword allow in a const object?",
       "options": ["Change static members", "Modify that specific member", "Modify all members", "None"],
@@ -104,12 +99,6 @@
       "question": "What is the output type of typeid(3.14).name()?",
       "options": ["string", "char*", "const char*", "int"],
       "answer": "const char*",
-      "points": 10
-    },
-    {
-      "question": "Which operator cannot be overloaded using friend function?",
-      "options": ["++", "=", "()", "->"],
-      "answer": "->",
       "points": 10
     },
     {
@@ -302,12 +291,6 @@
       "question": "Which C++11 feature allows initializing class members inline?",
       "options": ["Constructor delegation", "In-class member initializer", "Move semantics", "Lambda"],
       "answer": "In-class member initializer",
-      "points": 10
-    },
-    {
-      "question": "Which operator must be overloaded as member function only?",
-      "options": ["=", "()", "[]", "->"],
-      "answer": "=",
       "points": 10
     },
     {

@@ -17,18 +17,6 @@
       "points": 10
     },
     {
-      "question": "How do you make a class method private in Python?",
-      "options": ["Prefix method with __", "Prefix with _", "Use @private", "No privacy in Python"],
-      "answer": "Prefix method with __",
-      "points": 10
-    },
-    {
-      "question": "Which protocol is used for the context manager with statement?",
-      "options": ["__enter__ / __exit__", "__get__ / __set__", "__start__ / __stop__", "__on__ / __off__"],
-      "answer": "__enter__ / __exit__",
-      "points": 10
-    },
-    {
       "question": "Which of the following enables lazy evaluation?",
       "options": ["generator", "list", "set", "tuple"],
       "answer": "generator",
@@ -53,18 +41,6 @@
       "points": 10
     },
     {
-      "question": "Which statement correctly creates a singleton class?",
-      "options": ["Override __new__", "Override __call__", "Override __init__", "Use @singleton"],
-      "answer": "Override __new__",
-      "points": 10
-    },
-    {
-      "question": "Which built-in function gets the method resolution order?",
-      "options": ["mro()", "__mro__", "type()", "dir()"],
-      "answer": "mro()",
-      "points": 10
-    },
-    {
       "question": "How do you force garbage collection in Python?",
       "options": ["gc.collect()", "del()", "os.clean()", "release()"],
       "answer": "gc.collect()",
@@ -80,12 +56,6 @@
       "question": "Which module provides access to interpreter internals?",
       "options": ["sys", "os", "site", "interp"],
       "answer": "sys",
-      "points": 10
-    },
-    {
-      "question": "Which of these allows creating a custom iterator?",
-      "options": ["__iter__ and __next__", "__getitem__ and __setitem__", "__eval__ and __call__", "__str__ and __repr__"],
-      "answer": "__iter__ and __next__",
       "points": 10
     },
     {
@@ -122,24 +92,6 @@
       "question": "What does GIL stand for?",
       "options": ["Global Interpreter Lock", "Global Integer List", "Generic Import Library", "General Instruction Loader"],
       "answer": "Global Interpreter Lock",
-      "points": 10
-    },
-    {
-      "question": "What is the output of: print({1,2,3} & {2,3,4})?",
-      "options": ["{2, 3}", "[2,3]", "(2,3)", "{2,3,4}"],
-      "answer": "{2, 3}",
-      "points": 10
-    },
-    {
-      "question": "Which method is invoked when using the 'with' statement?",
-      "options": ["__enter__", "__call__", "__getattr__", "__new__"],
-      "answer": "__enter__",
-      "points": 10
-    },
-    {
-      "question": "How do you declare a property with a setter?",
-      "options": ["@property and @x.setter", "@setproperty", "@setter", "set(x)"],
-      "answer": "@property and @x.setter",
       "points": 10
     },
     {
@@ -245,12 +197,6 @@
       "points": 10
     },
     {
-      "question": "Which operator unpacks function arguments from a list?",
-      "options": ["*", "**", "&", "@"],
-      "answer": "*",
-      "points": 10
-    },
-    {
       "question": "How can you ensure a class has only one instance?",
       "options": ["Singleton pattern", "Factory pattern", "Builder pattern", "Adapter pattern"],
       "answer": "Singleton pattern",
@@ -278,12 +224,6 @@
       "question": "What function can be used to map values to a sequence of objects?",
       "options": ["map()", "zip()", "reduce()", "combine()"],
       "answer": "map()",
-      "points": 10
-    },
-    {
-      "question": "How do you define a static method?",
-      "options": ["@staticmethod", "@static", "@class", "@def"],
-      "answer": "@staticmethod",
       "points": 10
     },
     {
@@ -350,12 +290,6 @@
       "question": "Which standard library module provides thread-safe queues?",
       "options": ["queue", "threading", "asyncio", "collections"],
       "answer": "queue",
-      "points": 10
-    },
-    {
-      "question": "Which operator is used for exponentiation?",
-      "options": ["**", "^", "@", "%"],
-      "answer": "**",
       "points": 10
     }
   ],

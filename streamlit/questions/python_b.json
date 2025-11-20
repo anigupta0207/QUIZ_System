@@ -30,12 +30,6 @@
       "points": 10
     },
     {
-      "question": "Which of the following creates an empty dictionary?",
-      "options": ["{}", "[]", "()", "set()"],
-      "answer": "{}",
-      "points": 10
-    },
-    {
       "question": "What is the output of len('Python')?",
       "options": ["5", "6", "7", "Error"],
       "answer": "6",
@@ -48,21 +42,9 @@
       "points": 10
     },
     {
-      "question": "How do you start a comment in Python?",
-      "options": ["//", "#", "<!--", "/*"],
-      "answer": "#",
-      "points": 10
-    },
-    {
       "question": "Which of these is a valid variable name?",
       "options": ["1value", "value_1", "value-1", "value 1"],
       "answer": "value_1",
-      "points": 10
-    },
-    {
-      "question": "Which operator is used for floor division?",
-      "options": ["/", "//", "%", "**"],
-      "answer": "//",
       "points": 10
     },
     {
@@ -138,12 +120,6 @@
       "points": 10
     },
     {
-      "question": "How do you create a tuple?",
-      "options": ["[]", "{}", "()", "<>"],
-      "answer": "()",
-      "points": 10
-    },
-    {
       "question": "Which function converts a number to a string?",
       "options": ["str()", "toString()", "text()", "string()"],
       "answer": "str()",
@@ -153,12 +129,6 @@
       "question": "What keyword is used to exit a loop?",
       "options": ["stop", "exit", "break", "return"],
       "answer": "break",
-      "points": 10
-    },
-    {
-      "question": "Which operator checks equality?",
-      "options": ["=", "==", "!=", "equals"],
-      "answer": "==",
       "points": 10
     },
     {
@@ -300,12 +270,6 @@
       "points": 10
     },
     {
-      "question": "Which symbol is used for single-line comments?",
-      "options": ["//", "#", "--", "/* */"],
-      "answer": "#",
-      "points": 10
-    },
-    {
       "question": "What is the output of print('Python'.upper())?",
       "options": ["PYTHON", "python", "Python", "Error"],
       "answer": "PYTHON",
@@ -315,12 +279,6 @@
       "question": "Which keyword is used to define inheritance?",
       "options": ["inherits", "extends", "super", "class"],
       "answer": "class",
-      "points": 10
-    },
-    {
-      "question": "Which operator performs exponentiation?",
-      "options": ["^", "**", "exp", "pow"],
-      "answer": "**",
       "points": 10
     },
     {
