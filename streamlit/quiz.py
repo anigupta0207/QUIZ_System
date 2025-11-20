@@ -225,7 +225,6 @@ def show_quiz_app():
 
         if os.path.exists(sus_path):
             sus_count = json.load(open(SUSPECT_FILE)).get("current", 0)
-            save_user_scores(old_data)
         else:
             sus_count = 0
 
@@ -273,6 +272,8 @@ def show_quiz_app():
             datetime.now().isoformat(),
             sus_percentage
         )
+        # Now that suspicion_percent is saved → reset for next quiz
+        json.dump({"current": 0}, open(SUSPECT_FILE, "w"))
 
         st.success(" Your score has been saved successfully!")
 
@@ -383,11 +384,9 @@ def show_quiz_app():
 
                     st.session_state.quiz_completed = True
                     st.session_state.ask_submit = False
-                    json.dump({"current": 0}, open(SUSPECT_FILE, "w"))
                     
                     
                     st.rerun()
-
             with colB:
                 if st.button("❌ No, go back"):
                     st.session_state.ask_submit = False
