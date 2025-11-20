@@ -66,5 +66,74 @@
     "rohan": {
         "password": "a33805cfe8452895be97edd6552029f20be635f67944c9c8978004f84b502649",
         "role": "user"
+    },
+    "zubair": {
+        "password": "ffca45d6539eddf6e5e2c6378f42d5a9c6707e541a628c7d11a42f63469c1311",
+        "role": "user"
+    },
+    "ishika": {
+        "password": "f3c12d7b118d4d2e928c54b67aabf2acbb1f25f7d9e1ad9876f73cb78c29f5a1",
+        "role": "user"
+    },
+    "karthik": {
+        "password": "b219fa544901d910e4574da067c93d2b1fd1e5e40a074b0fcb7f11523492fd33",
+        "role": "user"
+    },
+    "sanya": {
+        "password": "c81ebd705f1e6b944d1f7d8f2e56cbb3ae8b7b648f2c6ac89c4a1fd0c67f0042",
+        "role": "user"
+    },
+    "harsh": {
+        "password": "e5af7730ae56f612fa9af2b048542a62248d8df405e17f083b8c3ab72ae88129",
+        "role": "user"
+    },
+    "divya": {
+        "password": "a1fb67831a2de0c4579c34c98f58ddc07b952c987edcc798527f81dfb771c510",
+        "role": "user"
+    },
+    "aman": {
+        "password": "9b4c55d34f98ddc11eb4d915ce77819dcb92ec63ec720b122cd091b8f28e5c1f",
+        "role": "user"
+    },
+    "riya": {
+        "password": "2c5d88e2d455e4b9da8e9d9738de4f7f39cfa9329a787b1fe4c74cd8aaabe6df",
+        "role": "user"
+    },
+    "tanya": {
+        "password": "ce7bbc925c03fd32e9121ae216db13ccadaa452f0925b41eb11e7b4c6cd12c32",
+        "role": "user"
+    },
+    "aryan": {
+        "password": "8c93fba5d47c2affb533d1ecff417ecf9918c021c3ab2c9f0f0f6c48a4802cbb",
+        "role": "user"
+    },
+    "vaishnavi": {
+        "password": "fa8c131a784d92ab4ac352d38f0f49b2418e640be87b247f1c42f71e908d2340",
+        "role": "user"
+    },
+    "sarthak": {
+        "password": "6a5bb9f140a31209867dfd0834d76af56b12d8cb7f94b69dc234ce7162d0a811",
+        "role": "user"
+    },
+    "komal": {
+        "password": "d21a482cb98fcdf2dc3c1ab38ec2b510d343999cac1e75597711f899cbb9d49a",
+        "role": "user"
+    },
+    "dheeraj": {
+        "password": "1c22fd88c8aa87f653c9d2b256cd27c3d8be415280821e89b508e3797ddd91d2",
+        "role": "user"
+    },
+    "shruti": {
+        "password": "f6ab88c9e51d3c9ea9ea1472a98d8fc3213b94c5a34e81f68e8c600ea90d3ab4",
+        "role": "user"
+    },
+    "aditya": {
+        "password": "4bc19c773acbf19ab4e0f2e889b7ad39fadfb27ad4a62aa1834ce15e81c94430",
+        "role": "user"
+    },
+    "yash": {
+        "password": "db92f7cc4f2bba81d1e39b535cc4a34bb95cd5d189e8bf8f1ac1a222f803a2b4",
+        "role": "user"
     }
+
 }

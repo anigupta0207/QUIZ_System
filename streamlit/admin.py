@@ -5,7 +5,7 @@ import pandas as pd
 import altair as alt
 import csv
 import pandas as pd 
-# ---------- File Paths ----------
+#  File Paths 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USERS_FILE = os.path.join(BASE_DIR, "..", "users.json")
 SCORES_FILE = os.path.join(BASE_DIR, "user_scores.json")
@@ -36,11 +36,11 @@ def save_json(file_path, data):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 
-# ---------- Admin Dashboard ----------
+#  Admin Dashboard 
 def show_admin_dashboard():
     st.set_page_config(page_title="Admin Dashboard", page_icon="👑", layout="wide")
 
-    # ---------- Mint Theme CSS ----------
+    #  Mint Theme CSS 
     st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -161,14 +161,14 @@ def show_admin_dashboard():
     </style>
     """, unsafe_allow_html=True)
 
-    # ---------- Title ----------
+    #  Title 
     st.markdown("<div class='admin-title'>👑 Admin Dashboard</div>", unsafe_allow_html=True)
     st.write("Welcome, Admin! Manage users and track performance below.")
 
     users = load_json(USERS_FILE)
     user_scores = load_json(SCORES_FILE)
 
-    # ---------- TOP STATS ----------
+    #  TOP STATS 
     colA, colB, colC = st.columns(3)
     with colA:
         st.markdown(f"<div class='top-stat'><h3>Total Users</h3><h2>{len(users)}</h2></div>", unsafe_allow_html=True)
@@ -188,9 +188,9 @@ def show_admin_dashboard():
         "🧑‍💻 Manage Users"
     ])
 
-    # ---------------------------------------------------------------------
+    # ---------
     # ✅ TAB 1: SCORES & RANKING
-    # ---------------------------------------------------------------------
+    # ---------
     with tab1:
         if not user_scores:
             st.info("No student scores available yet.")
@@ -251,9 +251,9 @@ def show_admin_dashboard():
             """, unsafe_allow_html=True)
 
 
-    # ---------------------------------------------------------------------
+    # ---------
     # ✅ TAB 2: CHARTS / INSIGHTS
-    # ---------------------------------------------------------------------
+    # ---------
     with tab2:
         st.markdown("<div class='sub-heading'>📈 Subject-wise Performance</div>", unsafe_allow_html=True)
 
@@ -281,56 +281,58 @@ def show_admin_dashboard():
                 "Advanced": "#065f46"
             }
 
-            chart_cols = st.columns(3)
+            # chart_cols = st.columns(3)
 
-            for i, subject in enumerate(subjects):
+            for subject in subjects:
+
+                st.markdown(
+                    f"<h5 style='color:#047857; font-weight:700; margin-top:30px;'>💻 {subject}</h5>",
+                    unsafe_allow_html=True
+                )
+
                 subject_df = df[df["Subject"].str.lower() == subject.lower()]
 
-                with chart_cols[i]:
-                    st.markdown(f"<h5 style='color:#047857; font-weight:700;'>💻 {subject}</h5>",
-                                unsafe_allow_html=True)
+                if subject_df.empty:
+                    st.info(f"No data for {subject}")
+                    continue
 
-                    if subject_df.empty:
-                        st.info(f"No data for {subject}")
-                        continue
-
-                    subject_df["Level"] = subject_df["Quiz Title"].apply(
-                        lambda x: (
-                            "Basic" if "basic" in x.lower()
-                            else "Intermediate" if "intermediate" in x.lower()
-                            else "Advanced" if "advanced" in x.lower()
-                            else "Unknown"
-                        )
+                subject_df["Level"] = subject_df["Quiz Title"].apply(
+                    lambda x: (
+                        "Basic" if "basic" in x.lower()
+                        else "Intermediate" if "intermediate" in x.lower()
+                        else "Advanced" if "advanced" in x.lower()
+                        else "Unknown"
                     )
+                )
 
-                    subject_df = subject_df[subject_df["Level"] != "Unknown"]
+                subject_df = subject_df[subject_df["Level"] != "Unknown"]
 
-                    if subject_df.empty:
-                        st.info("No valid quiz levels for this subject")
-                        continue
+                if subject_df.empty:
+                    st.info("No valid quiz levels for this subject")
+                    continue
 
-                    bar_chart = (
-                        alt.Chart(subject_df, background="#ffffff")
-                        .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
-                        .encode(
-                            x=alt.X("Username:N", title="Student", sort="-y"),
-                            y=alt.Y("Score:Q", title="Marks"),
-                            color=alt.Color(
-                                "Level:N",
-                                scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
-                                legend=alt.Legend(title="Level")
-                            ),
-                            tooltip=["Username", "Level", "Score", "Quiz Title"]
-                        )
-                        .properties(width=300, height=300)
-                        .configure_view(strokeOpacity=0)
+                bar_chart = (
+                    alt.Chart(subject_df, background="#ffffff")
+                    .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
+                    .encode(
+                        x=alt.X("Username:N", title="Student", sort="-y"),
+                        y=alt.Y("Score:Q", title="Marks"),
+                        color=alt.Color(
+                            "Level:N",
+                            scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
+                            legend=alt.Legend(title="Level")
+                        ),
+                        tooltip=["Username", "Level", "Score", "Quiz Title"]
                     )
+                    .properties(width=500, height=300)
+                    .configure_view(strokeOpacity=0)
+                )
 
-                    st.altair_chart(bar_chart, use_container_width=False)
+                st.altair_chart(bar_chart, use_container_width=True)
 
-    # ---------------------------------------------------------------------
+    # ---------
     # ✅ TAB 3: MANAGE USERS
-    # ---------------------------------------------------------------------
+    # ---------
     with tab3:
         st.markdown("<div class='sub-heading'>🧑‍💻 Manage Users</div>", unsafe_allow_html=True)
 
