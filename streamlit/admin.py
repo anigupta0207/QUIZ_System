@@ -315,13 +315,14 @@ def show_admin_dashboard():
                     alt.Chart(subject_df, background="#ffffff")
                     .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
                     .encode(
-                        x=alt.X("Username:N", title="Student", sort="-y"),
-                        y=alt.Y("Score:Q", title="Marks"),
-                        color=alt.Color(
-                            "Level:N",
-                            scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
-                            legend=alt.Legend(title="Level")
-                        ),
+                    x=alt.X("Username:N", title="Student", sort="-y"),
+                    xOffset="Level:N",   # ⭐ THE IMPORTANT FIX → side-by-side bars
+                    y=alt.Y("Score:Q", title="Marks"),
+                    color=alt.Color(
+                        "Level:N",
+                        scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
+                        legend=alt.Legend(title="Level")
+                    ),
                         tooltip=["Username", "Level", "Score", "Quiz Title"]
                     )
                     .properties(width=500, height=300)
