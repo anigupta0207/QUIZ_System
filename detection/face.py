@@ -20,7 +20,7 @@ def add_suspect():
     data["current"] += 1
     json.dump(data, open(suspect_file, "w"))
 
-#  Save suspicious event photo (no CSV)
+#  Save suspicious event in json 
 def capture_suspicious_event(event_type, frame):
     timestamp = time.strftime('%Y%m%d_%H%M%S')
     filename = f'captures/{event_type}_{timestamp}.jpg'
@@ -28,7 +28,7 @@ def capture_suspicious_event(event_type, frame):
     print(f"📸 Suspicious event captured: {event_type} -> {filename}")
 
 
-#  Shutdown handler
+#  closing helper 
 stop_signal = False
 def handle_exit(signum, frame):
     global stop_signal
@@ -81,7 +81,7 @@ while not stop_signal:
             capture_suspicious_event("multiface", frame)
             add_suspect()
             
-        #  Select largest face for tracking
+        #  face for tracking 
         largest_face = max(faces, key=lambda rect: rect[2] * rect[3])
         (x, y, w, h) = largest_face
         center_current = (x + w//2, y + h//2)

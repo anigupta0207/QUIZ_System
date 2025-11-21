@@ -5,6 +5,8 @@ import pandas as pd
 import altair as alt
 import csv
 import pandas as pd 
+
+
 #  File Paths 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USERS_FILE = os.path.join(BASE_DIR, "..", "users.json")
@@ -36,11 +38,11 @@ def save_json(file_path, data):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 
-#  Admin Dashboard 
+#  Admin Dashboard (main area for teacher)
 def show_admin_dashboard():
     st.set_page_config(page_title="Admin Dashboard", page_icon="👑", layout="wide")
 
-    #  Mint Theme CSS 
+    # using csss
     st.markdown("""
     <style>
     [data-testid="stAppViewContainer"] {
@@ -179,9 +181,9 @@ def show_admin_dashboard():
         admin_count = sum(1 for info in users.values() if info.get('role') == 'admin')
         st.markdown(f"<div class='top-stat'><h3>Total Admins</h3><h2>{admin_count}</h2></div>", unsafe_allow_html=True)
 
-    st.write("")  # spacing
+    st.write("")  #extra space
 
-    #  TABS ADDED HERE 
+    #  TABS 
     tab1, tab2, tab3 = st.tabs([
         "📊 Scores & Ranking",
         "📈 Insights / Charts",
@@ -210,14 +212,14 @@ def show_admin_dashboard():
             df = pd.DataFrame(records).sort_values(by="Score", ascending=False).reset_index(drop=True)
             df.index += 1
 
-            #  Add risk marker
+            #  Add risk marker ONLY ABOVE 40 
             df["RiskFlag"] = df["Suspicion %"].apply(
                 lambda x: '<span class="high-risk">🔴</span>' if x > 40 else '<span class="normal"></span>'
             )
 
 
 
-            #  CSS for red highlight
+            # red highlight
             st.markdown("""
             <style>
             .light-table tbody tr:has(span.high-risk) {
@@ -234,7 +236,7 @@ def show_admin_dashboard():
 
             st.markdown("<div class='sub-heading'>📊 Student Scores & Ranking</div>", unsafe_allow_html=True)
 
-            #  Generate table HTML with escape disabled
+            # table HTML
             table_html = df.to_html(index=True, classes="light-table", border=0, escape=False)
 
             st.markdown(f"""
@@ -316,7 +318,7 @@ def show_admin_dashboard():
                     .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
                     .encode(
                     x=alt.X("Username:N", title="Student", sort="-y"),
-                    xOffset="Level:N",   # ⭐ THE IMPORTANT FIX → side-by-side bars
+                    xOffset="Level:N",
                     y=alt.Y("Score:Q", title="Marks"),
                     color=alt.Color(
                         "Level:N",
