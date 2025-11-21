@@ -317,19 +317,32 @@ def show_admin_dashboard():
                     alt.Chart(subject_df, background="#ffffff")
                     .mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6)
                     .encode(
-                    x=alt.X("Username:N", title="Student", sort="-y"),
-                    xOffset="Level:N",
-                    y=alt.Y("Score:Q", title="Marks"),
-                    color=alt.Color(
-                        "Level:N",
-                        scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
-                        legend=alt.Legend(title="Level")
-                    ),
+                        x=alt.X("Username:N", title="Student", sort="-y"),
+                        y=alt.Y("Score:Q", title="Marks"),
+                        color=alt.Color(
+                            "Level:N",
+                            scale=alt.Scale(domain=difficulty_levels, range=list(level_colors.values())),
+                            legend=alt.Legend(title="Level")
+                        ),
                         tooltip=["Username", "Level", "Score", "Quiz Title"]
                     )
                     .properties(width=500, height=300)
                     .configure_view(strokeOpacity=0)
+                    .configure_axis(
+                        labelColor="#1f2937",      # dark gray
+                        titleColor="#1f2937",
+                        gridColor="#d1d5db"        # soft grid line
+                    )
+                    .configure_legend(
+                        labelColor="#1f2937",
+                        titleColor="#1f2937"
+                    )
+                    .configure_title(
+                        color="#1f2937"
+                    )
                 )
+
+                st.altair_chart(bar_chart, use_container_width=True)
 
                 st.altair_chart(bar_chart, use_container_width=True)
 
