@@ -1,7 +1,7 @@
 import streamlit as st
 import json, os, hashlib, re
 
-# ---------- Utility ----------
+# Utility
 def load_users():
     if not os.path.exists("users.json"):
         json.dump({}, open("users.json", "w"))
@@ -17,11 +17,11 @@ def verify_user(u, p, users):
     return u in users and users[u]["password"] == hash_password(p)
 
 
-# ---------- App ----------
+# App
 def show_login_system():
     st.set_page_config(page_title="PrepSecure", layout="wide")
 
-    # ---------- Custom Style ----------
+    # Custom Style
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -116,7 +116,7 @@ def show_login_system():
         box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
     }
 
-    /* ---------- Soft Fade-In Animation ---------- */
+    /* Soft Fade-In Animation */
     @keyframes fadeIn {
         0% {
             opacity: 0;
@@ -147,7 +147,7 @@ def show_login_system():
     </style>
     """, unsafe_allow_html=True)
 
-    # ---------- Users ----------
+    # Users
     users = load_users()
     if "admin" not in users:
         users["admin"] = {"password": hash_password("admin123"), "role": "admin"}
@@ -156,7 +156,7 @@ def show_login_system():
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
 
-    # ---------- Layout ----------
+    # Layout
     left, space, right = st.columns([0.9, 0.15, 0.9])  # Added middle spacing column
 
     with left:
@@ -180,11 +180,11 @@ def show_login_system():
 
         st.write("")
 
-        # ---------- Tabs ----------
+        # Tabs
         if not st.session_state.logged_in:
             tab1, tab2, tab3 = st.tabs(["🔑 Sign In", "📝 Sign Up", "👨🏻‍💼 Admin Login"])
 
-            # -------------------- SIGN IN --------------------
+            # SIGN IN
             with tab1:
                 st.subheader("Sign In to your account")
                 u = st.text_input("Username")
@@ -202,7 +202,7 @@ def show_login_system():
                     else:
                         st.error("Invalid username or password.")
 
-            # -------------------- SIGN UP --------------------
+            # SIGN UP
             with tab2:
                 st.subheader("Create a new account")
                 nu = st.text_input("New Username")
@@ -224,7 +224,7 @@ def show_login_system():
                         save_users(users)
                         st.success("Account created successfully! You can now login.")
 
-            # -------------------- ADMIN LOGIN --------------------
+            # ADMIN LOGIN
             with tab3:
                 st.subheader("Admin Login")
                 au = st.text_input("Admin Username")
@@ -250,7 +250,7 @@ def show_login_system():
 
         st.markdown('</div>', unsafe_allow_html=True)  # close right-section
 
-    # --- RETURN for web.py ---
+    #  RETURN for web.py 
     return (
         st.session_state.get("logged_in", False),
         st.session_state.get("username", ""),

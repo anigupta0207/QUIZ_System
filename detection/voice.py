@@ -6,7 +6,7 @@ import soundfile as sf
 import signal
 import sys
 
-# ✅ Shutdown handler for Streamlit stop
+# Shutdown handler for Streamlit stop
 stop_signal = False
 def handle_exit(signum, frame):
     global stop_signal
@@ -15,28 +15,28 @@ def handle_exit(signum, frame):
 signal.signal(signal.SIGTERM, handle_exit)
 signal.signal(signal.SIGINT, handle_exit)
 
-# ✅ Mac-Friendly Beep Function
+# Mac-Friendly Beep Function
 def play_beep():
-    # macOS beep using terminal bell
-    print("\a")   # ASCII bell, works on Mac terminal
+    
+    print("\a")   
     sys.stdout.flush()
 
-# ✅ Ensure audio folder exists
+# Ensure audio folder exists
 base_dir = os.path.dirname(os.path.abspath(__file__))
 capture_dir = os.path.join(base_dir, "audio_captures")
 os.makedirs(capture_dir, exist_ok=True)
 
-# ✅ Calibrate background noise
+# Calibrate background noise
 def calibrate_background(duration=4):
     print(f"🔊 Calibrating ambient noise for {duration} seconds... please stay quiet.")
     recording = sd.rec(int(duration * 44100), samplerate=44100, channels=1, dtype='float64')
     sd.wait()
 
     bg_level = np.sqrt(np.mean(recording ** 2))
-    print(f"✅ Background noise level: {bg_level:.6f}")
+    print(f"Background noise level: {bg_level:.6f}")
     return bg_level
 
-# ✅ Sound detection loop
+# Sound detection loop
 def detect_sound(threshold, duration=1):
     print("\n🎤 Voice monitoring started! (auto-stops when quiz ends)\n")
 
@@ -85,4 +85,4 @@ try:
 except Exception as e:
     print("❌ Fatal Error:", e)
 
-print("✅ Voice monitor closed cleanly")
+print("Voice monitor closed cleanly")

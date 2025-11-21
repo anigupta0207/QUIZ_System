@@ -20,7 +20,7 @@ def add_suspect():
     data["current"] += 1
     json.dump(data, open(suspect_file, "w"))
 
-# ✅ Save suspicious event photo (no CSV)
+#  Save suspicious event photo (no CSV)
 def capture_suspicious_event(event_type, frame):
     timestamp = time.strftime('%Y%m%d_%H%M%S')
     filename = f'captures/{event_type}_{timestamp}.jpg'
@@ -28,7 +28,7 @@ def capture_suspicious_event(event_type, frame):
     print(f"📸 Suspicious event captured: {event_type} -> {filename}")
 
 
-# ✅ Shutdown handler
+#  Shutdown handler
 stop_signal = False
 def handle_exit(signum, frame):
     global stop_signal
@@ -53,7 +53,7 @@ cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
 capture_interval = 5
 last_capture_time = time.time()
 
-# ✅ Exit loop when SIGTERM is received
+#  Exit loop when SIGTERM is received
 while not stop_signal:
     ret, frame = cap.read()
     if not ret:
@@ -73,7 +73,7 @@ while not stop_signal:
 
     if len(faces) > 0:
 
-        # ✅ MULTIPLE FACES FOUND
+        #  MULTIPLE FACES FOUND
         if len(faces) > 1:
             cv2.putText(frame, "⚠ MULTIPLE FACES DETECTED!", (50, 100),cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
             print("⚠ MULTIPLE FACES DETECTED!")
@@ -81,14 +81,14 @@ while not stop_signal:
             capture_suspicious_event("multiface", frame)
             add_suspect()
             
-        # ✅ Select largest face for tracking
+        #  Select largest face for tracking
         largest_face = max(faces, key=lambda rect: rect[2] * rect[3])
         (x, y, w, h) = largest_face
         center_current = (x + w//2, y + h//2)
 
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-        # ✅ Detect face movement
+        #  Detect face movement
         if prev_face_position is not None:
             dx = abs(center_current[0] - prev_face_position[0])
             dy = abs(center_current[1] - prev_face_position[1])

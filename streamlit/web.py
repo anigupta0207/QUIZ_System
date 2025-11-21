@@ -9,7 +9,7 @@ from login import show_login_system
 from quiz import show_quiz_app
 from admin import show_admin_dashboard
 
-# ✅ PATH FIX
+#  PATH FIX
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))
 
@@ -19,9 +19,7 @@ VOICE_PATH = os.path.join(PROJECT_ROOT, "detection", "voice.py")
 STOP_FILE = os.path.join(PROJECT_ROOT, "monitor_stop.flag")
 
 
-# ---------------------------------------------------------
 # HELPERS
-# ---------------------------------------------------------
 
 def _kill(proc):
     if not proc:
@@ -77,11 +75,7 @@ def monitoring_running():
         and p2 is not None and p2.poll() is None
     )
 
-
-# ---------------------------------------------------------
 # MAIN
-# ---------------------------------------------------------
-
 def main():
 
     if "page" not in st.session_state:
@@ -90,7 +84,7 @@ def main():
     if not st.session_state.get("logged_in", False):
         st.session_state.page = "login"
 
-    # ✅ LOGIN PAGE
+    #  LOGIN PAGE
     if st.session_state.page == "login":
 
         logged_in, username, role = show_login_system()
@@ -99,27 +93,27 @@ def main():
             st.session_state.page = "admin" if role == "admin" else "quiz"
             st.rerun()
 
-    # ✅ ADMIN PAGE
+    #  ADMIN PAGE
     elif st.session_state.page == "admin":
         show_admin_dashboard()
 
         if not st.session_state.get("logged_in"):
             stop_monitoring()
 
-    # ✅ QUIZ PAGE
+    #  QUIZ PAGE
     elif st.session_state.page == "quiz":
 
         show_quiz_app()
 
-        # ✅ Auto start monitoring when first question appears
+        #  Auto start monitoring when first question appears
         if st.session_state.get("quiz_started") and not monitoring_running():
             start_monitoring()
 
-        # ✅ Stop monitoring when quiz completed
+        #  Stop monitoring when quiz completed
         if st.session_state.get("quiz_completed"):
             stop_monitoring()
 
-        # ✅ Logout inside quiz.py
+        #  Logout inside quiz.py
         if not st.session_state.get("logged_in"):
             stop_monitoring()
 

@@ -181,16 +181,16 @@ def show_admin_dashboard():
 
     st.write("")  # spacing
 
-    # ✅✅✅ TABS ADDED HERE ✅✅✅
+    #  TABS ADDED HERE 
     tab1, tab2, tab3 = st.tabs([
         "📊 Scores & Ranking",
         "📈 Insights / Charts",
         "🧑‍💻 Manage Users"
     ])
 
-    # ---------
-    # ✅ TAB 1: SCORES & RANKING
-    # ---------
+
+    #  TAB 1: SCORES & RANKING
+
     with tab1:
         if not user_scores:
             st.info("No student scores available yet.")
@@ -210,14 +210,14 @@ def show_admin_dashboard():
             df = pd.DataFrame(records).sort_values(by="Score", ascending=False).reset_index(drop=True)
             df.index += 1
 
-            # ✅ Add risk marker
+            #  Add risk marker
             df["RiskFlag"] = df["Suspicion %"].apply(
-                lambda x: '<span class="high-risk">🔴</span>' if x > 40 else '<span class="normal">✅</span>'
+                lambda x: '<span class="high-risk">🔴</span>' if x > 40 else '<span class="normal"></span>'
             )
 
 
 
-            # ✅ CSS for red highlight
+            #  CSS for red highlight
             st.markdown("""
             <style>
             .light-table tbody tr:has(span.high-risk) {
@@ -226,7 +226,7 @@ def show_admin_dashboard():
             </style>
             """, unsafe_allow_html=True)
 
-            # ✅ Top performers
+            #  Top performers
             st.markdown("<br><h4>🏆 Top Performers</h4>", unsafe_allow_html=True)
             top3 = df.head(3)
             for i, row in top3.iterrows():
@@ -234,7 +234,7 @@ def show_admin_dashboard():
 
             st.markdown("<div class='sub-heading'>📊 Student Scores & Ranking</div>", unsafe_allow_html=True)
 
-            # ✅ Generate table HTML with escape disabled
+            #  Generate table HTML with escape disabled
             table_html = df.to_html(index=True, classes="light-table", border=0, escape=False)
 
             st.markdown(f"""
@@ -251,9 +251,9 @@ def show_admin_dashboard():
             """, unsafe_allow_html=True)
 
 
-    # ---------
-    # ✅ TAB 2: CHARTS / INSIGHTS
-    # ---------
+
+    #  TAB 2: CHARTS / INSIGHTS
+
     with tab2:
         st.markdown("<div class='sub-heading'>📈 Subject-wise Performance</div>", unsafe_allow_html=True)
 
@@ -331,9 +331,9 @@ def show_admin_dashboard():
 
                 st.altair_chart(bar_chart, use_container_width=True)
 
-    # ---------
-    # ✅ TAB 3: MANAGE USERS
-    # ---------
+
+    #  TAB 3: MANAGE USERS
+
     with tab3:
         st.markdown("<div class='sub-heading'>🧑‍💻 Manage Users</div>", unsafe_allow_html=True)
 
@@ -348,17 +348,17 @@ def show_admin_dashboard():
 
                 if st.button("🗑️ Delete User"):
 
-                    # ✅ 1. Remove from users.json
+                    #  1. Remove from users.json
                     if user_to_delete in users:
                         del users[user_to_delete]
                         save_json(USERS_FILE, users)
 
-                    # ✅ 2. Remove from user_scores.json
+                    #  2. Remove from user_scores.json
                     if user_to_delete in user_scores:
                         del user_scores[user_to_delete]
                         save_json(SCORES_FILE, user_scores)
 
-                    # ✅ 3. Remove from scores.csv
+                    #  3. Remove from scores.csv
                     csv_path = os.path.join(BASE_DIR, "scores.csv")
                     if os.path.isfile(csv_path):
 
@@ -366,7 +366,7 @@ def show_admin_dashboard():
                         df = df[df["username"] != user_to_delete]   # remove all their rows
                         df.to_csv(csv_path, index=False)
 
-                    st.success(f"✅ User '{user_to_delete}' and all their score data were deleted.")
+                    st.success(f" User '{user_to_delete}' and all their score data were deleted.")
                     st.rerun()
             else:
                 st.info("No users to delete.")
