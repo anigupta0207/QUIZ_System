@@ -329,9 +329,9 @@ def show_admin_dashboard():
                     .properties(width=500, height=300)
                     .configure_view(strokeOpacity=0)
                     .configure_axis(
-                        labelColor="#1f2937",      # dark gray
+                        labelColor="#1f2937",  # drak color for text 
                         titleColor="#1f2937",
-                        gridColor="#d1d5db"        # soft grid line
+                        gridColor="#d1d5db"       
                     )
                     .configure_legend(
                         labelColor="#1f2937",
@@ -341,8 +341,6 @@ def show_admin_dashboard():
                         color="#1f2937"
                     )
                 )
-
-                st.altair_chart(bar_chart, use_container_width=True)
 
                 st.altair_chart(bar_chart, use_container_width=True)
 
